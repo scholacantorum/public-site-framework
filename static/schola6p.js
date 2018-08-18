@@ -89,7 +89,7 @@ window.addEventListener('load', function () {
                     errorDiv.textContent = result.error.message;
                 } else {
                     payform.token.value = result.source.id;
-                    fetch('/orders/to-stripe', {
+                    fetch('/backend/to-stripe', {
                         body: new FormData(payform),
                         method: "POST",
                     }).then(function (result) {
