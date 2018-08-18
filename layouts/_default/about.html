@@ -3,7 +3,7 @@
         <div id="about-top">
             {{ .Content }}
         </div>
-        {{ range .Resources }}
+        {{ range .Resources.ByType "page" }}
             <div class="about-body">{{ .Content }}</div>
         {{ end }}
     </div>
