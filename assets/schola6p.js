@@ -1,8 +1,7 @@
 window.addEventListener('load', function () {
     var orderforms = document.getElementsByClassName('orderform');
     if (orderforms.length > 0) {
-        // var stripe = Stripe('pk_test_QPwvhWbGaakWn7DGcco8J5Nd');
-        var stripe = Stripe('pk_live_UlmbLJo2rx9WQyhVibmTWpxa');
+        var stripe = Stripe('{{ .Site.Params.stripeKey }}');
         var elements = stripe.elements();
         var payform = document.getElementById('pay-form');
         var card = elements.create('card', { hidePostalCode: true, style: { base: { fontSize: '16px' } } })

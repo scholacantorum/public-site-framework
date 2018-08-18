@@ -2,3 +2,5 @@ baseURL: https://scholacantorum.org/
 languageCode: en-us
 publishDir: /home/scholacantorum/scholacantorum.org/public
 title: Schola Cantorum
+params:
+    stripeKey: pk_live_UlmbLJo2rx9WQyhVibmTWpxa
