@@ -3,7 +3,7 @@
         <div id="leaders-top">
             {{ .Content }}
         </div>
-        {{ range .Resources }}
+        {{ range .Resources.ByType "page" }}
             <div class="leaders-body">{{ .Content }}</div>
         {{ end }}
     </div>
