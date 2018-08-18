@@ -1,0 +1,5 @@
+{{ if eq $.Page.Type "concerts" }}
+    <div class="concert-sponsor">Concert sponsors: {{ .Inner }}</div>
+{{ else }}
+    <div class="concert-sponsor">Event sponsors: {{ .Inner }}</div>
+{{ end }} 

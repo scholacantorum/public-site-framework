@@ -1,16 +1,21 @@
 {{ define "main" }}
-    <h1 id="concertlisthead">{{ .Title }}</h1>
-    <div id="concertlist">
+    <h1 id="eventlisthead">{{ .Title }}</h1>
+    <div id="eventlist">
         {{ range .Pages }}
-            <div class="concertlistitem">
-                <div class="concertlistitemtitle">
+            <div class="eventlistitem">
+                <div class="eventlistitemtitle">
                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                 </div>
-                {{ with .Params.dates }}
-                    <div class="concertlistitemdates">{{ . }}</div>
-                {{ end }}
-                {{ with .Description }}
-                    <div class="concertlistitemdesc">{{ . }}</div>
+                <div class="eventlistitemdates">
+                    {{ range .Resources.Match "seating*" }}
+                        <div>
+                            {{ $start := time .Params.datetime }}
+                            {{ if eq $start.Month 5 }}{{ $start.Format "Mon., Jan 2" }}{{ else }}{{ $start.Format "Mon., Jan. 2" }}{{ end }}{{ if .Params.venue }} • {{ partial (print "vcity/" .Params.venue) . }}{{ end }}
+                        </div>
+                    {{ end }}
+                </div>
+                {{ with .Resources.GetMatch "summary.*" }}
+                    <div class="eventlistitemdesc">{{ .Content }}</div>
                 {{ end }}
             </div>
         {{ end }}

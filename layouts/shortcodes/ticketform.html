@@ -1,0 +1,16 @@
+                    {{ with .tickets }}
+                        {{ if .url }}
+                            <a target="_blank" href="{{ .url }}">{{ or .label "Buy Tickets" }}</a>
+                        {{ else if .price }}
+                            <form class="ticketform orderform">
+                                <input type="number" class="ticketqty" name="qty" placeholder="Quantity" min="1" required>
+                                <button type="submit" class="btn btn-primary">Buy Tickets</button>
+                                <input type="hidden" name="product" value="{{ .product }}">
+                                <input type="hidden" name="desc" value="{{ .label }}">
+                                <input type="hidden" name="price" value="{{ .price }}">
+                            </form>
+                            <div>Tickets are ${{ .price }} each.</div>
+                        {{ else if .label }}
+                            {{ .label }}
+                        {{ end }}
+                    {{ end }}

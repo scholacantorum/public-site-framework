@@ -1,26 +1,24 @@
 {{ define "main" }}
     <div class="concert">
         <div class="concertdata">
-            <h1 class="concerttitle">{{ $.Page.Params.title }}</h1>
-            {{ range $.Page.Params.concertdata }}
+            <h1>{{ $.Page.Params.title }}</h1>
+            {{ range $.Page.Resources.Match "seating*" }}
                 <div class="concertlogistics">
-                    <div class="concertdatetime">{{ .date }}{{ if .time }} at {{ .time }}{{ end }}</div>
-                    {{ if .venue }}{{ partial (print "venue/" .venue) . }}{{ end }}
-                </div>
-                {{ with .tickets }}
-                    <div class="concerttickets">
-                        {{ if .url }}
-                            <a target="_blank" href="{{ .url }}">{{ or .label "Buy Tickets" }}</a>
-                        {{ else if .price }}
-                            <form class="ticketform">
-                                <input type="number" class="ticketqty" id="qty" placeholder="Quantity" required>
-                                <button type="submit" class="btn btn-primary">Buy Tickets</button>
-                            </form>
-                        {{ else if .label }}
-                            {{ .label }}
+                    <div class="concertdatetime">
+                        {{ $start := (time .Params.datetime) }}
+                        {{ if eq $start.Hour 0 }}
+                            {{ (time .Params.datetime).Format "Monday, January 2" }}
+                        {{ else }}
+                            {{ (time .Params.datetime).Format "Monday, January 2 at 3:00pm" }}
                         {{ end }}
                     </div>
-                {{ end }}
+                    {{ if .Params.venue }}
+                        {{ partial (print "venue/" .Params.venue) . }}
+                    {{ end }}
+                </div>
+                <div class="concerttickets">
+                    {{ .Content }}
+                </div>
             {{ end }}
         </div>
         {{ with $.Page.Resources.GetMatch "image.*" }}

@@ -12,11 +12,16 @@
                 <div class="concertlistitemtitle">
                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                 </div>
-                {{ with .Params.dates }}
-                    <div class="concertlistitemdates">{{ . }}</div>
-                {{ end }}
-                {{ with .Description }}
-                    <div class="concertlistitemdesc">{{ . }}</div>
+                <div class="concertlistitemdates">
+                    {{ range .Resources.Match "seating*" }}
+                        <div>
+                            {{ $start := time .Params.datetime }}
+                            {{ if eq $start.Month 5 }}{{ $start.Format "Mon., Jan 2" }}{{ else }}{{ $start.Format "Mon., Jan. 2" }}{{ end }} • {{ partial (print "vcity/" .Params.venue) . }}
+                        </div>
+                    {{ end }}
+                </div>
+                {{ with .Resources.GetMatch "summary.*" }}
+                    <div class="concertlistitemdesc">{{ .Content }}</div>
                 {{ end }}
             </div>
         {{ end }}
