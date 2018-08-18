@@ -1,3 +1,4 @@
 baseURL: https://scholacantorum.org/
 languageCode: en-us
+publishDir: /home/scholacantorum/scholacantorum.org/public
 title: Schola Cantorum
