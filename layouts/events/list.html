@@ -3,11 +3,6 @@
     <div id="concertlist">
         {{ range .Pages }}
             <div class="concertlistitem">
-                {{ if .Params.image }}
-                    <a href="{{ .Permalink }}">
-                        <img src="/concert-img/{{ .Params.image }}">
-                    </a>
-                {{ end }}
                 <div class="concertlistitemtitle">
                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                 </div>

@@ -23,8 +23,8 @@
                 {{ end }}
             {{ end }}
         </div>
-        {{ with $.Page.Params.image }}
-            <img class="concertimg" src="/event-img/{{ . }}">
+        {{ with $.Page.Resources.GetMatch "image.*" }}
+            <img class="concertimg" src="{{ (.Fit "296x296").RelPermalink }}">
         {{ end }}
         <div class="concertbody">
             {{ .Content }}

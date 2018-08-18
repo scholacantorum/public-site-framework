@@ -34,7 +34,7 @@
             {{ end }}
         </div>
         {{ with $.Page.Resources.GetMatch "image.*" }}
-            <img class="concertimg" src="{{ (.Fill "296x296").RelPermalink }}">
+            <img class="concertimg" src="{{ (.Fit "296x296").RelPermalink }}">
         {{ end }}
         <div class="concertbody">
             {{ .Content }}
