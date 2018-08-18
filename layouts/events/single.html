@@ -1,0 +1,33 @@
+{{ define "main" }}
+    <div class="concert">
+        <div class="concertdata">
+            <h1 class="concerttitle">{{ $.Page.Params.title }}</h1>
+            {{ range $.Page.Params.concertdata }}
+                <div class="concertlogistics">
+                    <div class="concertdatetime">{{ .date }}{{ if .time }} at {{ .time }}{{ end }}</div>
+                    {{ if .venue }}{{ partial (print "venue/" .venue) . }}{{ end }}
+                </div>
+                {{ with .tickets }}
+                    <div class="concerttickets">
+                        {{ if .url }}
+                            <a target="_blank" href="{{ .url }}">{{ or .label "Buy Tickets" }}</a>
+                        {{ else if .price }}
+                            <form class="ticketform">
+                                <input type="number" class="ticketqty" id="qty" placeholder="Quantity" required>
+                                <button type="submit" class="btn btn-primary">Buy Tickets</button>
+                            </form>
+                        {{ else if .label }}
+                            {{ .label }}
+                        {{ end }}
+                    </div>
+                {{ end }}
+            {{ end }}
+        </div>
+        {{ with $.Page.Params.image }}
+            <img class="concertimg" src="/event-img/{{ . }}">
+        {{ end }}
+        <div class="concertbody">
+            {{ .Content }}
+        </div>
+    </div>
+{{end}}

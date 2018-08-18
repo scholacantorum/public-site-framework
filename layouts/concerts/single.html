@@ -1,0 +1,43 @@
+{{ define "main" }}
+    <div class="concert">
+        <div class="concertdata">
+            <h1>{{ $.Page.Params.title }}</h1>
+            {{ range $.Page.Params.concertdata }}
+                <div class="concertlogistics">
+                    <div class="concertdatetime">{{ .date }} at {{ .time }}</div>
+                    {{ partial (print "venue/" .venue) . }}
+                </div>
+                <div class="concerttickets">
+                    {{ with .tickets }}
+                        {{ if .url }}
+                            <a target="_blank" href="{{ .url }}">{{ or .label "Buy Tickets" }}</a>
+                        {{ else if .price }}
+                            <form class="ticketform orderform">
+                                <input type="number" class="ticketqty" name="qty" placeholder="Quantity" min="1" required>
+                                <button type="submit" class="btn btn-primary">Buy Tickets</button>
+                                <input type="hidden" name="product" value="{{ .product }}">
+                                <input type="hidden" name="desc" value="{{ .label }}">
+                                <input type="hidden" name="price" value="{{ .price }}">
+                            </form>
+                            <div>Tickets are ${{ .price }} each.</div>
+                        {{ else if .label }}
+                            {{ .label }}
+                        {{ end }}
+                    {{ end }}
+                </div>
+            {{ end }}
+            {{ with $.Page.Params.sponsor }}
+                <div class="concert-sponsor">Concert sponsor: {{ . }}</div>
+            {{ end }}
+            {{ with $.Page.Params.sponsors }}
+                <div class="concert-sponsor">Concert sponsors: {{ . }}</div>
+            {{ end }}
+        </div>
+        {{ with $.Page.Params.image }}
+            <img class="concertimg" src="/concert-img/{{ . }}">
+        {{ end }}
+        <div class="concertbody">
+            {{ .Content }}
+        </div>
+    </div>
+{{end}}

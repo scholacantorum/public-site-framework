@@ -1,0 +1,10 @@
+{{ define "main" }}
+    <div id="leaders">
+        <div id="leaders-top">
+            {{ .Content }}
+        </div>
+        {{ range .Resources }}
+            <div class="leaders-body">{{ .Content }}</div>
+        {{ end }}
+    </div>
+{{end}}

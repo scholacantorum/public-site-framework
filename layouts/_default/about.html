@@ -1,0 +1,10 @@
+{{ define "main" }}
+    <div id="about">
+        <div id="about-top">
+            {{ .Content }}
+        </div>
+        {{ range .Resources }}
+            <div class="about-body">{{ .Content }}</div>
+        {{ end }}
+    </div>
+{{end}}

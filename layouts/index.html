@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{/*
+    <div id="home-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {{ range $index, $image := readDir "static/carousel" }}
+                <div class="carousel-item{{ if eq $index 0 }} active{{ end }}">
+                    <img src="/carousel/{{ .Name }}" >
+                </div>
+            {{ end }}
+        </div>
+    </div>
+*/}}
+    <div class="threepart">
+        <div>
+            {{ .Content }}
+        </div>
+    </div>
+{{ end }}

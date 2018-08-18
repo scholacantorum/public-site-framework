@@ -1,0 +1,8 @@
+scholacantorum.org/sing needs to work
+
+Add full logistics to season page, emphasis in titles, and sponsors
+
+Idea:  site editable in github, in sandbox and production branches.  Webhooks
+regenerate and re-deploy site.
+
+Asset pipeline and sandbox/production differences.

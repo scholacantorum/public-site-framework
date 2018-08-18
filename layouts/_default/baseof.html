@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{{ block "title" . }}Schola Cantorum{{ end }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="/schola6p.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/schola6p.js"></script>
+</head>
+
+<body>
+    <div id="paydialog" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="pay-form" class="modal-content" method="POST" action="/orders/to-stripe">
+                <div class="modal-header">
+                    <h5 id="pay-title" class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="pay-summary">
+                        <span id="pay-desc"><span id="pay-calc"></span></span>
+                        <span id="pay-total"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Email address">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0.5rem">
+                        <input type="text" class="form-control" name="address" placeholder="Billing address">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <input type="text" class="form-control" name="city" placeholder="City">
+                        </div>
+                        <div class="form-group col-2">
+                            <input type="text" class="form-control" name="state" placeholder="State">
+                        </div>
+                        <div class="form-group col-4">
+                            <input type="text" class="form-control" name="zip" placeholder="Zip">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="pay-card" class="form-control"></div>
+                        <div id="pay-error" role="alert"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="pay-confirm"></div>
+                    <button type="submit" id="pay-button" class="btn btn-primary">Pay now</button>
+                    <button type="button" id="pay-cancel" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+                <input type="hidden" name="token" value="">
+                <input type="hidden" name="product" value="">
+                <input type="hidden" name="qty" value="">
+            </form>
+        </div>
+    </div>
+    <div id="layout-heading">
+        <a id="layout-logo" href="/">
+            <img src="/schola-logo-gw-below.svg" alt="Schola Cantorum Silicon Valley; Gregory Wait, Music Director">
+        </a>
+        <div id="layout-heading-slug">
+            <picture>
+                <source srcset="/joy.svg" media="(min-width: 578px)">
+                <img src="/joy2.svg" alt="Celebrating the Joy of Singing">
+            </picture>
+        </div>
+        <nav id="layout-navbar">
+            <div id="layout-navbar2">
+                <a href="/concerts">Concerts</a>
+                <a href="/events">Events</a>
+                <a href="/donations">Donate</a>
+                <a href="/membership">Sing</a>
+                <span id="layout-menu" class="dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" data-offset="16, 6">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width:.875em">
+                            <path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="/about">About Schola Cantorum</a>
+                        <a class="dropdown-item" href="/leadership">Our Leadership</a>
+                        <a class="dropdown-item" href="/volunteering">Volunteer Opportunities</a>
+                        <a class="dropdown-item" href="/outreach">Educational Outreach</a>
+                        <a class="dropdown-item" href="/mailing-list">Join our Mailing List</a>
+                        <a class="dropdown-item" href="/press">Press Releases</a>
+                        <a class="dropdown-item" href="/policies">Web Site Policies</a>
+                    </div>
+                </span>
+            </div>
+        </nav>
+    </div>
+    {{ block "main" . }} {{ end }}
+    <div id="layout-affil">
+        <div id="affil-links">
+            <a href="http://www.amazon.com/gp/redirect.html?ie=UTF8&amp;location=http%3A%2F%2Fwww.amazon.com%2F&amp;tag=scholcanto-20&amp;linkCode=ur2&amp;camp=1789&amp;creative=390957" target="_blank">
+                <img src="/amazon-logo.png" alt="amazon.com">
+            </a>
+            <a href="https://www.sheetmusicplus.com/a/featured.html?aff_id=457839" target="_blank">
+                <img src="/sheetmusicplus-logo.png" alt="sheetmusicplus.com">
+            </a>
+        </div>
+        <div id="affil-intro">
+            If you shop at these online stores, please enter them using these
+            buttons, and they will share the proceeds with Schola Cantorum.
+        </div>
+    </div>
+    <div id="layout-footer">
+        (650) 254-1700
+        <span id="footer-spacer1"></span>
+        info@scholacantorum.org
+        <span id="footer-spacer1"></span>
+        <a id="footer-facebook" href="https://www.facebook.com/scholacantorum.org/" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512" style="width:.516em">
+                <path fill="currentColor" d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"></path>
+            </svg>
+        </a>
+        <a id="footer-twitter" href="https://twitter.com/scholacantorum1" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width:1em">
+                <path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+            </svg>
+        </a>
+        <span id="footer-spacer2"></span>
+        2218 Old Middlefield Way, Suite G
+        <span id="footer-spacer3"></span>
+        Mountain View, CA 94043
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

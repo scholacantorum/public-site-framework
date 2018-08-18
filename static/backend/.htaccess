@@ -1,0 +1,6 @@
+<FilesMatch mail-signup$>
+    SetHandler cgi-script
+</FilesMatch>
+<FilesMatch to-stripe$>
+    SetHandler cgi-script
+</FilesMatch>

@@ -1,0 +1,507 @@
+#layout-heading {
+    background-color: #395fab;
+    width: 100vw;
+    height: calc(18.48vw + 51px);
+    position: relative;
+    margin-bottom: 12px;
+}
+#layout-logo {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: calc(49vw - 6px);
+}
+#layout-logo img {
+    max-width: 240px;
+}
+#layout-heading-slug {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: calc(49vw - 6px);
+}
+#layout-navbar {
+    position: absolute;
+    bottom: 6px;
+    width: 100vw;
+    text-align: center;
+    line-height: 1;
+}
+#layout-navbar2 > a, #layout-navbar span {
+    margin-left: 1rem;
+}
+#layout-navbar2 > a:first-child {
+    margin-left: 0;
+}
+#layout-navbar a:link, #layout-navbar a:visited {
+    color: #aaa;
+}
+#layout-navbar a:hover, #layout-navbar a:active {
+    color: #fff;
+    text-decoration: none;
+}
+#layout-navbar .nav-link {
+    display: inline;
+    padding: 0;
+    vertical-align: -2px;
+}
+#layout-navbar .dropdown-toggle::after {
+    display: none;
+}
+#layout-navbar .dropdown-menu {
+    background-color: #395fab;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+}
+#layout-navbar .dropdown-item:focus, #layout-navbar .dropdown-item:hover {
+    background-color: #395fab;
+    color: #fff;
+}
+@media (min-width: 504px) {
+    #layout-heading {
+        height: 144px;
+    }
+    #layout-heading-slug {
+        width: 240px;
+    }
+}
+@media (min-width: 578px) {
+    #layout-heading {
+        height: 116px;
+    }
+    #layout-heading-slug {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        bottom: 28px;
+        width: calc(100vw - 264px);
+    }
+    #layout-heading-slug picture {
+        width: 100%;
+        max-width: 674px;
+    }
+    #layout-navbar {
+        width: calc(100vw - 258px);
+        right: 6px;
+    }
+}
+
+#layout-affil {
+    margin-top: 12px;
+    padding: 6px 12px;
+    width: 100%;
+    background-color: #ddd;
+}
+#affil-intro {
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+#affil-links {
+    text-align: center;
+}
+#affil-links a:first-child {
+    margin-right: 1rem;
+}
+@media (min-width: 430px) {
+    #layout-affil {
+        display: flex;
+        align-items: center;
+    }
+    #affil-intro {
+        margin-left: 1rem;
+        margin-bottom: 0;
+    }
+}
+@media (min-width: 530px) {
+    #layout-affil {
+        justify-content: center;
+    }
+    #affil-links {
+        white-space: nowrap;
+    }
+}
+
+#layout-footer {
+    padding: 6px 6px;
+    width: 100%;
+    background-color: #395fab;
+    font-size: 14px;
+    color: #ddd;
+    text-align: center;
+}
+#layout-footer a:link, #layout-footer a:visited {
+    color: #ddd;
+}
+#layout-footer a:hover, #layout-footer a:active {
+    color: #fff;
+    text-decoration: none;
+}
+#footer-twitter {
+    margin-left: 6px;
+}
+#footer-spacer1 {
+    display: inline-block;
+    width: 6px;
+}
+#footer-spacer2 {
+    display: block;
+}
+#footer-spacer3 {
+    display: block;
+}
+@media (min-width: 350px) {
+    #layout-footer {
+        padding: 6px 12px;
+    }
+    #footer-spacer1 {
+        width: 1em;
+    }
+    #footer-twitter {
+        margin-left: 0.5em;
+    }
+}
+@media (min-width: 420px) {
+    #footer-spacer3 {
+        display: inline-block;
+        width: 0.5rem;
+    }
+}
+@media (min-width: 770px) {
+    #footer-spacer2 {
+        display: inline-block;
+        width: 2rem;
+    }
+}
+
+#home-carousel {
+    width: 80%;
+    margin: 24px 10%;
+}
+#home-carousel img {
+    width: 80vw;
+}
+
+.concert {
+    margin: 0 12px 24px;
+}
+.concertdatetime {
+    font-size: large;
+    font-weight: bold;
+    line-height: 1;
+}
+.venueaddress {
+    font-size: 14px;
+}
+.venuemap {
+    margin-left: 1rem;
+}
+.concerttickets {
+    margin-bottom: 12px;
+}
+.ticketform {
+    display: flex;
+    margin-bottom: 24px;
+}
+.ticketqty {
+    margin-right: 1ex;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    width: 100px;
+}
+.concert-sponsor {
+    font-size: large;
+    color: #395fab;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.youthnote {
+    font-size: 14px;
+    font-style: italic;
+}
+.concertimg {
+    max-width: 296px;
+    margin-bottom: 20px;
+}
+@media (min-width: 600px) {
+    .concertdata {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+    }
+    .concerttitle {
+        grid-column: 1 / 3;
+    }
+    .concertlogistics {
+        grid-column: 1;
+        padding-bottom: 12px;
+    }
+    .concerttickets {
+        grid-column: 2;
+        padding-left: 2rem;
+        line-height: 18px;
+    }
+    .ticketform {
+        display: flex;
+        margin-bottom: 0;
+    }
+}
+@media (min-width: 628px) {
+    .concert {
+        display: grid;
+        justify-content: center;
+    }
+    .concertdata {
+        grid-area: 1 / 1 / 2 / 3;
+    }
+    .concertimg {
+        grid-area: 2 / 1;
+        margin-right: 12px;
+    }
+    .concertbody {
+        grid-area: 2 / 2;
+    }
+}
+@media (min-width: 920px) {
+    .concertdata {
+        grid-area: 1 / 2;
+    }
+    .concertimg {
+        grid-area: 1 / 1 / 3 / 2;
+    }
+    .concertbody {
+        max-width: 600px;
+    }
+}
+
+#concertlist {
+    display: grid;
+    grid-template-columns: 296px;
+    justify-content: center;
+    max-width: 296px;
+    margin: 0 auto;
+}
+#concertlisthead {
+    max-width: 296px;
+    width: calc(100% - 24px);
+    margin: 24px auto;
+}
+.concertlistitem {
+    display: flex;
+    flex-direction: column;
+    max-width: 296px;
+    margin-bottom: 24px;
+}
+.concertlistitemtitle {
+    font-size: large;
+    margin-top: 12px;
+    line-height: 1;
+}
+.concertlistitemdates {
+    margin-bottom: 12px;
+}
+@media (min-width: 500px) {
+    #concertlist {
+        grid-template-columns: repeat(2, calc(50% - 6px));
+        column-gap: 12px;
+        max-width: 604px;
+        margin: 0 12px;
+    }
+    #concertlist img {
+        width: 100%;
+    }
+    #concertlisthead {
+        max-width: 604px;
+    }
+}
+@media (min-width: 628px) {
+    #concertlist {
+        margin: 0 auto;
+    }
+}
+@media (min-width: 900px) {
+    #concertlist {
+        grid-template-columns: repeat(4, calc(25% - 9px));
+        max-width: 1220px;
+        margin: 0 12px;
+    }
+    #concertlisthead {
+        max-width: 1220px;
+    }
+}
+@media (min-width: 1244px) {
+    #concertlist {
+        margin: 0 auto;
+    }
+}
+
+#donationform {
+    display: flex;
+    margin-top: -1rem;
+}
+#donationamount {
+    margin-right: 1ex;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    width: 120px;
+}
+
+#subscriptionform {
+    display: flex;
+}
+.subscrqty {
+    margin-right: 1ex;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    width: 110px;
+}
+
+#about {
+    margin: 24px 12px;
+}
+@media (min-width: 664px) {
+    #about {
+        margin: 24px;
+    }
+    .about-body {
+        width: calc(50vw - 36px);
+        float: left;
+    }
+    .about-body:nth-child(2) {
+        margin-right: 24px;
+    }
+}
+
+#leaders {
+    margin: 24px 12px;
+}
+#boardtable th {
+    white-space: nowrap;
+    vertical-align: top;
+    padding-right: 12px;
+}
+@media (min-width: 664px) {
+    #leaders {
+        margin: 24px;
+    }
+    .leaders-body {
+        width: calc(50vw - 36px);
+        float: left;
+        margin-bottom: 24px;
+    }
+    .leaders-body:nth-child(2n) {
+        margin-right: 24px;
+    }
+    .leaders-body:nth-child(4) {
+        clear: both;
+    }
+}
+
+#emaillistform {
+    margin-bottom: 24px;
+}
+#emaillistform .form-row .form-group {
+    margin-bottom: 0.5rem;
+}
+#emaillistlegal {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #888;
+}
+
+#physmailconfirm {
+    color: #395fab;
+    font-weight: bold;
+}
+#physmailerror {
+    color: #eb1c26;
+}
+
+#pay-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+#pay-calc {
+    white-space: nowrap;
+}
+#pay-total {
+    margin-left: 24px;
+    font-weight: bold;
+}
+#pay-card {
+    padding: 8px 12px;
+}
+#pay-error {
+    color: #eb1c26;
+}
+#pay-confirm {
+    color: #395fab;
+    font-weight: bold;
+}
+
+.onecol {
+    margin: 24px 12px;
+}
+@media (min-width: 624px) {
+    .onecol {
+        max-width: 600px;
+        margin: 24px auto;
+    }
+}
+
+@media (min-width: 624px) {
+    .splitmain {
+        display: flex;
+    }
+    .splitmain > div:nth-child(1) {
+        width: 294px;
+        margin-right: 12px;
+    }
+    .splitmain > div:nth-child(2) {
+        width: 294px;
+    }
+}
+
+.threepart {
+    margin: 24px 12px;
+}
+@media (min-width: 624px) {
+    .threepart {
+        display: grid;
+        grid-template-columns: 296px 296px;
+        column-gap: 12px;
+        margin: 24px calc(50% - 300px);
+    }
+    .threepart > div:nth-child(1) {
+        grid-area: 1 / 1 / 2 / 3;
+    }
+}
+@media (min-width: 956px) {
+    .threepart {
+        grid-template-columns: 600px 296px;
+        grid-template-rows: min-content 1fr;
+        column-gap: 36px;
+        margin: 24px calc(50% - 466px);
+    }
+    .threepart > div:nth-child(1) {
+        grid-area: 1 / 1 / 3 / 2;
+    }
+}
+
+img.float-left {
+    float: left;
+    margin: 0 12px 12px 0;
+}
