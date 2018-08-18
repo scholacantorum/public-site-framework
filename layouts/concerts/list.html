@@ -3,9 +3,10 @@
     <div id="concertlist">
         {{ range .Pages }}
             <div class="concertlistitem">
-                {{ if .Params.image }}
+                {{ $image := .Resources.GetMatch "image.*" }}
+                {{ if $image }}
                     <a href="{{ .Permalink }}">
-                        <img src="/concert-img/{{ .Params.image }}">
+                        <img src="{{ ($image.Fill "296x296").RelPermalink }}">
                     </a>
                 {{ end }}
                 <div class="concertlistitemtitle">

@@ -33,8 +33,8 @@
                 <div class="concert-sponsor">Concert sponsors: {{ . }}</div>
             {{ end }}
         </div>
-        {{ with $.Page.Params.image }}
-            <img class="concertimg" src="/concert-img/{{ . }}">
+        {{ with $.Page.Resources.GetMatch "image.*" }}
+            <img class="concertimg" src="{{ (.Fill "296x296").RelPermalink }}">
         {{ end }}
         <div class="concertbody">
             {{ .Content }}

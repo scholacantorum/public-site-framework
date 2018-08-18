@@ -1,4 +1,5 @@
 content
 mail-signup/mail-signup
 public
+resources/_gen
 to-stripe/to-stripe
