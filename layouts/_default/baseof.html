@@ -10,10 +10,6 @@
     <script src="https://js.stripe.com/v3/"></script>
     {{ partial "styles" . }}
     {{ partial "scripts" . }}
-    {{ if eq .Site.Params.env "sandbox" }}
-        <link rel="stylesheet" href="{{ (resources.Get "sandbox.sass" | resources.ToCSS | resources.Minimize | resources.Fingerprint).Permalink }}">
-        <script src="{{ (resources.Get "sandbox.js" | resources.Minimize | resources.Fingerprint).Permalink }}"></script>
-    {{ end }}
 </head>
 
 <body>
@@ -75,7 +71,6 @@
             <div id="publisherror"></div>
         </form>
     {{ end }}
-    {{ partial "styles" . }}
     <div id="layout-heading">
         <a id="layout-logo" href="/">
             <img src="/schola-logo-gw-below.svg" alt="Schola Cantorum Silicon Valley; Gregory Wait, Music Director">
