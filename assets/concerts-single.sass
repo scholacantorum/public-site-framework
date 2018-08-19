@@ -1,0 +1,70 @@
+.concert
+    margin: 0 12px 24px
+.concertdatetime
+    font-size: large
+    font-weight: bold
+    line-height: 1
+.venueaddress
+    font-size: 14px
+.venuemap
+    margin-left: 1rem
+.concerttickets
+    margin-bottom: 12px
+.ticketform
+    display: flex
+    margin-bottom: 24px
+.ticketqty
+    margin-right: 1ex
+    padding: .375rem .75rem
+    font-size: 1rem
+    line-height: 1.5
+    border: 1px solid #ced4da
+    border-radius: .25rem
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+    width: 100px
+.concert-sponsor
+    font-size: large
+    color: #395fab
+    font-weight: bold
+    margin-bottom: 20px
+.youthnote
+    font-size: 14px
+    font-style: italic
+.concertimg
+    max-width: 296px
+    margin-bottom: 20px
+@media (min-width: 600px)
+    .concertdata
+        display: grid
+        grid-template-columns: max-content 1fr
+    .concerttitle
+        grid-column: 1 / 3
+    .concertlogistics
+        grid-column: 1
+        padding-bottom: 12px
+    .concerttickets
+        grid-column: 2
+        padding-left: 2rem
+        line-height: 18px
+    .ticketform
+        display: flex
+        margin-bottom: 0
+@media (min-width: 628px)
+    .concert
+        display: grid
+        justify-content: center
+    .concertdata
+        grid-area: 1 / 1 / 2 / 3
+    .concertimg
+        grid-area: 2 / 1
+        margin-right: 12px
+    .concertbody
+        grid-area: 2 / 2
+@media (min-width: 920px)
+    .concertdata
+        grid-area: 1 / 2
+    .concertimg
+        grid-area: 1 / 1 / 3 / 2
+    .concertbody
+        max-width: 600px
+

@@ -1,0 +1,137 @@
+@import "_globals.sass"
+
+#layout-heading
+    background-color: $scholaBlue
+    width: 100vw
+    height: calc(18.48vw + 51px)
+    position: relative
+    margin-bottom: 12px
+#layout-logo
+    position: absolute
+    top: 6px
+    left: 6px
+    width: calc(49vw - 6px)
+    img
+        max-width: 240px
+#layout-heading-slug
+    position: absolute
+    top: 6px
+    right: 6px
+    width: calc(49vw - 6px)
+#layout-navbar
+    position: absolute
+    bottom: 6px
+    width: 100vw
+    text-align: center
+    line-height: 1
+    a:link, a:visited
+        color: #aaa
+    a:hover, a:active
+        color: #fff
+        text-decoration: none
+    .nav-link
+        display: inline
+        padding: 0
+        vertical-align: -2px
+    .dropdown-toggle::after
+        display: none
+    .dropdown-menu
+        background-color: $scholaBlue
+        border-top-left-radius: 0
+        border-top-right-radius: 0
+        border-top: none
+        margin: -10px 0 0
+    .dropdown-item:focus, .dropdown-item:hover
+        background-color: $scholaBlue
+        color: #fff
+    #layout-navbar2 > a, #layout-navbar2 span
+        margin-left: 1rem
+        &:first-child
+            margin-left: 0
+@media (min-width: 504px)
+    #layout-heading
+        height: 144px
+    #layout-heading-slug
+        width: 240px
+@media (min-width: 578px)
+    #layout-heading
+        height: 116px
+    #layout-heading-slug
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        bottom: 28px
+        width: calc(100vw - 264px)
+        picture
+            width: 100%
+            max-width: 674px
+    #layout-navbar
+        width: calc(100vw - 258px)
+        right: 6px
+
+#layout-affil
+    margin-top: 12px
+    padding: 6px 12px
+    width: 100%
+    background-color: #ddd
+#affil-intro
+    font-size: 14px
+    line-height: 1
+    margin-bottom: 6px
+#affil-links
+    text-align: center
+    a:first-child
+        margin-right: 1rem
+@media (min-width: 430px)
+    #layout-affil
+        display: flex
+        align-items: center
+    #affil-intro
+        margin-left: 1rem
+        margin-bottom: 0
+@media (min-width: 530px)
+    #layout-affil
+        justify-content: center
+    #affil-links
+        white-space: nowrap
+
+#layout-footer
+    padding: 6px 6px
+    width: 100%
+    background-color: $scholaBlue
+    font-size: 14px
+    color: #ddd
+    text-align: center
+    a:link, a:visited
+        color: #ddd
+    a:hover, a:active
+        color: #fff
+        text-decoration: none
+#footer-twitter
+    margin-left: 6px
+#footer-spacer1
+    display: inline-block
+    width: 6px
+#footer-spacer2
+    display: block
+#footer-spacer3
+    display: block
+@media (min-width: 350px)
+    #layout-footer
+        padding: 6px 12px
+    #footer-spacer1
+        width: 1em
+    #footer-twitter
+        margin-left: 0.5em
+@media (min-width: 420px)
+    #footer-spacer3
+        display: inline-block
+        width: 0.5rem
+@media (min-width: 770px)
+    #footer-spacer2
+        display: inline-block
+        width: 2rem
+
+img.float-left
+    float: left
+    margin: 0 12px 12px 0

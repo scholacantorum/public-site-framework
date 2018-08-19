@@ -1,0 +1,47 @@
+#concertlist
+    display: grid
+    grid-template-columns: 296px
+    justify-content: center
+    max-width: 296px
+    margin: 0 auto
+#concertlisthead
+    max-width: 296px
+    width: calc(100% - 24px)
+    margin: 24px auto
+.concertlistitem
+    display: flex
+    flex-direction: column
+    max-width: 296px
+    margin-bottom: 24px
+.concertlistitemtitle
+    font-size: large
+    margin-top: 12px
+    line-height: 1
+.concertlistitemdates
+    margin-bottom: 12px
+    font-weight: bold
+    height: 3rem
+@media (min-width: 500px)
+    #concertlist
+        grid-template-columns: repeat(2, calc(50% - 6px))
+        column-gap: 12px
+        max-width: 604px
+        margin: 0 12px
+    #concertlist img
+        width: 100%
+    #concertlisthead
+        max-width: 604px
+@media (min-width: 628px)
+    #concertlist
+        margin: 0 auto
+@media (min-width: 900px)
+    #concertlist
+        grid-template-columns: repeat(4, calc(25% - 9px))
+        max-width: 1220px
+        margin: 0 12px
+    #concertlisthead
+        max-width: 1220px
+@media (min-width: 1244px)
+    #concertlist
+        margin: 0 auto
+
