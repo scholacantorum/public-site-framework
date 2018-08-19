@@ -1,4 +1,6 @@
 baseURL: https://new.scholacantorum.org/
+ignoreFiles:
+    - README.md
 languageCode: en-us
 publishDir: /home/scholacantorum/new.scholacantorum.org
 staticDir:
