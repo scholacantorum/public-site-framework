@@ -53,6 +53,7 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-top: none;
+    margin: -10px 0 0;
 }
 #layout-navbar .dropdown-item:focus, #layout-navbar .dropdown-item:hover {
     background-color: #395fab;
