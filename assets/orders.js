@@ -22,46 +22,14 @@ window.addEventListener('load', function () {
             orderform.addEventListener('submit', function (evt) {
                 evt.preventDefault();
                 orderform = evt.target;
-                var oproduct = orderform.product.value;
-                var odesc = orderform.desc.value;
                 var oqty = parseInt(orderform.qty.value);
-                var oprice = parseInt(orderform.price.value);
-                if (oproduct.substr(0, 13) === 'subscription.') {
-                    if (isNaN(oqty) || oqty < 1) {
-                        return;
-                    }
-                    document.getElementById('pay-title').textContent = 'Subscription Order';
-                    if (oqty > 1) {
-                        document.getElementById('pay-desc').innerHTML = odesc + 's <span id="pay-calc">(' + oqty + ' at $' + oprice + ' each)</span>';
-                    } else {
-                        document.getElementById('pay-desc').innerText = odesc;
-                    }
-                    document.getElementById('pay-total').textContent = '$' + (oqty * oprice);
-                    payform.qty.value = oqty;
-                    payform.product.value = oproduct;
-                } else if (oproduct.substr(0, 7) === 'ticket.') {
-                    if (isNaN(oqty) || oqty < 1) {
-                        return;
-                    }
-                    document.getElementById('pay-title').textContent = 'Ticket Order';
-                    if (oqty > 1) {
-                        document.getElementById('pay-desc').innerHTML = odesc + ' <span id="pay-calc">(' + oqty + ' at $' + oprice + ' each)</span>';
-                    } else {
-                        document.getElementById('pay-desc').innerText = odesc;
-                    }
-                    document.getElementById('pay-total').textContent = '$' + (oqty * oprice);
-                    payform.qty.value = oqty;
-                    payform.product.value = oproduct;
-                } else if (oproduct === 'donation') {
-                    if (isNaN(oqty) || oqty < 1) {
-                        return;
-                    }
-                    document.getElementById('pay-title').textContent = 'Donation';
-                    document.getElementById('pay-desc').innerText = 'Donation';
-                    document.getElementById('pay-total').textContent = '$' + oqty;
-                    payform.qty.value = oqty;
-                    payform.product.value = oproduct;
+                if (isNaN(oqty) || oqty < 1) {
+                    return;
                 }
+                document.getElementById('pay-title').textContent = 'Donation';
+                document.getElementById('pay-desc').innerText = 'Donation';
+                document.getElementById('pay-total').textContent = '$' + oqty;
+                payform.qty.value = oqty;
                 payButton.style.display = 'inline';
                 payCancel.textContent = 'Cancel';
                 confirmDiv.textContent = '';
@@ -87,9 +55,22 @@ window.addEventListener('load', function () {
                 if (result.error) {
                     errorDiv.textContent = result.error.message;
                 } else {
-                    payform.token.value = result.source.id;
+                    var params = {
+                        name: payform.name.value,
+                        email: payform.email.value,
+                        address: payform.address.value,
+                        city: payform.city.value,
+                        state: payform.state.value,
+                        zip: payform.zip.value,
+                        donation: parseInt(payform.qty.value),
+                        total: parseInt(payform.qty.value),
+                        paySource: result.source.id,
+                    }
                     fetch('/backend/to-stripe', {
-                        body: new FormData(payform),
+                        body: JSON.stringify(params),
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                         method: "POST",
                     }).then(function (result) {
                         if (result.ok) {
