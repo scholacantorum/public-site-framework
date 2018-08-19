@@ -3,6 +3,12 @@
     <div id="eventlist">
         {{ range .Pages }}
             <div class="eventlistitem">
+                {{ $image := .Resources.GetMatch "image.*" }}
+                {{ if $image }}
+                    <a href="{{ .Permalink }}">
+                        <img src="{{ ($image.Fit "296x296").RelPermalink }}">
+                    </a>
+                {{ end }}
                 <div class="eventlistitemtitle">
                     <a href="{{ .Permalink }}">{{ .Title }}</a>
                 </div>
