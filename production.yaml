@@ -1,4 +1,5 @@
 baseURL: https://scholacantorum.org/
+googleAnalytics: UA-118640369-2
 ignoreFiles:
     - README.md
 languageCode: en-us
