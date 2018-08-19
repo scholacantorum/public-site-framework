@@ -63,6 +63,14 @@
             </form>
         </div>
     </div>
+    {{ if eq .Site.Params.env "sandbox" }}
+        <form id="publishform">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+            <button type="submit" id="publishsubmit" class="btn btn-primary">Publish Sandbox to Production</button>
+            <div id="publishconfirm"></div>
+            <div id="publisherror"></div>
+        </form>
+    {{ end }}
     <div id="layout-heading">
         <a id="layout-logo" href="/">
             <img src="/schola-logo-gw-below.svg" alt="Schola Cantorum Silicon Valley; Gregory Wait, Music Director">

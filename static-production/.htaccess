@@ -1,0 +1,32 @@
+# This next block suggested by DreamHost to avoid blocking access to stats.
+# Not sure why it works better than the rules below for the same purpose,
+# but it does.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_URI} ^/(stats|failed_auth\.html).*$ [NC]
+RewriteRule . - [L]
+</IfModule>
+
+Redirect permanent /amazon http://www.amazon.com/?_encoding=UTF8&tag=scholcanto-20&linkCode=ur2&camp=1789&creative=390957
+Redirect permanent /smplus http://www.sheetmusicplus.com/a/featured.html?aff_id=457839
+
+# Support .cgi files, for Neil's stuff.
+AddHandler cgi-script .cgi
+
+Options +FollowSymLinks +ExecCGI -Indexes
+
+RewriteEngine On
+RewriteOptions Inherit
+# RewriteLog rewrite.log
+# RewriteLogLevel 9
+
+# Rewrite www.scholacantorum.org as scholacantorum.org.
+RewriteCond "%{REQUEST_URI}" "!^/stats"
+RewriteCond "%{HTTP_HOST}" "^www\.scholacantorum\.org$" [NC]
+RewriteRule "^/?(.*)$" "https://scholacantorum.org/$1" [L,R=301]
+
+# Force everything to https.
+RewriteCond "%{REQUEST_URI}" "!^/stats"
+RewriteCond "%{HTTPS}" "!=on"
+RewriteRule "^/?(.*)" "https://scholacantorum.org/$1" [L,R=301]

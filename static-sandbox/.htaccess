@@ -1,0 +1,21 @@
+# This next block suggested by DreamHost to avoid blocking access to stats.
+# Not sure why it works better than the rules below for the same purpose,
+# but it does.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_URI} ^/(stats|failed_auth\.html).*$ [NC]
+RewriteRule . - [L]
+</IfModule>
+
+Options +FollowSymLinks +ExecCGI -Indexes
+
+RewriteEngine On
+RewriteOptions Inherit
+# RewriteLog rewrite.log
+# RewriteLogLevel 9
+
+# Force everything to https.
+RewriteCond "%{REQUEST_URI}" "!^/stats"
+RewriteCond "%{HTTPS}" "!=on"
+RewriteRule "^/?(.*)" "https://new.scholacantorum.org/$1" [L,R=301]

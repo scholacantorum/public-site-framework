@@ -1,6 +1,10 @@
 baseURL: https://new.scholacantorum.org/
 languageCode: en-us
 publishDir: /home/scholacantorum/new.scholacantorum.org
+staticDir:
+    - static
+    - static-sandbox
 title: Schola Cantorum
 params:
+    env: sandbox
     stripeKey: pk_test_QPwvhWbGaakWn7DGcco8J5Nd
