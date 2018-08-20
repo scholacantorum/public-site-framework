@@ -2,7 +2,7 @@
 {{ $list.Add "scripts" slice -}}
 {{ range readDir "assets" -}}
     {{ if strings.HasSuffix .Name ".js" -}}
-        {{ $list.Add "scripts" (resources.Get .Name) -}}
+        {{ $list.Add "scripts" (resources.Get .Name | resources.ExecuteAsTemplate .Name $) -}}
     {{ end -}}
 {{ end -}}
 {{ $bundle := ($list.Get "scripts") | resources.Concat "schola6p.js" | resources.Minify | resources.Fingerprint -}}
