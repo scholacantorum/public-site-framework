@@ -1,7 +1,4 @@
-<form id="subscriptionform" class="orderform">
-    <input type="number" name="qty" class="subscrqty" placeholder="Quantity" required>
-    <button type="submit" class="btn btn-primary" data-otype="subscription">Buy Subscriptions</button>
-    <input type="hidden" name="product" value="subscription.2018-19">
-    <input type="hidden" name="desc" value="2018-19 Subscription">
-    <input type="hidden" name="price" value="72">
-</form>
+{{ if not (.Get "product") }}{{ errorf "subscriptionform: product required" }}{{ end -}}
+{{ if not (.Get "price") }}{{ errorf "subscriptionform: price required" }}{{ end -}}
+{{ if not (.Get "desc") }}{{ errorf "subscriptionform: desc required" }}{{ end -}}
+<button class="buy-subscriptions btn btn-primary" data-product="{{ .Get "product" }}" data-price="{{ .Get "price" }}" data-desc="{{ .Get "desc" }}">Buy Subscriptions</button>

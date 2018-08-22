@@ -12,6 +12,11 @@
     border-radius: .25rem
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
     width: 120px
+#applepaydiv
+    min-width: 160px
+#donationconfirm
+    color: $scholaBlue
+    font-weight: bold
 
 #subscriptionform
     display: flex
@@ -25,19 +30,83 @@
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
     width: 110px
 
-#pay-summary
+#pay-dialog .modal-dialog
+    margin: 10px
+    @media (min-width: 420px)
+        max-width: 400px
+        margin: 30px auto
+#pay-item
+    font-weight: bold
+    margin-bottom: 8px
+#pay-qty-row
     display: flex
     justify-content: space-between
-    margin-bottom: 24px
-#pay-calc
-    white-space: nowrap
-#pay-total
-    margin-left: 24px
+    align-items: baseline
+    div
+        display: flex
+        align-items: baseline
+#pay-qty
+    width: 70px
+    margin-right: 1ex
+#pay-qty-amount
+    font-size: 20px
+#pay-coupon-row
+    display: flex
+    justify-content: stretch
+#pay-coupon
+    width: 50%
+    margin-right: 4px
+#pay-donate
+    width: 50%
+    margin-left: 4px
+#pay-csz-row
+    display: flex
+    justify-content: stretch
+#pay-address
+    margin-bottom: 8px
+#pay-city
+    width: 50%
+    flex: auto
+#pay-state
+    width: 16%
+    min-width: 50px
+    margin: 0 8px
+    flex: auto
+#pay-zip
+    width: 34%
+    flex: auto
+#pay-cardnum-grp
+    margin-bottom: 8px
+    & > div
+        padding: 8px 12px
+#pay-cardexpcvc-row
+    display: flex
+    justify-content: stretch
+#pay-cardexp-grp
+    width: 50%
+    margin: 0 4px 0 0
+    & > div
+        padding: 8px 12px
+#pay-cardcvc-grp
+    width: 50%
+    margin: 0 0 0 4px
+    & > div
+        padding: 8px 12px
+#pay-footer
+    flex-direction: column
+    align-items: stretch
+#pay-message
     font-weight: bold
-#pay-card
-    padding: 8px 12px
-#pay-error
-    color: $errorColor
-#pay-confirm
+    margin-bottom: 8px
+.pay-message-good
     color: $scholaBlue
-    font-weight: bold
+.pay-message-bad
+    color: $errorColor
+#pay-buttons
+    display: flex
+    justify-content: flex-end
+    button
+        margin-left: 8px
+#pay-apple
+    text-align: right
+    min-width: 110px

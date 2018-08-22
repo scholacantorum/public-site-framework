@@ -1,0 +1,76 @@
+{{ if or (.Page.HasShortcode "subscriptionform") (.Scratch.Get "needPayForm") }}
+    <div id="pay-dialog" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="pay-form" class="modal-content">
+                <div class="modal-header">
+                    <h5 id="pay-title" class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="pay-item"></div>
+                    <div id="pay-qty-row">
+                        <div>
+                            <div id="pay-qty" class="form-group">
+                                <input type="number" class="form-control" name="qty" placeholder="Qty" min="1">
+                            </div>
+                            <div id="pay-qty-text"></div>
+                        </div>
+                        <div id="pay-qty-amount"></div>
+                    </div>
+                    <div id="pay-coupon-row">
+                        <div id="pay-coupon" class="form-group">
+                            <input type="text" class="form-control" name="coupon" placeholder="Coupon Code">
+                        </div>
+                        <div id="pay-donate" class="form-group">
+                            <input type="number" class="form-control" name="donate" placeholder="$ Donation" min="1">
+                        </div>
+                    </div>
+                    <div id="pay-cardpmt">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" placeholder="Email address">
+                        </div>
+                        <div id="pay-address" class="form-group">
+                            <input type="text" class="form-control" name="address" placeholder="Billing address">
+                        </div>
+                        <div id="pay-csz-row">
+                            <div id="pay-city" class="form-group">
+                                <input type="text" class="form-control" name="city" placeholder="City">
+                            </div>
+                            <div id="pay-state" class="form-group">
+                                <input type="text" class="form-control" name="state" placeholder="St" maxlength="2">
+                            </div>
+                            <div id="pay-zip" class="form-group">
+                                <input type="text" class="form-control" name="zip" placeholder="Zip" maxlength="10">
+                            </div>
+                        </div>
+                        <div id="pay-cardnum-grp" class="form-group">
+                            <div id="pay-cardnum" class="form-control"></div>
+                        </div>
+                        <div id="pay-cardexpcvc-row">
+                            <div id="pay-cardexp-grp" class="form-group">
+                                <div id="pay-cardexp" class="form-control"></div>
+                            </div>
+                            <div id="pay-cardcvc-grp" class="form-group">
+                                <div id="pay-cardcvc" class="form-control"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="pay-footer" class="modal-footer">
+                    <div id="pay-message"></div>
+                    <div id="pay-buttons">
+                        <div id="pay-apple">
+                            <button type="submit" id="pay-button" class="btn btn-primary">Pay now</button>
+                        </div>
+                        <button type="button" id="pay-cancel" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{{ end }}

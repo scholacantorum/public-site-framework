@@ -1,7 +1,7 @@
-<form id="donationform" class="orderform">
+<form id="donationform">
     <input type="number" id="donationamount" name="amount" placeholder="$ Amount" min="1" required>
-    <button type="submit" class="btn btn-primary">Donate</button>
-    <input type="hidden" name="product" value="donation">
-    <input type="hidden" name="desc" value="Donation">
-    <input type="hidden" name="price" value="1">
+    <div id="applepaydiv">
+        <button type="submit" class="btn btn-primary">Donate</button>
+    </div>
 </form>
+{{ .Page.Scratch.Set "needPayForm" true }}

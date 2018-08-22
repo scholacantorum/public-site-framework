@@ -17,61 +17,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
     {{ partial "styles" . }}
     {{ partial "scripts" . }}
 </head>
 
 <body>
-    <div id="paydialog" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <form id="pay-form" class="modal-content">
-                <div class="modal-header">
-                    <h5 id="pay-title" class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="pay-summary">
-                        <span id="pay-desc"><span id="pay-calc"></span></span>
-                        <span id="pay-total"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Your name">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" placeholder="Email address">
-                    </div>
-                    <div class="form-group" style="margin-bottom:0.5rem">
-                        <input type="text" class="form-control" name="address" placeholder="Billing address">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <input type="text" class="form-control" name="city" placeholder="City">
-                        </div>
-                        <div class="form-group col-2">
-                            <input type="text" class="form-control" name="state" placeholder="State">
-                        </div>
-                        <div class="form-group col-4">
-                            <input type="text" class="form-control" name="zip" placeholder="Zip">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div id="pay-card" class="form-control"></div>
-                        <div id="pay-error" role="alert"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div id="pay-confirm"></div>
-                    <button type="submit" id="pay-button" class="btn btn-primary">Pay now</button>
-                    <button type="button" id="pay-cancel" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
-                <input type="hidden" name="token" value="">
-                <input type="hidden" name="product" value="">
-                <input type="hidden" name="qty" value="">
-            </form>
-        </div>
-    </div>
     {{ if eq .Site.Params.env "sandbox" }}
         <form id="publishform">
             <input type="password" class="form-control" name="password" placeholder="Password">
@@ -150,6 +101,7 @@
         <span id="footer-spacer3"></span>
         Mountain View, CA 94043
     </div>
+    {{ partial "payform" . }}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
