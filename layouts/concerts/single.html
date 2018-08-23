@@ -4,7 +4,7 @@
             <h1>{{ $.Page.Params.title }}</h1>
             {{ range $.Page.Resources.Match "seating*" }}
                 <div class="concertlogistics">
-                    <div class="concertdatetime">{{ (time .Params.datetime).Format "Monday, January 2 at 3:00pm" }}</div>
+                    <div class="concertdatetime">{{ (time .Params.datetime).Format "Monday, January 2 at 3:04pm" }}</div>
                     {{ partial (print "venue/" .Params.venue) . }}
                 </div>
                 <div class="concerttickets">
