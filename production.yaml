@@ -2,6 +2,7 @@ baseURL: https://scholacantorum.org/
 googleAnalytics: UA-118640369-2
 ignoreFiles:
     - README.md
+    - asset-archive/.*
 languageCode: en-us
 publishDir: /home/scholacantorum/scholacantorum.org/public
 staticDir:
