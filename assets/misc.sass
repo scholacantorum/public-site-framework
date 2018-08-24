@@ -17,23 +17,24 @@
     .concerttable > div:nth-child(2)
         width: 294px
 
-.threepart
+.homepage
     margin: 24px 12px
 @media (min-width: 624px)
-    .threepart
+    .homepage
         display: grid
         grid-template-columns: 296px 296px
         grid-column-gap: 12px
         margin: 24px calc(50% - 300px)
-    .threepart > div:nth-child(1)
+    .homepage > div:nth-child(1)
         grid-area: 1 / 1 / 2 / 3
-@media (min-width: 956px)
-    .threepart
-        grid-template-columns: 600px 296px
+@media (min-width: 984px)
+    .homepage
+        grid-template-columns: repeat(3, 296px)
         grid-template-rows: min-content 1fr
         grid-column-gap: 36px
-        margin: 24px calc(50% - 466px)
+        grid-row-gap: 12px
+        margin: 24px calc(50% - 480px)
         h2
             line-height: 48px
-    .threepart > div:nth-child(1)
-        grid-area: 1 / 1 / 3 / 2
+    .homepage > div:nth-child(1)
+        grid-area: 1 / 1 / 3 / 3
