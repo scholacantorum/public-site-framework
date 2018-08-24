@@ -78,7 +78,7 @@ window.addEventListener('load', function () {
         if (payFormState === 'rejected') {
             paymessage.className = 'pay-message-bad';
             paymessage.style.display = 'block';
-            paymessage.textContent = message || 'We apologize that we are unable to process your payment at this time.  Please try again later, or call the Schola Cantorum office at 650-254-1700.';
+            paymessage.textContent = message || 'We apologize that we are unable to process your payment at this time.  Please try again later, or call the Schola Cantorum office at 650-254‑1700.';
             paybutton.style.display = 'block';
             paybutton.setAttribute('disabled', 'disabled');
             paycancel.removeAttribute('disabled');

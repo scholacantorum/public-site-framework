@@ -16,11 +16,11 @@ window.addEventListener('load', function () {
                 if (result.ok) {
                     confirmDiv.textContent = 'Thank you.  We will add you to our list.';
                 } else {
-                    errorDiv.textContent = 'We apologize that we were unable to store your information.  Please try again later, or call the Schola Cantorum office at (650) 254-1700.';
+                    errorDiv.textContent = 'We apologize that we were unable to store your information.  Please try again later, or call the Schola Cantorum office at (650) 254‑1700.';
                     submit.removeAttribute('disabled');
                 }
             }).catch(function (err) {
-                errorDiv.textContent = 'We apologize that we were unable to store your information.  Please try again later, or call the Schola Cantorum office at (650) 254-1700.';
+                errorDiv.textContent = 'We apologize that we were unable to store your information.  Please try again later, or call the Schola Cantorum office at (650) 254‑1700.';
                 submit.removeAttribute('disabled');
             })
         })
