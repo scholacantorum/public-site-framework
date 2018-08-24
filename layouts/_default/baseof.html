@@ -43,10 +43,9 @@
         </div>
         <nav id="layout-navbar">
             <div id="layout-navbar2">
-                <a href="/concerts">Concerts</a>
-                <a href="/events">Events</a>
-                <a href="/donations">Donate</a>
-                <a href="/membership">Sing</a>
+                {{ range .Site.Menus.main }}
+                    <a href="{{ .URL }}">{{ .Title }}</a>
+                {{ end }}
                 <span id="layout-menu" class="dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" data-offset="16, 6">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width:.875em">
@@ -54,13 +53,9 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="/about">About Schola Cantorum</a>
-                        <a class="dropdown-item" href="/leadership">Our Leadership</a>
-                        <a class="dropdown-item" href="/volunteering">Volunteer Opportunities</a>
-                        <a class="dropdown-item" href="/outreach">Educational Outreach</a>
-                        <a class="dropdown-item" href="/mailing-list">Join our Mailing List</a>
-                        <a class="dropdown-item" href="/press">Press Releases</a>
-                        <a class="dropdown-item" href="/policies">Web Site Policies</a>
+                        {{ range .Site.Menus.dropdown }}
+                            <a class="dropdown-item" href="{{ .URL }}">{{ .Title }}</a>
+                        {{ end }}
                     </div>
                 </span>
             </div>
