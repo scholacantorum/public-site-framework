@@ -18,10 +18,7 @@
     <meta property="og:title" content="{{ .Title }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ .Permalink }}">
-    {{ $ogimg := default (resources.Get "ogp-default.png") (.Resources.GetMatch "image.*") }}
-    <meta property="og:image" content="{{ $ogimg.Permalink }}">
-    <meta property="og:image:width" content="{{ $ogimg.Width }}">
-    <meta property="og:image:height" content="{{ $ogimg.Height }}">
+    {{ partial "ogimg" . }}
     {{ with .Description }}<meta property="og:description" content="{{.}}">{{ end }}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
