@@ -1,0 +1,8 @@
+<table class="eventtable">
+    {{ range (.Site.GetPage "/events").Pages }}
+        <tr>
+            <th>{{ (time (.Resources.GetMatch "seating*").Params.datetime).Format "January" }}</th>
+            <td><a href="{{ .Permalink }}">{{ default .Title .Params.short }}</a></td>
+        </tr>
+    {{ end }}
+</table>

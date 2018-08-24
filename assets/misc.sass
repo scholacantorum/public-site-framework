@@ -4,13 +4,17 @@
         max-width: 600px
         margin: 24px auto
 
+.concerttable table, .eventtable
+    margin-bottom: 16px
+    th
+        padding-right: 16px
 @media (min-width: 624px)
-    .splitmain
+    .concerttable
         display: flex
-    .splitmain > div:nth-child(1)
+    .concerttable > div:nth-child(1)
         width: 294px
         margin-right: 12px
-    .splitmain > div:nth-child(2)
+    .concerttable > div:nth-child(2)
         width: 294px
 
 .threepart
@@ -29,5 +33,7 @@
         grid-template-rows: min-content 1fr
         grid-column-gap: 36px
         margin: 24px calc(50% - 466px)
+        h2
+            line-height: 48px
     .threepart > div:nth-child(1)
         grid-area: 1 / 1 / 3 / 2

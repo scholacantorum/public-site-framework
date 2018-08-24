@@ -1,7 +1,10 @@
 {{ define "main" }}
-    <div class="threepart">
-        <div>
-            {{ .Content }}
+    {{ with .Site.GetPage "/home" }}
+        <div class="threepart">
+            <div><h1>{{ .Title }}</h1>{{ .Content }}</div>
+            {{ range .Resources.ByType "page" }}{{ if ne .Name "index.md" }}
+                <div><h2>{{ .Title }}</h2>{{ .Content }}</div>
+            {{ end }}{{ end }}
         </div>
-    </div>
+    {{ end }}
 {{ end }}
