@@ -4,7 +4,13 @@
             {{ .Content }}
         </div>
         {{ range .Resources.ByType "page" }}
-            <div class="leaders-body">{{ .Content }}</div>
+            <div class="leaders-body">
+                <h2>{{ .Title }}</h2>
+                {{ with $.Resources.GetMatch (print (index (last 2 (split .Dir "/")) 0) "/image.*") }}
+                    <img src="{{ (.Resize "150x").Permalink }}" class="float-left">
+                {{ end }}
+                {{ .Content }}
+            </div>
         {{ end }}
     </div>
 {{end}}
