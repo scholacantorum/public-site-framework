@@ -9,19 +9,7 @@
 .venuemap
     margin-left: 1rem
 .concerttickets
-    margin-bottom: 12px
-.ticketform
-    display: flex
-    margin-bottom: 24px
-.ticketqty
-    margin-right: 1ex
-    padding: .375rem .75rem
-    font-size: 1rem
-    line-height: 1.5
-    border: 1px solid #ced4da
-    border-radius: .25rem
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
-    width: 100px
+    margin: 6px 0 12px
 .concert-sponsor
     font-size: large
     color: #395fab
@@ -31,40 +19,33 @@
     font-size: 14px
     font-style: italic
 .concertimg
-    max-width: 296px
+    width: 296px
     margin-bottom: 20px
 @media (min-width: 600px)
-    .concertdata
-        display: grid
-        grid-template-columns: max-content 1fr
-    .concerttitle
-        grid-column: 1 / 3
+    #concertseatings
+        display: table
+    .concertseating
+        display: table-row
     .concertlogistics
-        grid-column: 1
-        padding-bottom: 12px
+        display: table-cell
+        padding: 0 12px 12px 0
+        vertical-align: top
     .concerttickets
-        grid-column: 2
-        padding-left: 2rem
-        line-height: 18px
-    .ticketform
-        display: flex
-        margin-bottom: 0
+        display: table-cell
+        vertical-align: top
 @media (min-width: 628px)
+    .concertimg
+        float: left
+    .concertbody
+        margin-left: 308px
+@media (min-width: 932px)
     .concert
-        display: grid
-        justify-content: center
-    .concertdata
-        grid-area: 1 / 1 / 2 / 3
-    .concertimg
-        grid-area: 2 / 1
-        margin-right: 12px
+        position: relative
+        width: 600px
+        margin-left: calc(50% - 146px)
     .concertbody
-        grid-area: 2 / 2
-@media (min-width: 920px)
-    .concertdata
-        grid-area: 1 / 2
+        margin-left: 0
     .concertimg
-        grid-area: 1 / 1 / 3 / 2
-    .concertbody
-        max-width: 600px
-
+        position: absolute
+        top: 8px
+        left: -308px

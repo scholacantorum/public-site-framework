@@ -10,7 +10,7 @@
                     </a>
                 {{ end }}
                 <div class="eventlistitemtitle">
-                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    <a href="{{ .Permalink }}">{{ default .Title .Params.short }}</a>
                 </div>
                 <div class="eventlistitemdates">
                     {{ range .Resources.Match "seating*" }}
