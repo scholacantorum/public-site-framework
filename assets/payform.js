@@ -482,6 +482,7 @@ window.addEventListener('load', function () {
         }
     });
     paymentRequest.on('source', sendPRToServer);
+    paymentRequest.on('cancel', function () { $('#pay-dialog').modal('hide'); })
 
     // scholaGetPayment is the global function called to launch the payment
     // process.  It takes an object with the following keys:
