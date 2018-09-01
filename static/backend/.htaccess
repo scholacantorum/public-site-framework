@@ -1,7 +1,13 @@
 <FilesMatch mail-signup$>
     SetHandler cgi-script
 </FilesMatch>
+<FilesMatch order-updated$>
+    SetHandler cgi-script
+</FilesMatch>
 <FilesMatch publish-site$>
+    SetHandler cgi-script
+</FilesMatch>
+<FilesMatch sku-updated$>
     SetHandler cgi-script
 </FilesMatch>
 <FilesMatch to-stripe$>
