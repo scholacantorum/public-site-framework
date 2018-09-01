@@ -384,7 +384,7 @@ window.addEventListener('load', function () {
     }
 
     function sendCardSource() {
-        stripe.createSource(cardnum, {
+        stripe.createSource(card, {
             owner: {
                 name: payform.name.value,
                 email: payform.email.value,
@@ -437,23 +437,12 @@ window.addEventListener('load', function () {
         })
     }
 
-    // Set up the card entry fields on the form.  Note: I'd prefer to use
-    // Stripe's single "card" entry field rather than the three separate
-    // cardNumber, cardExpiry, and cardCvc fields, but it doesn't render
-    // properly at the narrow size we use.
+    // Set up the card entry field on the form.
     var stripe = Stripe('{{ .Site.Params.stripeKey }}');
     var elements = stripe.elements();
-    var cardnum = elements.create('cardNumber', { style: { base: { fontSize: '16px' } }, placeholder: 'Payment Card Number' });
-    var cardexp = elements.create('cardExpiry', { style: { base: { fontSize: '16px' } } });
-    var cardcvc = elements.create('cardCvc', { style: { base: { fontSize: '16px' } } });
-    cardnum.mount('#pay-cardnum');
-    cardexp.mount('#pay-cardexp');
-    cardcvc.mount('#pay-cardcvc');
-
-    // Set event handlers on the three card entry fields, to set the form state.
-    cardnum.on('change', onCardEntryChange);
-    cardexp.on('change', onCardEntryChange);
-    cardcvc.on('change', onCardEntryChange);
+    var card = elements.create('card', { style: { base: { fontSize: '16px' } }, hidePostalCode: true });
+    card.mount('#pay-card');
+    card.on('change', onCardEntryChange);
 
     // Set event handlers on the other fields, to set the form state.
     payform.qty.addEventListener('input', onQtyChange);
@@ -539,12 +528,8 @@ window.addEventListener('load', function () {
             emptyFields.state = true;
             payform.zip.value = '';
             emptyFields.zip = true;
-            cardnum.clear();
-            emptyFields.cardNumber = true;
-            cardexp.clear();
-            emptyFields.cardExpiry = true;
-            cardcvc.clear();
-            emptyFields.cardCvc = true;
+            card.clear();
+            emptyFields.card = true;
         }
         errorFields = {};
         setFormState();
