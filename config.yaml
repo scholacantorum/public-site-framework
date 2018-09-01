@@ -3,10 +3,11 @@ ignoreFiles:
     - README.md
     - asset-archive/.*
 languageCode: en-us
+params:
+    env: development
+    stripeMode: test
+    stripeKey: pk_test_QPwvhWbGaakWn7DGcco8J5Nd
 staticDir:
     - static
     - static-sandbox
 title: Schola Cantorum
-params:
-    env: development
-    stripeKey: pk_test_QPwvhWbGaakWn7DGcco8J5Nd

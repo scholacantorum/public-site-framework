@@ -1,10 +1,12 @@
-{{ if not (.Get "product") }}{{ errorf "ticketform: product required" }}{{ end -}}
-{{ if not (.Get "price") }}{{ errorf "ticketform: price required" }}{{ end -}}
-{{ if not (.Get "desc") }}{{ errorf "ticketform: desc required" }}{{ end -}}
-{{ $i := 1 }}
-<button class="buy-tickets btn btn-primary"
-{{ range $p, $v := .Params -}}
-    {{- if in (slice "product" "price" "desc") $p }}data-{{$p}}="{{$v}}"
-    {{- else }}data-coupon{{$i}}="{{base64Encode $p}}" data-cprice{{$i}}="{{$v}}"{{ $i := add $i 1 }}
-    {{- end }}
+{{ if not (.Get 0) }}{{ errorf "ticketform must specify product ID" }}{{ end -}}
+{{ $product := index (index .Site.Data.products .Site.Params.stripeMode) (.Get 0) -}}
+{{ if not $product }}{{ errorf "product %s not defined in Stripe" (.Get 0) }}{{ end -}}
+<button class="buy-tickets btn btn-primary" data-desc="{{ $product.name }}"
+{{ $i := 1 -}}
+{{ range $id, $sku := $product.skus -}}
+    {{- if $sku.coupon -}}
+        data-coupon{{$i}}="{{ base64Encode $sku.coupon }}" data-cprice{{$i}}="{{ div $sku.price 100 }}" data-cproduct{{$i}}="{{ $id }}"{{ $i = add $i 1 }}
+    {{- else -}}
+        data-product="{{ $id }}" data-price="{{ div $sku.price 100 }}"
+    {{- end}}
 {{ end }}>Buy Tickets</button>

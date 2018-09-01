@@ -46,6 +46,7 @@ window.addEventListener('load', function () {
     //   - qty = quantity currently entered on form
     //   - addDonate = additional donation currently entered on form
     //   - effectivePrice = price per unit after coupon applied
+    //   - effectiveProduct = product code after coupon applied
     //   - total = order total including coupon and additional donation
     var orderDetails;
 
@@ -141,9 +142,13 @@ window.addEventListener('load', function () {
                 var donate = parseInt(payform.donate.value);
                 if (isNaN(donate) || donate < 0) donate = 0;
                 var price = orderDetails.price;
+                var product = orderDetails.product;
                 var h = btoa(payform.coupon.value.trim().toUpperCase());
                 for (var i in orderDetails.coupons) {
-                    if (h === i) price = orderDetails.coupons[i];
+                    if (h === i) {
+                        price = orderDetails.coupons[i].price;
+                        product = orderDetails.coupons[i].product;
+                    }
                 }
                 if (qty > 1) {
                     payqtytext.textContent = orderDetails.noun[1] + ' at $' + price;
@@ -156,6 +161,7 @@ window.addEventListener('load', function () {
                 orderDetails.total = qty * price + donate;
                 orderDetails.addDonate = donate;
                 orderDetails.effectivePrice = price;
+                orderDetails.effectiveProduct = product;
             }
         }
     }
@@ -167,7 +173,7 @@ window.addEventListener('load', function () {
             params.total = orderDetails.donate;
         } else {
             params.donation = orderDetails.addDonate;
-            params.product = orderDetails.product;
+            params.product = orderDetails.effectiveProduct;
             params.quantity = orderDetails.qty;
             params.coupon = payform.coupon.value.trim().toUpperCase();
             params.total = orderDetails.total;
@@ -360,17 +366,11 @@ window.addEventListener('load', function () {
         if (!orderDetails.donate) {
             var label = orderDetails.description;
             if (orderDetails.qty > 1)
-                label += ' (' + orderDetails.qty + ' at $' + orderDetails.price + ')';
+                label += ' (' + orderDetails.qty + ' at $' + orderDetails.effectivePrice + ')';
             update.displayItems = [{
-                amount: orderDetails.price * 100 * orderDetails.qty,
+                amount: orderDetails.effectivePrice * 100 * orderDetails.qty,
                 label: label,
             }];
-            if (orderDetails.effectivePrice !== orderDetails.price) {
-                update.displayItems.push({
-                    amount: -100 * orderDetails.qty * (orderDetails.price - orderDetails.effectivePrice),
-                    label: 'Coupon Code ' + payform.coupon.value.toUpperCase(),
-                });
-            }
             var donate = parseInt(payform.donate.value);
             if (!isNaN(donate) && donate > 0) {
                 update.displayItems.push({
@@ -490,11 +490,14 @@ window.addEventListener('load', function () {
     //     for a regular purchase
     //   - title = payment form title
     //   - description = description of item being ordered
+    //   - product = product code for the item being ordered
     //   - price = dollar price of one unit of the item being ordered
     //   - noun = array with two strings, the singular and plural single-word
     //     forms of the item being purchased
     //   - coupons = object whose keys are base64-encoded coupon codes and whose
-    //     values are prices to use when that discount code is applied
+    //     values are objects with two keys:
+    //     - price = price to use when that coupon code is applied
+    //     - product = product code to use when that coupon code is applied
     scholaGetPayment = function (args) {
         orderDetails = args;
 

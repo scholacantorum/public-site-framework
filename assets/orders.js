@@ -24,7 +24,8 @@ window.addEventListener('load', function () {
                 var code = t.getAttribute('data-coupon' + j);
                 if (!code) break;
                 var price = t.getAttribute('data-cprice' + j);
-                coupons[code] = parseInt(price);
+                var product = t.getAttribute('data-cproduct' + j);
+                coupons[code] = { price: parseInt(price), product: product };
             }
             scholaGetPayment({
                 price: parseInt(t.getAttribute('data-price')),

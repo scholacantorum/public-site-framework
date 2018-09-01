@@ -4,11 +4,12 @@ ignoreFiles:
     - README.md
     - asset-archive/.*
 languageCode: en-us
+params:
+    env: production
+    stripeMode: live
+    stripeKey: pk_live_UlmbLJo2rx9WQyhVibmTWpxa
 publishDir: /home/scholacantorum/scholacantorum.org/public
 staticDir:
     - static
     - static-production
 title: Schola Cantorum
-params:
-    env: production
-    stripeKey: pk_live_UlmbLJo2rx9WQyhVibmTWpxa

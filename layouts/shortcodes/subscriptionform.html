@@ -1,4 +1,7 @@
-{{ if not (.Get "product") }}{{ errorf "subscriptionform: product required" }}{{ end -}}
-{{ if not (.Get "price") }}{{ errorf "subscriptionform: price required" }}{{ end -}}
-{{ if not (.Get "desc") }}{{ errorf "subscriptionform: desc required" }}{{ end -}}
-<button class="buy-subscriptions btn btn-primary" data-product="{{ .Get "product" }}" data-price="{{ .Get "price" }}" data-desc="{{ .Get "desc" }}">Buy Subscriptions</button>
+{{ if not (.Get 0) }}{{ errorf "subscriptionform must specify product ID" }}{{ end -}}
+{{ $product := index (index .Site.Data.products .Site.Params.stripeMode) (.Get 0) -}}
+{{ if not $product }}{{ errorf "product %s not defined in Stripe" (.Get 0) }}{{ end -}}
+{{ if ne (len $product.skus) 1 }}{{ errorf "subscriptions must have one SKU, not %d" (len $product.skus) }}{{ end -}}
+{{ range $id, $sku := $product.skus -}}
+<button class="buy-subscriptions btn btn-primary" data-product="{{ $id }}" data-price="{{ div $sku.price 100 }}" data-desc="{{ $product.name }}">Buy Subscriptions</button>
+{{ end -}}
