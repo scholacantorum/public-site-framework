@@ -1,10 +1,21 @@
+@import _globals.sass
+
+// The about page has three layouts.  The narrow layout has both sections in a
+// single column.  The other two have the sections in adjacent columns; the
+// largest of them puts a max width on the columns and centers them on the page.
 #about
-    margin: 24px 12px
-@media (min-width: 664px)
+    margin: 2*$gap $gap
+@media (min-width: 2*$blockWidth + 6*$gap)
     #about
-        margin: 24px
+        margin: 2*$gap
     .about-body
-        width: calc(50% - 36px)
+        width: calc(50% - #{$gap})
         float: left
     .about-body:nth-child(2)
-        margin-right: 24px
+        margin-right: 2*$gap
+@media (min-width: 4*$blockWidth + 6*$gap)
+    #about
+        width: 4*$blockWidth + 2*$gap
+        margin: 2*$gap auto
+    .about-body
+        width: 2*$blockWidth

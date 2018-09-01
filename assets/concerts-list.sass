@@ -1,63 +1,80 @@
-#concertlisthead
-    width: 296px
-    margin: 24px auto
-#concertlist
-    width: 296px
-    margin: 0 auto
-.concertlistitem
+@import _globals.sass
+
+// Styles for concert list and event list pages.  There are two basic styles:
+// 1.  Each column takes the maximum size; columns are centered on the page.
+// 2.  The columns take the full width of the page, and are shrunk to fit.
+// Each of these mixins takes a $cols argument, which is the number of columns
+// it formats for, and a $sel argument, which is the selector it adds to its
+// rules.
+=concertlist-centered($cols, $sel)
+    #concertlisthead#{$sel}, #eventlisthead#{$sel}
+        width: $cols*$blockWidth + ($cols - 1)*$gap
+        margin: 2*$gap auto
+    #concertlist#{$sel}, #eventlist#{$sel}
+        width: $cols*$blockWidth + ($cols - 1)*$gap
+        margin: 0 auto
+        .concertlistitem, .eventlistitem
+            width: $blockWidth
+=concertlist-squeezed($cols, $sel)
+    #concertlisthead#{$sel}, #eventlisthead#{$sel}
+        width: auto
+        margin: 2*$gap $gap
+    #concertlist#{$sel}, #eventlist#{$sel}
+        width: calc(100% - #{2*$gap})
+        margin: 0 $gap
+        .concertlistitem, .eventlistitem
+            width: calc(#{100/$cols}% - #{($cols - 1)*$gap/$cols})
+            float: left
+            &:nth-child(#{$cols}n+1)
+                margin-left: 0
+                clear: both
+            &:not(:nth-child(#{$cols}n+1))
+                margin-left: $gap
+                clear: none
+
+// Apply the above at different breakpoints and for different numbers of
+// columns.  First, the single-column layout, universally applicable.
+$smallestWidth: 200px
++concertlist-centered(1, "")
+// If we have enough space for two squeezed columns, and we have at least two
+// items, show the 2-column squeezed layout.
+@media (min-width: 2*$smallestWidth + 3*$gap)
+    +concertlist-squeezed(2, ":not(.col1)")
+// If we have enough space for two full-sized columns, and we have at least two
+// items, show the 2-column full-width layout.
+@media (min-width: 2*$blockWidth + 3*$gap)
+    +concertlist-centered(2, ":not(.col1)")
+// If we have enough space for three squeezed columns, and we have exactly three
+// items, show the 3-column squeezed layout.
+@media (min-width: 3*$smallestWidth + 4*$gap)
+    +concertlist-squeezed(3, ".col3")
+// If we have enough space for three full-sized columns, and we have exactly
+// three items, show the 3-column full-width layout.
+@media (min-width: 3*$blockWidth + 4*$gap)
+    +concertlist-centered(3, ".col3")
+// If we have enough space for four squeezed columns, and we have at least four
+// items, show the 4-column squeezed layout.
+@media (min-width: 4*$smallestWidth + 5*$gap)
+    +concertlist-squeezed(4, ".col4")
+// If we have enough space for four full-sized columns, and we have at least
+// four items, show the 4-column full-width layout.
+@media (min-width: 4*$blockWidth + 5*$gap)
+    +concertlist-centered(4, ".col4")
+
+// Basic styles for the lists that don't vary by viewport width or column count.
+.concertlistitem, .eventlistitem
     display: flex
     flex-direction: column
-    width: 296px
-    margin-bottom: 24px
-.concertlistitemtitle
+    margin-bottom: 2*$gap
+    img
+        width: 100%
+.concertlistitemtitle, .eventlistitemtitle
     font-size: large
-    margin-top: 12px
+    margin-top: $gap
     line-height: 1
-.concertlistitemdates
-    margin-bottom: 12px
+.concertlistitemdates, .eventlistitemdates
+    margin-bottom: $gap
     font-weight: bold
-    height: 3rem
-@media (min-width: 500px)
-    #concertlisthead
-        width: auto
-        margin: 24px 12px
-    #concertlist
-        width: calc(100% - 24px)
-        margin: 0 12px
-    .concertlistitem
-        width: calc(50% - 6px)
-        float: left
-        &:nth-child(2n)
-            margin-left: 12px
-        &:nth-child(2n+1)
-            clear: both
-        img
-            width: 100%
-@media (min-width: 628px)
-    #concertlisthead
-        width: 604px
-        margin: 24px auto
-    #concertlist
-        width: 604px
-        margin: 0 auto
-@media (min-width: 900px)
-    #concertlisthead
-        width: auto
-        margin: 24px 12px
-    #concertlist
-        width: calc(100% - 24px)
-        margin: 0 12px
-    .concertlistitem
-        width: calc(25% - 9px)
-        margin-left: 12px
-        &:nth-child(2n+1)
-            clear: none
-        &:first-child
-            margin-left: 0
-@media (min-width: 1244px)
-    #concertlisthead
-        width: 1220px
-        margin: 24px auto
-    #concertlist
-        width: 1220px
-        margin: 0 auto
+.concertlistitemdates
+    // make concerts with one seating line up with concerts with two seatings
+    height: 3rem // 2 lines at line-height 1.5

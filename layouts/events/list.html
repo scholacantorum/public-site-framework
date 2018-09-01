@@ -1,6 +1,9 @@
 {{ define "main" }}
-    <h1 id="eventlisthead">{{ .Title }}</h1>
-    <div id="eventlist">
+    {{ $s := newScratch }}
+    {{ $s.Set "cols" (len .Pages) }}
+    {{ if gt ($s.Get "cols") 4 }}{{ $s.Set "cols" 4 }}{{ end }}
+    <h1 id="eventlisthead" class="col{{ $s.Get "cols" }}">{{ .Title }}</h1>
+    <div id="eventlist" class="col{{ $s.Get "cols" }}">
         {{ range .Pages }}
             <div class="eventlistitem">
                 {{ $image := .Resources.GetMatch "image.*" }}

@@ -1,46 +1,88 @@
+@import _globals.sass
+
+// Displays its contents in a single, centered column with a maximum width for
+// readability.  This is the default wrapper of page content that doesn't have
+// more explicit layout.
 .onecol
-    margin: 24px 12px
+    margin: 2*$gap $gap
     clear: both
-    @media (min-width: 624px)
-        max-width: 600px
-        margin: 24px auto
+    @media (min-width: 2*$blockWidth + 3*$gap)
+        max-width: 2*$blockWidth + $gap
+        margin: 2*$gap auto
 
-.concerttable table, .eventtable
-    margin-bottom: 16px
-    th
-        padding-right: 16px
-@media (min-width: 624px)
-    .concerttable
-        display: flex
-    .concerttable > div:nth-child(1)
-        width: 294px
-        margin-right: 12px
-    .concerttable > div:nth-child(2)
-        width: 294px
-
+// Layout for home page:
+//    +---+    +-------+    +-------+---+
+//    |   |    |       |    |       |   |
+//    |   |    |       |    |       +---+
+//    |   |    |       |    |       |   |
+//    +---+    +---+---+    +---+---+---+
+//    |   |    |   |   |    |   |   |   |
+//    +---+    +---+---+    +---+---+---+
 .homepage
-    margin: 24px 12px
-@media (min-width: 624px)
-    .homepage
+    margin: 2*$gap $gap
+    @media (min-width: 2*$blockWidth + 3*$gap)
+        width: 2*$blockWidth + $gap
+        margin: 2*$gap auto
         & > div
             float: left
-            width: calc(50% - 6px)
-            margin-left: 12px
+            width: calc(50% - #{$gap/2})
+            margin-left: $gap
         & > div:first-child
             width: 100%
             margin-left: 0
         & > div:nth-child(2n)
             clear: both
             margin-left: 0
-@media (min-width: 984px)
-    .homepage
-        position: relative
-        margin: 24px calc(50% + 184px)
+    $bigGap: 3*$gap
+    @media (min-width: 3*$blockWidth + 4*$bigGap)
+        width: 3*$blockWidth + 2*$bigGap
         & > div
-            float: none
-            width: 296px
+            float: left
+            width: calc(33.3% - #{2*$bigGap/3})
+            margin-left: $bigGap
+        & > div:nth-child(2n)
+            clear: none
+            margin-left: $bigGap
+        & > div:nth-child(3n+1)
+            clear: both
             margin-left: 0
         & > div:first-child
-            width: 628px
-            position: absolute
-            left: -664px
+            width: 2*$blockWidth + $bigGap
+            margin-left: 0
+        & > div:nth-child(2), & > div:nth-child(3)
+            float: none
+            margin-left: 2*$blockWidth + 2*$bigGap
+
+// Concert table for main article on home page.  Has subscription order form
+// underneath table on narrow devices and to the right of the table on wide
+// devices (at the same breakpoint as the middle home page layout).
+.concerttable
+    @media (min-width: 2*$blockWidth + 3*$gap)
+        display: flex
+        & > div:nth-child(1)
+            width: $blockWidth
+            margin-right: $gap
+        & > div:nth-child(2)
+            width: $blockWidth
+// Concert and event table.  Needed slightly larger than standard gaps.
+.concerttable table, .eventtable
+    margin-bottom: $gap + 4px
+    th
+        padding-right: $gap + 4px
+
+// Image floating left on a body of text, with margins.  Floating is disabled if
+// there isn't enough room for readable text to the right (assuming image width
+// is $blockWidth).
+img.floatleft
+    margin: 0 $gap 0 0
+    display: block
+    @media (min-width: $blockWidth + 150px)
+        float: left
+        margin: 0 $gap $gap 0
+// Same thing assuming image with is half of $blockWidth.
+img.floatleft2
+    margin: 0 $gap 0 0
+    display: block
+    @media (min-width: $blockWidth/2 + 150px)
+        float: left
+        margin: 0 $gap $gap 0

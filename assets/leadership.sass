@@ -1,21 +1,26 @@
+@import _globals.sass
+
+// The leadership page has three layouts.  The narrow layout has all of the bios
+// in a single column.  The other two have the first bio in the left column and
+// the remaining bios in the right column; the largest of them puts a max width
+// on the columns and centers them on the page.
 #leaders
-    margin: 24px 12px
+    margin: 2*$gap $gap
 #boardtable th
     white-space: nowrap
     vertical-align: top
-    padding-right: 12px
-.leaders-body
-    clear: both
-    max-width: 640px
-@media (min-width: 664px)
-    @supports (display: grid)
-        #leaders
-            margin: 24px
-            display: grid
-            grid-gap: 24px
-            grid-template-columns: repeat(2, calc(50% - 12px))
-            grid-template-rows: min-content min-content min-content 1fr
-        #leaders-top
-            grid-area: 1 / 1 / 2 / 3
-        .leaders-body:nth-child(2)
-            grid-area: 2 / 1 / 5 / 2
+    padding-right: $gap
+@media (min-width: 2*$blockWidth + 6*$gap)
+    #leaders
+        margin: 2*$gap
+    .leaders-body
+        width: calc(50% - #{$gap})
+        float: left
+        &:nth-child(2)
+            margin: 0 2*$gap 0 0
+@media (min-width: 4*$blockWidth + 6*$gap)
+    #leaders
+        margin: 2*$gap auto
+        width: 4*$blockWidth + 2*$gap
+    .leaders-body
+        width: 2*$blockWidth

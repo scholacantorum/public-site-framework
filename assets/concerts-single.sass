@@ -1,5 +1,17 @@
+@import _globals.sass
+
+// These styles are used for both singer concert and single event pages.  There
+// are three layouts:
+//     +---+    +-------+    +---+-------+
+//     | D |    | D T   |    | I | D T   |    D = Data (title, date, time, place)
+//     | T |    +---+---+    |   +-------+    T = Ticket orders
+//     +---+    | I | B |    |   |   B   |    I = Image
+//     | I |    +---+---+    +---+-------+    B = Body text
+//     +---+
+//     | B |
+//     +---+
 .concert
-    margin: 0 12px 24px
+    margin: 0 $gap 2*$gap
 .concertdatetime
     font-size: large
     font-weight: bold
@@ -7,45 +19,50 @@
 .venueaddress
     font-size: 14px
 .venuemap
-    margin-left: 1rem
+    margin-left: $gap
 .concerttickets
-    margin: 6px 0 12px
+    margin: $gap/2 0 $gap
 .concert-sponsor
     font-size: large
     color: #395fab
     font-weight: bold
-    margin-bottom: 20px
+    margin-bottom: 3*$gap/2
 .youthnote
     font-size: 14px
     font-style: italic
-.concertimg
-    width: 296px
-    margin-bottom: 20px
-@media (min-width: 600px)
+.concertimg1
+    display: none
+.concertimg2
+    width: $blockWidth
+    margin-bottom: 3*$gap/2
+@media (min-width: 2*$blockWidth + 3*$gap)
     #concertseatings
         display: table
     .concertseating
         display: table-row
     .concertlogistics
         display: table-cell
-        padding: 0 12px 12px 0
+        padding: 0 $gap $gap 0
         vertical-align: top
+        white-space: nowrap
     .concerttickets
         display: table-cell
         vertical-align: top
-@media (min-width: 628px)
-    .concertimg
+    .concertimg2
         float: left
     .concertbody
-        margin-left: 308px
-@media (min-width: 932px)
+        margin-left: $blockWidth + $gap
+@media (min-width: 3*$blockWidth + 4*$gap)
     .concert
-        position: relative
-        width: 600px
-        margin-left: calc(50% - 146px)
-    .concertbody
-        margin-left: 0
-    .concertimg
-        position: absolute
-        top: 8px
-        left: -308px
+        margin: 0 auto 2*$gap
+        width: 3*$blockWidth + 2*$gap
+    .concertimg1
+        display: block
+        float: left
+        margin-top: 8px // align image with top of text
+        margin-bottom: 3*$gap/2
+    .concertimg2
+        display: none
+    .concertdata, .concertbody
+        width: 2*$blockWidth + $gap
+        margin-left: $blockWidth + $gap
