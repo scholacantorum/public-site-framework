@@ -28,6 +28,7 @@ window.addEventListener('load', function () {
     var paydiscount = document.getElementById('pay-discount');
     var paydonate = document.getElementById('pay-donate');
     var paytotal = document.getElementById('pay-total');
+    var paydivider = document.getElementById('pay-divider');
     var paycardpmt = document.getElementById('pay-cardpmt');
     var payname = document.getElementById('pay-name');
     var payemail = document.getElementById('pay-email');
@@ -378,14 +379,16 @@ window.addEventListener('load', function () {
     // Send the payment information to the back end.
     function sendFormToServer(sourceID) {
         var params = {
-            name: payform.name.value,
-            email: payform.email.value,
-            address: payform.address.value,
-            city: payform.city.value,
-            state: payform.state.value,
-            zip: payform.zip.value,
+            name: payname.value,
+            email: payemail.value,
             payType: 'cardEntry',
             paySource: sourceID,
+        }
+        if (payaddress) {
+            params.address = payaddress.value;
+            params.city = paycity.value;
+            params.state = paystate.value;
+            params.zip = payzip.value;
         }
         sendToServer(params, function () {
             setFormState('accepted');
@@ -399,13 +402,15 @@ window.addEventListener('load', function () {
         var params = {
             name: pay.payerName,
             email: pay.payerEmail,
-            address: pay.shippingAddress.addressLine.join(', '),
-            city: pay.shippingAddress.city,
-            state: pay.shippingAddress.region,
-            zip: pay.shippingAddress.postalCode,
             payType: canMakePayment.applePay ? 'applePay' : 'paymentAPI',
             paySource: pay.source.id,
         };
+        if (pay.shippingAddress) {
+            params.address = pay.shippingAddress.addressLine.join(', ');
+            params.city = pay.shippingAddress.city;
+            params.state = pay.shippingAddress.region;
+            params.zip = pay.shippingAddress.postalCode;
+        }
         sendToServer(params, function () {
             pay.complete('success');
             if (!scholaPaymentAcceptedHook)
@@ -525,7 +530,9 @@ window.addEventListener('load', function () {
     // Set up the card entry field on the form.
     var stripe = Stripe('{{ .Site.Params.stripeKey }}');
     var elements = stripe.elements();
-    var card = elements.create('card', { style: { base: { fontSize: '16px' } }, hidePostalCode: true });
+    var card = { style: { base: { fontSize: '16px' } } };
+    if (payaddress) card.hidePostalCode = true;
+    card = elements.create('card', card);
     card.mount('#pay-card');
     card.on('change', onCardEntryChange);
     card.on('focus', onCardEntryFocus);
@@ -548,29 +555,33 @@ window.addEventListener('load', function () {
         paydonate.addEventListener('input', setFormState);
         paydonate.addEventListener('focusout', setFormState);
     }
-    payform.name.addEventListener('input', setFormState);
-    payform.name.addEventListener('focusout', enableEmptyErrors);
-    payform.email.addEventListener('input', setFormState);
-    payform.email.addEventListener('focusout', enableEmptyErrors);
+    payname.addEventListener('input', setFormState);
+    payname.addEventListener('focusout', enableEmptyErrors);
+    payemail.addEventListener('input', setFormState);
+    payemail.addEventListener('focusout', enableEmptyErrors);
     if (payaddress) {
-        payform.address.addEventListener('input', setFormState);
-        payform.address.addEventListener('focusout', enableEmptyErrors);
-        payform.city.addEventListener('input', setFormState);
-        payform.city.addEventListener('focusout', enableEmptyErrors);
-        payform.state.addEventListener('change', setFormState);
-        payform.zip.addEventListener('input', setFormState);
-        payform.zip.addEventListener('focusout', enableEmptyErrors);
+        payaddress.addEventListener('input', setFormState);
+        payaddress.addEventListener('focusout', enableEmptyErrors);
+        paycity.addEventListener('input', setFormState);
+        paycity.addEventListener('focusout', enableEmptyErrors);
+        paystate.addEventListener('change', setFormState);
+        payzip.addEventListener('input', setFormState);
+        payzip.addEventListener('focusout', enableEmptyErrors);
     }
     payform.addEventListener('submit', onPayFormSubmit);
     paycancel.addEventListener('click', function () { $('#pay-dialog').modal('hide'); })
 
     // Find out whether the payment request API is supported.
-    paymentRequest = stripe.paymentRequest({
+    paymentRequest = {
         country: 'US', currency: 'usd',
         total: { amount: 100, label: 'Test', pending: true },
-        requestPayerName: true, requestPayerEmail: true, requestShipping: true,
-        shippingOptions: [{ id: 'default', label: 'U.S. Mail', amount: 0 }],
-    });
+        requestPayerName: true, requestPayerEmail: true,
+    };
+    if (payaddress) {
+        paymentRequest.requestShipping = true;
+        paymentRequest.shippingOptions = [{ id: 'default', label: 'U.S. Mail', amount: 0 }];
+    }
+    paymentRequest = stripe.paymentRequest(paymentRequest);
     paymentRequest.canMakePayment().then(function (can) {
         if (orderDetails) return; // already processing
         canMakePayment = can;
@@ -621,8 +632,10 @@ window.addEventListener('load', function () {
         }
         if (paydonate) paydonate.value = '';
         if (canMakePayment) {
+            paydivider.style.display = 'none';
             paycardpmt.style.display = 'none';
         } else {
+            paydivider.style.display = 'block';
             paycardpmt.style.display = 'block';
             payname.value = '';
             payemail.value = '';
