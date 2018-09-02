@@ -352,7 +352,7 @@ window.addEventListener('load', function () {
             params.donation = orderDetails.addDonate;
             params.product = orderDetails.effectiveProduct;
             params.quantity = orderDetails.qty;
-            params.coupon = payform.coupon.value.trim().toUpperCase();
+            if (paycoupon) params.coupon = paycoupon.value.trim().toUpperCase();
             params.total = orderDetails.total;
         }
         fetch('/backend/to-stripe', {
