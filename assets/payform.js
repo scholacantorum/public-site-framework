@@ -15,11 +15,30 @@ window.addEventListener('load', function () {
     var payform = document.getElementById('pay-form');
     if (!payform) return;
 
-    var paymessage = document.getElementById('pay-message');
-    var paybutton = document.getElementById('pay-button');
-    var paycancel = document.getElementById('pay-cancel');
+    // References to all of the form controls and divs.  Note that some of these
+    // may not exist, depending on which payment form is on the page.
+    var paytitle = document.getElementById('pay-title');
+    var payitem = document.getElementById('pay-item');
+    var payqty = document.getElementById('pay-qty');
     var payqtytext = document.getElementById('pay-qty-text');
     var payqtyamount = document.getElementById('pay-qty-amount');
+    var paycouponrow = document.getElementById('pay-coupon-row');
+    var paycoupon = document.getElementById('pay-coupon');
+    var paydiscountrow = document.getElementById('pay-discount-row');
+    var paydiscount = document.getElementById('pay-discount');
+    var paydonate = document.getElementById('pay-donate');
+    var paytotal = document.getElementById('pay-total');
+    var paycardpmt = document.getElementById('pay-cardpmt');
+    var payname = document.getElementById('pay-name');
+    var payemail = document.getElementById('pay-email');
+    var payaddress = document.getElementById('pay-address');
+    var paycity = document.getElementById('pay-city');
+    var paystate = document.getElementById('pay-state');
+    var payzip = document.getElementById('pay-zip');
+    var paymessage = document.getElementById('pay-message');
+    var payapple = document.getElementById('pay-apple');
+    var paybutton = document.getElementById('pay-button');
+    var paycancel = document.getElementById('pay-cancel');
 
     // paymentRequest is a Stripe PaymentRequest object, used for Apple Pay,
     // Google Pay, etc.  canMakePayment is the return its canMakePayment method:
@@ -27,19 +46,24 @@ window.addEventListener('load', function () {
     var paymentRequest;
     var canMakePayment;
 
-    // emptyFields is a set of names of form fields that are incompletely filled
-    // out.  (Only the keys of the object are relevant.)  When it is not empty,
-    // the Pay button is disabled.
-    var emptyFields = {};
-
-    // errorFields is a map from form field names to error messages about
-    // invalid data in those fields.  When it is not empty, the error messages
-    // are shown and the Pay button is disabled.
-    var errorFields = {};
-
     // payFormState records the state of the form: "entry", "processing",
     // "rejected", or "accepted".
     var payFormState;
+
+    // hasBeenFocused is a set of names of form fields that have received focus.
+    // It is used to control whether errors are displayed when those fields are
+    // empty.
+    var hasBeenFocused = {};
+
+    // cardComplete is a flag indicating that the card number entry field has
+    // complete card details in it.
+    // cardError is a string giving a validation error for the card number, or
+    // null if the card number is valid.
+    // cardFocused is a boolean indicating that the card entry field currently
+    // has focus.
+    var cardComplete = false;
+    var cardError = null;
+    var cardFocused = false;
 
     // orderDetails tracks the details of the order in progress.  It is an
     // object with all of the keys passed to scholaGetPayment (which see), plus:
@@ -57,116 +81,269 @@ window.addEventListener('load', function () {
         // When we are given a state, that's our new state.  Otherwise, we
         // normally stay in the state we were previously in.  But the "rejected"
         // state is transient, lasting only until the next call of this method.
-        if (state) {
+        if (typeof state === 'string') {
             payFormState = state;
         } else if (payFormState === 'rejected') {
             payFormState = 'entry';
         }
 
-        // When processing, both buttons are disabled and a message is shown.
-        if (payFormState === 'processing') {
-            paymessage.textContent = 'Processing, please wait...'
-            paymessage.className = '';
-            paymessage.style.display = 'block';
-            paybutton.style.display = 'block';
-            paybutton.setAttribute('disabled', 'disabled');
-            paycancel.setAttribute('disabled', 'disabled');
-            return;
-        }
-
-        // When rejected, the error is shown (with a default), and the Pay
-        // button is disabled.
-        if (payFormState === 'rejected') {
-            paymessage.className = 'pay-message-bad';
-            paymessage.style.display = 'block';
-            paymessage.textContent = message || 'We apologize that we are unable to process your payment at this time.  Please try again later, or call the Schola Cantorum office at 650-254‑1700.';
-            paybutton.style.display = 'block';
-            paybutton.setAttribute('disabled', 'disabled');
-            paycancel.removeAttribute('disabled');
-            return;
-        }
-
-        // When accepted, the success is shown, the Pay button is hidden, and
-        // the Cancel button turns into a Close button.
-        if (payFormState === 'accepted') {
-            paymessage.className = 'pay-message-good';
-            paymessage.style.display = 'block';
-            paymessage.textContent = 'Thank you.  We have received your payment and emailed you a confirmation.';
-            paybutton.style.display = 'none';
-            paycancel.removeAttribute('disabled');
-            paycancel.textContent = 'Close';
-            return;
-        }
-
-        // From here down, we're in the "entry" state.
-        paybutton.style.display = 'block';
-        paycancel.removeAttribute('disabled');
-        paycancel.textContent = 'Cancel';
-
-        // If there are any field errors, display them and disable the Pay
-        // button.
+        // Start a new calculation of the form totals and messages.
+        orderDetails.total = 0;
+        orderDetails.effectivePrice = orderDetails.price;
+        orderDetails.effectiveProduct = orderDetails.product;
         var errors = [];
-        for (var id in errorFields) {
-            errors.push(errorFields[id]);
+        var valid = true;
+
+        // Handle the quantity row.
+        if (payqty) {
+            var qty = parseInt(payqty.value);
+            if (isNaN(qty) || qty < 1) {
+                payqtytext.textContent = orderDetails.noun[1];
+                payqtytext.classList.remove('pay-qty-plural');
+                payqtyamount.textContent = '';
+                orderDetails.qty = 0;
+                valid = false;
+                if (document.activeElement !== payqty)
+                    errors.push('Please enter a valid quantity.');
+            } else {
+                if (qty > 1) {
+                    payqtytext.textContent = orderDetails.noun[1] + ' at $' + orderDetails.price + ' each';
+                    // note the second and third spaces in that string are non-breaking
+                    payqtytext.classList.add('pay-qty-plural');
+                } else {
+                    payqtytext.textContent = orderDetails.noun[0];
+                    payqtytext.classList.remove('pay-qty-plural');
+                }
+                orderDetails.total = qty * orderDetails.price;
+                payqtyamount.textContent = '$' + orderDetails.total;
+                orderDetails.qty = qty;
+            }
+            if (payFormState === 'processing' || payFormState === 'accepted') {
+                payqty.setAttribute('disabled', 'disabled');
+            } else {
+                payqty.removeAttribute('disabled');
+            }
         }
+
+        // Handle the incoming donation if any.
+        if (orderDetails.donate)
+            orderDetails.total += orderDetails.donate;
+
+        // Handle the coupon row.
+        if (paycouponrow) {
+            var code = btoa(paycoupon.value.trim().toUpperCase());
+            var found = false;
+            for (var coupon in orderDetails.coupons) {
+                if (coupon === code) {
+                    found = true;
+                    paycouponrow.style.display = 'none';
+                    paydiscountrow.style.display = 'flex';
+                    orderDetails.effectivePrice = orderDetails.coupons[coupon].price;
+                    orderDetails.effectiveProduct = orderDetails.coupons[coupon].product;
+                    paydiscount.textContent = '−' + (orderDetails.qty * (orderDetails.price - orderDetails.effectivePrice));
+                    orderDetails.total = orderDetails.qty * orderDetails.effectivePrice;
+                    break;
+                }
+            }
+            if (!found) {
+                if (code != '') {
+                    valid = false;
+                    if (document.activeElement !== paycoupon)
+                        errors.push('The coupon code is not recognized.');
+                }
+                if (payFormState === 'processing' || payFormState === 'accepted') {
+                    paycoupon.setAttribute('disabled', 'disabled');
+                } else {
+                    paycoupon.removeAttribute('disabled');
+                }
+            }
+        }
+
+        // Handle the additional donation row.
+        if (paydonate) {
+            var donate = paydonate.value;
+            orderDetails.addDonate = 0;
+            if (donate !== '') {
+                donate = parseInt(donate);
+                if (isNaN(donate) || donate < 0) {
+                    valid = false;
+                    if (document.activeElement !== paydonate)
+                        errors.push('Please enter a valid donation amount.');
+                } else {
+                    orderDetails.addDonate = donate;
+                    orderDetails.total += donate;
+                }
+            }
+            if (payFormState === 'processing' || payFormState === 'accepted') {
+                paydonate.setAttribute('disabled', 'disabled');
+            } else {
+                paydonate.removeAttribute('disabled');
+            }
+        }
+
+        // Handle the total row.
+        if (paytotal) {
+            paytotal.textContent = '$' + orderDetails.total;
+        }
+
+        // If we're taking a card payment, handle those rows.
+        if (!canMakePayment) {
+
+            // Handle the name row.
+            if (payname.value.trim() === '') {
+                valid = false;
+                if (document.activeElement !== payname && hasBeenFocused[payname.name])
+                    errors.push('Please provide your name.');
+            }
+            if (payFormState === 'processing' || payFormState === 'accepted') {
+                payname.setAttribute('disabled', 'disabled');
+            } else {
+                payname.removeAttribute('disabled');
+            }
+
+            // Handle the email row.
+            if (!payemail.value.trim().match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)) {
+                // That's the same regexp used by input type="email".
+                valid = false;
+                if (document.activeElement !== payemail && hasBeenFocused[payemail.name])
+                    errors.push('Please provide a valid email address.');
+            }
+            if (payFormState === 'processing' || payFormState === 'accepted') {
+                payemail.setAttribute('disabled', 'disabled');
+            } else {
+                payemail.removeAttribute('disabled');
+            }
+
+            // Handle the address, city, state, and zip code fields.
+            if (payaddress) {
+                if (payaddress.value.trim() === '') {
+                    valid = false;
+                    if (document.activeElement !== payaddress && hasBeenFocused[payaddress.name])
+                        errors.push('Please provide your mailing address.');
+                }
+                if (payFormState === 'processing' || payFormState === 'accepted') {
+                    payaddress.setAttribute('disabled', 'disabled');
+                } else {
+                    payaddress.removeAttribute('disabled');
+                }
+
+                if (paycity.value.trim() === '') {
+                    valid = false;
+                    if (document.activeElement !== paycity && hasBeenFocused[paycity.name])
+                        errors.push('Please provide your mailing address city.');
+                }
+                if (payFormState === 'processing' || payFormState === 'accepted') {
+                    paycity.setAttribute('disabled', 'disabled');
+                } else {
+                    paycity.removeAttribute('disabled');
+                }
+
+                if (payFormState === 'processing' || payFormState === 'accepted') {
+                    paystate.setAttribute('disabled', 'disabled');
+                } else {
+                    paystate.removeAttribute('disabled');
+                }
+
+                if (!payzip.value.trim().match(/^[0-9]{5}(?:-[0-9]{4})?$/)) {
+                    valid = false;
+                    if (document.activeElement !== payzip && hasBeenFocused[payzip.name])
+                        errors.push('Please provide your 5- or 9-digit zip code.');
+                }
+                if (payFormState === 'processing' || payFormState === 'accepted') {
+                    payzip.setAttribute('disabled', 'disabled');
+                } else {
+                    payzip.removeAttribute('disabled');
+                }
+            }
+
+            // Handle the card number.
+            if (cardError) {
+                valid = false;
+                errors.push(cardError);
+            } else if (!cardComplete) {
+                valid = false;
+                if (!cardFocused && hasBeenFocused.card)
+                    errors.push(cardError || 'Please provide your payment card information.');
+            }
+            if (payFormState === 'processing' || payFormState === 'accepted') {
+                card.update({ disabled: true });
+            } else {
+                card.update({ disabled: false });
+            }
+        }
+
+        // Fill in the message area.
         if (errors.length) {
             paymessage.style.display = 'block';
             paymessage.textContent = errors.join('\n');
             paymessage.className = 'pay-message-bad';
-            paybutton.setAttribute('disabled', 'disabled');
-            return;
-        }
-
-        // If there are any incomplete fields, disable the Pay button.
-        paymessage.style.display = 'none';
-        var found = false;
-        for (var id in emptyFields) {
-            found = true;
-        }
-        if (found) {
-            paybutton.setAttribute('disabled', 'disabled');
+            valid = false;
+        } else if (payFormState === 'processing') {
+            paymessage.textContent = 'Processing, please wait...'
+            paymessage.className = '';
+            paymessage.style.display = 'block';
+        } else if (payFormState === 'rejected') {
+            paymessage.className = 'pay-message-bad';
+            paymessage.style.display = 'block';
+            paymessage.textContent = message || 'We apologize that we are unable to process your payment at this time.  Please try again later, or call the Schola Cantorum office at 650-254‑1700.';
+        } else if (payFormState === 'accepted') {
+            paymessage.className = 'pay-message-good';
+            paymessage.style.display = 'block';
+            paymessage.textContent = 'Thank you.  We have received your payment and emailed you a confirmation.';
         } else {
-            paybutton.removeAttribute('disabled');
+            paymessage.style.display = 'none';
         }
 
-        // Calculate the amounts to display in the dynamic parts of the form.
+        // Set the submit button state.
         if (orderDetails.donate) {
-            paybutton.textContent = 'Donate $' + orderDetails.donate;
+            paybutton.textContent = 'Donate $' + orderDetails.total;
+        } else if (orderDetails.total !== 0) {
+            paybutton.textContent = 'Pay $' + orderDetails.total;
         } else {
-            var qty = parseInt(payform.qty.value);
-            if (isNaN(qty) || qty < 1) {
-                payqtytext.textContent = orderDetails.noun[1];
-                payqtyamount.textContent = '';
-                paybutton.textContent = 'Pay Now';
-            } else {
-                var donate = parseInt(payform.donate.value);
-                if (isNaN(donate) || donate < 0) donate = 0;
-                var price = orderDetails.price;
-                var product = orderDetails.product;
-                var h = btoa(payform.coupon.value.trim().toUpperCase());
-                for (var i in orderDetails.coupons) {
-                    if (h === i) {
-                        price = orderDetails.coupons[i].price;
-                        product = orderDetails.coupons[i].product;
-                    }
-                }
-                if (qty > 1) {
-                    payqtytext.textContent = orderDetails.noun[1] + ' at $' + price;
-                } else {
-                    payqtytext.textContent = orderDetails.noun[0];
-                }
-                payqtyamount.textContent = '$' + (qty * price);
-                paybutton.textContent = 'Pay $' + (qty * price + donate);
-                orderDetails.qty = qty;
-                orderDetails.total = qty * price + donate;
-                orderDetails.addDonate = donate;
-                orderDetails.effectivePrice = price;
-                orderDetails.effectiveProduct = product;
-            }
+            paybutton.textContent = 'Pay Now';
+        }
+        switch (payFormState) {
+            case 'entry':
+                if (valid) {
+                    paybutton.style.display = 'block';
+                    paybutton.removeAttribute('disabled');
+                    break;
+                } // else fall through
+            case 'processing', 'rejected':
+                paybutton.style.display = 'block';
+                paybutton.setAttribute('disabled', 'disabled');
+                break;
+            case 'accepted':
+                paybutton.style.display = 'none';
+                break;
+        }
+
+        // Set the cancel button state.
+        switch (payFormState) {
+            case 'entry', 'rejected':
+                paycancel.textContent = 'Cancel';
+                paycancel.removeAttribute('disabled');
+                break;
+            case 'processing':
+                paycancel.textContent = 'Cancel';
+                paycancel.setAttribute('disabled', 'disabled');
+                break;
+            case 'accepted':
+                paycancel.textContent = 'Close';
+                paycancel.removeAttribute('disabled');
+                break;
         }
     }
 
-    // Common parts of the three sendToServer functions.
+    // When a required field loses focus, we set a flag indicating that errors
+    // for it being empty should be enabled.
+    function enableEmptyErrors(evt) {
+        if (evt.relatedTarget === paycancel) return; // don't block canceling the dialog
+        hasBeenFocused[evt.target.name] = true;
+        setFormState();
+    }
+
+    // Common parts of the two sendToServer functions.
     function sendToServer(params, success, failure) {
         if (orderDetails.donate) {
             params.donation = orderDetails.donate;
@@ -243,112 +420,17 @@ window.addEventListener('load', function () {
     // Handle a change to the card number, expiry date, or CVC code.
     function onCardEntryChange(evt) {
         if (evt.error) {
-            errorFields[evt.elementType] = evt.error.message;
+            cardError = evt.error.message;
         } else {
-            delete errorFields[evt.elementType];
+            cardError = null;
         }
-        if (evt.complete) {
-            delete emptyFields[evt.elementType];
-        } else {
-            emptyFields[evt.elementType] = true;
-        }
+        cardComplete = evt.complete;
         setFormState();
     }
 
-    // Handle a change to the item quantity.
-    function onQtyChange() {
-        var v = payform.qty.value.trim();
-        if (v === '') {
-            emptyFields.qty = true;
-            delete errorFields.qty;
-        } else {
-            delete emptyFields.qty;
-            n = parseInt(v)
-            if (isNaN(n) || n < 1) {
-                errorFields.qty = 'Please enter a valid quantity.';
-            } else {
-                delete errorFields.qty;
-            }
-        }
-        setFormState();
-    }
-
-    // Handle a change to the coupon code.
-    function onCouponChange() {
-        var v = payform.coupon.value.trim().toUpperCase();
-        if (v === '') {
-            delete errorFields.coupon;
-        } else {
-            var h = btoa(v);
-            var p;
-            for (var i in orderDetails.coupons) {
-                if (h === i) p = orderDetails.coupons[i];
-            }
-            if (p) {
-                delete errorFields.coupon;
-            } else {
-                errorFields.coupon = 'This coupon code is not recognized.';
-            }
-        }
-        setFormState();
-    }
-
-    // Handle a change to the donation amount.
-    function onDonateChange() {
-        var v = payform.donate.value.trim();
-        if (v === '') return;
-        n = parseInt(v)
-        if (isNaN(n) || n < 0) {
-            errorFields.donate = 'Please enter a valid donation amount.';
-        } else {
-            delete errorFields.donate;
-        }
-        setFormState();
-    }
-
-    // Handle a change to any of the name, email, address, city, state, or zip
-    // fields.  Basically we just want to know if they have contents.
-    function onPayerChange(evt) {
-        var v = evt.target.value.trim();
-        if (v === '') {
-            emptyFields[evt.target.name] = true;
-        } else {
-            delete emptyFields[evt.target.name];
-        }
-        setFormState();
-    }
-
-    // Handle a change to the state.
-    function onStateChange() {
-        var v = payform.state.value.trim();
-        if (v === '') {
-            emptyFields.state = true;
-        } else {
-            delete emptyFields.state;
-            if (v.match(/^[A-Za-z]{2}$/)) {
-                delete errorFields.state;
-            } else {
-                errorFields.state = 'Please enter a 2-letter state code.';
-            }
-        }
-        setFormState();
-    }
-
-    // Handle a change to the zip code.
-    function onZipChange() {
-        var v = payform.zip.value.trim();
-        if (v === '') {
-            emptyFields.zip = true;
-        } else {
-            delete emptyFields.zip;
-            if (v.match(/^[0-9]{5}(?:-[0-9]{4})?$/)) {
-                delete errorFields.zip;
-            } else {
-                errorFields.zip = 'Please enter a 5- or 9-digit zip code.';
-            }
-        }
-        setFormState();
-    }
+    // Handle the card number field's loss of focus.
+    function onCardEntryFocus(evt) { cardFocused = true; setFormState(); }
+    function onCardEntryBlur(evt) { cardFocused = false; hasBeenFocused.card = true; setFormState(); }
 
     function updatePaymentRequest() {
         var od;
@@ -410,6 +492,7 @@ window.addEventListener('load', function () {
     // Handle the "Pay Now" button.
     function onPayFormSubmit(evt) {
         evt.preventDefault();
+        setFormState();
         if (paybutton.getAttribute('disabled')) return;
         setFormState('processing');
         if (canMakePayment) {
@@ -429,7 +512,7 @@ window.addEventListener('load', function () {
         if (apdiv) {
             args.style = { paymentRequestButton: { type: 'donate' } };
         } else {
-            apdiv = document.getElementById('pay-apple');
+            apdiv = payapple;
         }
         var apbut = elements.create('paymentRequestButton', args);
         apbut.mount(apdiv);
@@ -445,18 +528,41 @@ window.addEventListener('load', function () {
     var card = elements.create('card', { style: { base: { fontSize: '16px' } }, hidePostalCode: true });
     card.mount('#pay-card');
     card.on('change', onCardEntryChange);
+    card.on('focus', onCardEntryFocus);
+    card.on('blur', onCardEntryBlur);
 
     // Set event handlers on the other fields, to set the form state.
-    payform.qty.addEventListener('input', onQtyChange);
-    payform.coupon.addEventListener('change', onCouponChange);
-    payform.donate.addEventListener('input', onDonateChange);
-    payform.name.addEventListener('input', onPayerChange);
-    payform.email.addEventListener('input', onPayerChange);
-    payform.address.addEventListener('input', onPayerChange);
-    payform.city.addEventListener('input', onPayerChange);
-    payform.state.addEventListener('change', onStateChange);
-    payform.zip.addEventListener('change', onZipChange);
+    if (payqty) {
+        payqty.addEventListener('input', setFormState);
+        payqty.addEventListener('focusin', function () { payqty.select(); });
+        payqty.addEventListener('focusout', setFormState);
+        $('#pay-dialog').on('shown.bs.modal', function () { payqty.select(); payqty.focus(); });
+    } else {
+        $('#pay-dialog').on('shown.bs.modal', function () { payname.focus(); });
+    }
+    if (paycoupon) {
+        paycoupon.addEventListener('input', setFormState);
+        paycoupon.addEventListener('focusout', setFormState);
+    }
+    if (paydonate) {
+        paydonate.addEventListener('input', setFormState);
+        paydonate.addEventListener('focusout', setFormState);
+    }
+    payform.name.addEventListener('input', setFormState);
+    payform.name.addEventListener('focusout', enableEmptyErrors);
+    payform.email.addEventListener('input', setFormState);
+    payform.email.addEventListener('focusout', enableEmptyErrors);
+    if (payaddress) {
+        payform.address.addEventListener('input', setFormState);
+        payform.address.addEventListener('focusout', enableEmptyErrors);
+        payform.city.addEventListener('input', setFormState);
+        payform.city.addEventListener('focusout', enableEmptyErrors);
+        payform.state.addEventListener('change', setFormState);
+        payform.zip.addEventListener('input', setFormState);
+        payform.zip.addEventListener('focusout', enableEmptyErrors);
+    }
     payform.addEventListener('submit', onPayFormSubmit);
+    paycancel.addEventListener('click', function () { $('#pay-dialog').modal('hide'); })
 
     // Find out whether the payment request API is supported.
     paymentRequest = stripe.paymentRequest({
@@ -503,49 +609,36 @@ window.addEventListener('load', function () {
 
         // Clear the payment form.
         payFormState = 'entry';
-        emptyFields = {};
-        if (args.donate) {
-            document.getElementById('pay-qty-row').style.display = 'none';
-            document.getElementById('pay-coupon-row').style.display = 'none';
-        } else {
-            document.getElementById('pay-qty-row').style.display = 'flex';
-            payform.qty.value = '1';
-            document.getElementById('pay-coupon-row').style.display = 'flex';
-            payform.coupon.value = '';
-            payform.donate.value = '';
+        hasBeenFocused = {};
+        cardComplete = false;
+        cardError = null;
+        cardFocused = false;
+        if (payqty) payqty.value = '1';
+        if (paycoupon) {
+            paycoupon.value = '';
+            paycouponrow.style.display = 'flex';
+            paydiscountrow.style.display = 'none';
         }
+        if (paydonate) paydonate.value = '';
         if (canMakePayment) {
-            document.getElementById('pay-cardpmt').style.display = 'none';
+            paycardpmt.style.display = 'none';
         } else {
-            document.getElementById('pay-cardpmt').style.display = 'block';
-            payform.name.value = '';
-            emptyFields.name = true;
-            payform.email.value = '';
-            emptyFields.email = true;
-            payform.address.value = '';
-            emptyFields.address = true;
-            payform.city.value = '';
-            emptyFields.city = true;
-            payform.state.value = '';
-            emptyFields.state = true;
-            payform.zip.value = '';
-            emptyFields.zip = true;
+            paycardpmt.style.display = 'block';
+            payname.value = '';
+            payemail.value = '';
+            if (payaddress) {
+                payaddress.value = '';
+                paycity.value = '';
+                paystate.value = 'CA';
+                payzip.value = '';
+            }
             card.clear();
-            emptyFields.card = true;
         }
-        errorFields = {};
         setFormState();
 
         // Set seed data.
-        document.getElementById('pay-title').textContent = args.title;
-        document.getElementById('pay-item').textContent = args.description;
-        if (args.donate) {
-            paybutton.value = 'Donate $' + args.donate;
-        } else {
-            payqtytext.textContent = args.noun[0];
-            payqtyamount.textContent = '$' + args.price;
-            paybutton.textContent = 'Pay $' + args.price;
-        }
+        paytitle.textContent = args.title;
+        payitem.textContent = args.description;
 
         // Launch the modal dialog.
         $('#pay-dialog').modal({ backdrop: 'static' });

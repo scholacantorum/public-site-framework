@@ -1,5 +1,5 @@
 {{ define "main" }}
-    {{ .Scratch.Set "needPayForm" true }}
+    {{ .Scratch.Set "payForm" "subscription" }}
     {{ with .Site.GetPage "/home" }}
         <div class="homepage">
             <div><h1>{{ .Title }}</h1>{{ .Content }}</div>

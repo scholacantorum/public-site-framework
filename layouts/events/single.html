@@ -1,4 +1,5 @@
 {{ define "main" }}
+    {{ .Scratch.Set "payForm" "ticket" -}}
     <div class="concert">
         {{ with $.Page.Resources.GetMatch "image.*" }}
             <img class="concertimg1" src="{{ (.Fit "296x296").RelPermalink }}">

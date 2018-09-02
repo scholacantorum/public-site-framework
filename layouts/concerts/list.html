@@ -1,4 +1,5 @@
 {{ define "main" }}
+    {{ .Scratch.Set "payForm" "subscription" -}}
     {{ $s := newScratch }}
     {{ $s.Set "cols" (len .Pages) }}
     {{ if gt ($s.Get "cols") 4 }}{{ $s.Set "cols" 4 }}{{ end }}

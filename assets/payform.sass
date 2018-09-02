@@ -1,0 +1,116 @@
+@import "_globals.sass"
+
+#pay-dialog .modal-dialog
+    margin: 10px
+    @media (min-width: 420px)
+        max-width: 400px
+        margin: 30px auto
+#pay-item
+    font-weight: bold
+    margin-bottom: 8px
+#pay-qty-row
+    display: flex
+    align-items: baseline
+#pay-qty
+    width: 70px
+    margin-right: 8px
+    font-size: 20px
+    line-height: 1
+    flex: none
+#pay-qty-text
+    flex: auto
+    &.pay-qty-plural
+        line-height: 1
+        align-self: center
+#pay-qty-amount
+    font-size: 20px
+    flex: none
+#pay-coupon-row
+    display: flex
+    align-items: center
+    margin: 6px 0
+#pay-coupon-label
+    width: calc(50% - 6px)
+    margin: 0 12px 0 0
+    flex: none
+    line-height: 1
+#pay-coupon
+    width: calc(50% - 6px)
+    flex: none
+#pay-discount-row
+    display: flex
+    justify-content: space-between
+    align-items: center
+#pay-discount-label
+    margin-right: 12px
+    flex: auto
+    line-height: 1
+#pay-discount
+    font-size: 20px
+    flex: none
+#pay-donate-row
+    display: flex
+    align-items: center
+    justify-content: space-between
+#pay-donate-label
+    margin: 0 12px 0 0
+    line-height: 1
+#pay-donate
+    width: 70px
+    flex: none
+    text-align: right
+    font-size: 20px
+    line-height: 1
+    padding-right: 0
+#pay-total-row
+    display: flex
+    justify-content: flex-end
+#pay-total
+    font-size: 20px
+    border-top: 2px solid black
+    margin-top: 2px
+    padding-left: 6px
+#pay-divider
+    border-top: 1px solid #ccc
+    margin: 6px 0 12px // less on top because of unused descender space on total
+#pay-email
+    margin-top: 6px
+#pay-address
+    margin-top: 6px
+#pay-csz-row
+    display: flex
+    justify-content: stretch
+    margin-top: 6px
+#pay-city
+    width: 50%
+    flex: auto
+#pay-state
+    width: 60px
+    margin: 0 8px
+    padding: 6px
+    flex: none
+#pay-zip
+    width: 34%
+    flex: auto
+#pay-card
+    margin-top: 6px
+    padding: 8px 12px
+#pay-footer
+    flex-direction: column
+    align-items: stretch
+#pay-message
+    font-weight: bold
+    margin-bottom: 8px
+    white-space: pre-wrap
+.pay-message-good
+    color: $scholaBlue
+.pay-message-bad
+    color: $errorColor
+#pay-buttons
+    display: flex
+    justify-content: flex-end
+    button
+        margin-left: 8px
+#pay-apple
+    text-align: right
+    min-width: 110px
