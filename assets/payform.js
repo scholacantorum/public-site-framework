@@ -473,19 +473,22 @@ window.addEventListener('load', function () {
     }
 
     function sendCardSource() {
-        stripe.createSource(card, {
+        var params = {
             owner: {
-                name: payform.name.value,
-                email: payform.email.value,
-                address: {
-                    line1: payform.address.value,
-                    city: payform.city.value,
-                    state: payform.state.value,
-                    postal_code: payform.zip.value,
-                    country: 'US',
-                },
+                name: payname.value,
+                email: payemail.value,
             }
-        }).then(function (result) {
+        };
+        if (payaddress) {
+            params.owner.address = {
+                line1: payaddress.value,
+                city: paycity.value,
+                state: paystate.value,
+                postal_code: payzip.value,
+                country: 'US',
+            };
+        };
+        stripe.createSource(card, params).then(function (result) {
             if (result.error) {
                 setFormState('rejected', result.error.message);
             } else {
