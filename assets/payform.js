@@ -306,17 +306,19 @@ window.addEventListener('load', function () {
         switch (payFormState) {
             case 'entry':
                 if (valid) {
-                    paybutton.style.display = 'block';
+                    payapple.style.display = 'block';
                     paybutton.removeAttribute('disabled');
+                    if (applepaybutton) applepaybutton.update({ disabled: true });
                     break;
                 } // else fall through
             case 'processing':
             case 'rejected':
-                paybutton.style.display = 'block';
+                payapple.style.display = 'block';
                 paybutton.setAttribute('disabled', 'disabled');
+                if (applepaybutton) applepaybutton.update({ disabled: true });
                 break;
             case 'accepted':
-                paybutton.style.display = 'none';
+                payapple.style.display = 'none';
                 break;
         }
 
@@ -516,6 +518,7 @@ window.addEventListener('load', function () {
     // Replace the payment button with an Apple Pay button.  If there's a div
     // for it on the base page, we assume we're handling a donation and style
     // the button that way.  (HACK!)
+    var applepaybutton;
     function setApplePayButton() {
         var apdiv = document.getElementById('applepaydiv');
         var args = { paymentRequest: paymentRequest };
@@ -524,9 +527,9 @@ window.addEventListener('load', function () {
         } else {
             apdiv = payapple;
         }
-        var apbut = elements.create('paymentRequestButton', args);
-        apbut.mount(apdiv);
-        apbut.on('click', function (evt) {
+        applepaybutton = elements.create('paymentRequestButton', args);
+        applepaybutton.mount(apdiv);
+        applepaybutton.on('click', function (evt) {
             if (!updatePaymentRequest())
                 evt.preventDefault();
         })
