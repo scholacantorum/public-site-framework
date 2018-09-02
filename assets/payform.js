@@ -207,6 +207,7 @@ window.addEventListener('load', function () {
             city: payform.city.value,
             state: payform.state.value,
             zip: payform.zip.value,
+            payType: 'cardEntry',
             paySource: sourceID,
         }
         sendToServer(params, function () {
@@ -225,6 +226,7 @@ window.addEventListener('load', function () {
             city: pay.shippingAddress.city,
             state: pay.shippingAddress.region,
             zip: pay.shippingAddress.postalCode,
+            payType: canMakePayment.applePay ? 'applePay' : 'paymentAPI',
             paySource: pay.source.id,
         };
         sendToServer(params, function () {
