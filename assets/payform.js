@@ -310,7 +310,8 @@ window.addEventListener('load', function () {
                     paybutton.removeAttribute('disabled');
                     break;
                 } // else fall through
-            case 'processing', 'rejected':
+            case 'processing':
+            case 'rejected':
                 paybutton.style.display = 'block';
                 paybutton.setAttribute('disabled', 'disabled');
                 break;
@@ -321,7 +322,8 @@ window.addEventListener('load', function () {
 
         // Set the cancel button state.
         switch (payFormState) {
-            case 'entry', 'rejected':
+            case 'entry':
+            case 'rejected':
                 paycancel.textContent = 'Cancel';
                 paycancel.removeAttribute('disabled');
                 break;
