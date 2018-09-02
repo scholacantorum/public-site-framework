@@ -635,10 +635,10 @@ window.addEventListener('load', function () {
         }
         if (paydonate) paydonate.value = '';
         if (canMakePayment) {
-            paydivider.style.display = 'none';
+            if (paydivider) paydivider.style.display = 'none';
             paycardpmt.style.display = 'none';
         } else {
-            paydivider.style.display = 'block';
+            if (paydivider) paydivider.style.display = 'block';
             paycardpmt.style.display = 'block';
             payname.value = '';
             payemail.value = '';
