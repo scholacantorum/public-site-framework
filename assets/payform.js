@@ -18,6 +18,7 @@ window.addEventListener('load', function () {
     // References to all of the form controls and divs.  Note that some of these
     // may not exist, depending on which payment form is on the page.
     var paytitle = document.getElementById('pay-title');
+    var paydetails = document.getElementById('pay-details');
     var payitem = document.getElementById('pay-item');
     var payqty = document.getElementById('pay-qty');
     var payqtytext = document.getElementById('pay-qty-text');
@@ -36,6 +37,16 @@ window.addEventListener('load', function () {
     var paycity = document.getElementById('pay-city');
     var paystate = document.getElementById('pay-state');
     var payzip = document.getElementById('pay-zip');
+    var payconfirm = document.getElementById('pay-confirm');
+    var payinformemail = document.getElementById('pay-inform-email');
+    var payinformemaildone = document.getElementById('pay-inform-email-done');
+    var payinformpmaildiv = document.getElementById('pay-inform-pmail-div');
+    var payinformpmail = document.getElementById('pay-inform-pmail');
+    var payinformpmaildone = document.getElementById('pay-inform-pmail-done');
+    var payinformfacebook = document.getElementById('pay-inform-facebook');
+    var payinformfacebookdone = document.getElementById('pay-inform-facebook-done');
+    var payinformtwitter = document.getElementById('pay-inform-twitter');
+    var payinformtwitterdone = document.getElementById('pay-inform-twitter-done');
     var paymessage = document.getElementById('pay-message');
     var payapple = document.getElementById('pay-apple');
     var paybutton = document.getElementById('pay-button');
@@ -47,8 +58,9 @@ window.addEventListener('load', function () {
     var paymentRequest;
     var canMakePayment;
 
-    // payFormState records the state of the form: "entry", "processing",
-    // "rejected", or "accepted".
+    // payFormState records the state of the form: "entry", "processing", or
+    // "rejected".  (Accepted payments switch to a different state engine
+    // entirely.)
     var payFormState;
 
     // hasBeenFocused is a set of names of form fields that have received focus.
@@ -73,7 +85,27 @@ window.addEventListener('load', function () {
     //   - effectivePrice = price per unit after coupon applied
     //   - effectiveProduct = product code after coupon applied
     //   - total = order total including coupon and additional donation
+    //   - id = Stripe order ID for successfully processed order
     var orderDetails;
+
+    // Switch to the payment confirmation form.
+    function showPaymentConfirm() {
+        paydetails.style.display = 'none';
+        payconfirm.style.display = 'block';
+        if (payaddress) {
+            payinformpmaildiv.style.display = 'block';
+        } else {
+            payinformpmaildiv.style.display = 'none';
+        }
+        payinformemaildone.style.display = 'none';
+        payinformpmaildone.style.display = 'none';
+        payinformfacebookdone.style.display = 'none';
+        payinformtwitterdone.style.display = 'none';
+        paymessage.style.display = 'none';
+        payapple.style.display = 'none';
+        paycancel.textContent = 'Close';
+        paycancel.removeAttribute('disabled');
+    }
 
     // Set the payment message and the state and labels of the buttons
     // appropriately for the state of the dialog.
@@ -119,7 +151,7 @@ window.addEventListener('load', function () {
                 payqtyamount.textContent = '$' + orderDetails.total;
                 orderDetails.qty = qty;
             }
-            if (payFormState === 'processing' || payFormState === 'accepted') {
+            if (payFormState === 'processing') {
                 payqty.setAttribute('disabled', 'disabled');
             } else {
                 payqty.removeAttribute('disabled');
@@ -152,7 +184,7 @@ window.addEventListener('load', function () {
                     if (document.activeElement !== paycoupon)
                         errors.push('The coupon code is not recognized.');
                 }
-                if (payFormState === 'processing' || payFormState === 'accepted') {
+                if (payFormState === 'processing') {
                     paycoupon.setAttribute('disabled', 'disabled');
                 } else {
                     paycoupon.removeAttribute('disabled');
@@ -175,7 +207,7 @@ window.addEventListener('load', function () {
                     orderDetails.total += donate;
                 }
             }
-            if (payFormState === 'processing' || payFormState === 'accepted') {
+            if (payFormState === 'processing') {
                 paydonate.setAttribute('disabled', 'disabled');
             } else {
                 paydonate.removeAttribute('disabled');
@@ -196,7 +228,7 @@ window.addEventListener('load', function () {
                 if (document.activeElement !== payname && hasBeenFocused[payname.name])
                     errors.push('Please provide your name.');
             }
-            if (payFormState === 'processing' || payFormState === 'accepted') {
+            if (payFormState === 'processing') {
                 payname.setAttribute('disabled', 'disabled');
             } else {
                 payname.removeAttribute('disabled');
@@ -209,7 +241,7 @@ window.addEventListener('load', function () {
                 if (document.activeElement !== payemail && hasBeenFocused[payemail.name])
                     errors.push('Please provide a valid email address.');
             }
-            if (payFormState === 'processing' || payFormState === 'accepted') {
+            if (payFormState === 'processing') {
                 payemail.setAttribute('disabled', 'disabled');
             } else {
                 payemail.removeAttribute('disabled');
@@ -222,7 +254,7 @@ window.addEventListener('load', function () {
                     if (document.activeElement !== payaddress && hasBeenFocused[payaddress.name])
                         errors.push('Please provide your mailing address.');
                 }
-                if (payFormState === 'processing' || payFormState === 'accepted') {
+                if (payFormState === 'processing') {
                     payaddress.setAttribute('disabled', 'disabled');
                 } else {
                     payaddress.removeAttribute('disabled');
@@ -233,13 +265,13 @@ window.addEventListener('load', function () {
                     if (document.activeElement !== paycity && hasBeenFocused[paycity.name])
                         errors.push('Please provide your mailing address city.');
                 }
-                if (payFormState === 'processing' || payFormState === 'accepted') {
+                if (payFormState === 'processing') {
                     paycity.setAttribute('disabled', 'disabled');
                 } else {
                     paycity.removeAttribute('disabled');
                 }
 
-                if (payFormState === 'processing' || payFormState === 'accepted') {
+                if (payFormState === 'processing') {
                     paystate.setAttribute('disabled', 'disabled');
                 } else {
                     paystate.removeAttribute('disabled');
@@ -250,7 +282,7 @@ window.addEventListener('load', function () {
                     if (document.activeElement !== payzip && hasBeenFocused[payzip.name])
                         errors.push('Please provide your 5- or 9-digit zip code.');
                 }
-                if (payFormState === 'processing' || payFormState === 'accepted') {
+                if (payFormState === 'processing') {
                     payzip.setAttribute('disabled', 'disabled');
                 } else {
                     payzip.removeAttribute('disabled');
@@ -266,7 +298,7 @@ window.addEventListener('load', function () {
                 if (!cardFocused && hasBeenFocused.card)
                     errors.push(cardError || 'Please provide your payment card information.');
             }
-            if (payFormState === 'processing' || payFormState === 'accepted') {
+            if (payFormState === 'processing') {
                 card.update({ disabled: true });
             } else {
                 card.update({ disabled: false });
@@ -287,10 +319,6 @@ window.addEventListener('load', function () {
             paymessage.className = 'pay-message-bad';
             paymessage.style.display = 'block';
             paymessage.textContent = message || 'We apologize that we are unable to process your payment at this time.  Please try again later, or call the Schola Cantorum office at 650-254‑1700.';
-        } else if (payFormState === 'accepted') {
-            paymessage.className = 'pay-message-good';
-            paymessage.style.display = 'block';
-            paymessage.textContent = 'Thank you.  We have received your payment and emailed you a confirmation.';
         } else {
             paymessage.style.display = 'none';
         }
@@ -317,9 +345,6 @@ window.addEventListener('load', function () {
                 paybutton.setAttribute('disabled', 'disabled');
                 if (applepaybutton) applepaybutton.update({ disabled: true });
                 break;
-            case 'accepted':
-                payapple.style.display = 'none';
-                break;
         }
 
         // Set the cancel button state.
@@ -332,10 +357,6 @@ window.addEventListener('load', function () {
             case 'processing':
                 paycancel.textContent = 'Cancel';
                 paycancel.setAttribute('disabled', 'disabled');
-                break;
-            case 'accepted':
-                paycancel.textContent = 'Close';
-                paycancel.removeAttribute('disabled');
                 break;
         }
     }
@@ -366,7 +387,10 @@ window.addEventListener('load', function () {
             method: "POST",
         }).then(function (result) {
             if (result.ok) {
-                success();
+                result.text().then(function (t) {
+                    orderDetails.id = t.trim();
+                    success();
+                });
                 if (scholaPaymentAcceptedHook) scholaPaymentAcceptedHook();
             } else if (result.status === 400) {
                 result.text().then(function (err) {
@@ -395,7 +419,8 @@ window.addEventListener('load', function () {
             params.zip = payzip.value;
         }
         sendToServer(params, function () {
-            setFormState('accepted');
+            if (!scholaPaymentAcceptedHook)
+                showPaymentConfirm();
         }, function (err) {
             setFormState('rejected', err);
         });
@@ -418,8 +443,8 @@ window.addEventListener('load', function () {
         sendToServer(params, function () {
             pay.complete('success');
             if (!scholaPaymentAcceptedHook)
-                setFormState('accepted');
-        }, function () {
+                showPaymentConfirm();
+        }, function (err) {
             pay.complete('fail');
             if (!scholaPaymentAcceptedHook)
                 setFormState('rejected', err);
@@ -579,6 +604,25 @@ window.addEventListener('load', function () {
     payform.addEventListener('submit', onPayFormSubmit);
     paycancel.addEventListener('click', function () { $('#pay-dialog').modal('hide'); })
 
+    // Set event handlers on the confirmation links.
+    payinformemail.addEventListener('click', function () {
+        window.open('/backend/email-signup?order=' + orderDetails.id, '_blank');
+        payinformemaildone.style.display = 'block';
+    });
+    payinformpmail.addEventListener('click', function () {
+        fetch('/backend/mail-signup?order=' + orderDetails.id, { method: 'POST' }).then(function (r) {
+            if (r.ok) payinformpmaildone.style.display = 'block';
+        });
+    });
+    payinformfacebook.addEventListener('click', function () {
+        payinformfacebookdone.style.display = 'block';
+        window.open('https://www.facebook.com/scholacantorum.org', '_blank');
+    });
+    payinformtwitter.addEventListener('click', function () {
+        payinformtwitterdone.style.display = 'block';
+        window.open('https://twitter.com/scholacantorum1', '_blank');
+    });
+
     // Find out whether the payment request API is supported.
     paymentRequest = {
         country: 'US', currency: 'usd',
@@ -655,6 +699,10 @@ window.addEventListener('load', function () {
             }
             card.clear();
         }
+        payapple.style.display = 'block';
+        paycancel.textContent = 'Cancel';
+        paydetails.style.display = 'block';
+        payconfirm.style.display = 'none';
         setFormState();
 
         // Set seed data.

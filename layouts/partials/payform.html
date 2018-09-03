@@ -10,99 +10,121 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="pay-item"></div>
-                    {{ if or (eq $payForm "ticket") (eq $payForm "subscription") }}
-                        <div id="pay-qty-row">
-                            <input id="pay-qty" type="number" class="form-control" name="qty" placeholder="Qty" min="1">
-                            <div id="pay-qty-text"></div>
-                            <div id="pay-qty-amount"></div>
-                        </div>
-                    {{ end }}
-                    {{ if eq $payForm "ticket" }}
-                        <div id="pay-coupon-row">
-                            <label id="pay-coupon-label" for="pay-coupon">Do you have a coupon&nbsp;code?</label>
-                            <input id="pay-coupon" type="text" class="form-control" name="coupon" placeholder="Coupon Code">
-                        </div>
-                        <div id="pay-discount-row" style="display:none">
-                            <div id="pay-discount-label">Coupon code SCHOLA1819</div>
-                            <div id="pay-discount">−12</div>
-                        </div>
-                    {{ end }}
-                    {{ if ne $payForm "donation" }}
-                        <div id="pay-donate-row">
-                            <label id="pay-donate-label" for="pay-donate">Add a donation to&nbsp;your&nbsp;order?</label>
-                            <input id="pay-donate" type="number" class="form-control" name="donate" placeholder="0" min="0">
-                        </div>
-                        <div id="pay-total-row">
-                            <div id="pay-total">$123</div>
-                        </div>
-                        <div id="pay-divider"></div>
-                    {{ end }}
-                    <div id="pay-cardpmt">
-                        <input id="pay-name" type="text" class="form-control" name="name" placeholder="Your name">
-                        <input id="pay-email" type="email" class="form-control" name="email" placeholder="Email address">
-                        {{ if or (eq $payForm "subscription") (eq $payForm "donation") }}
-                            <input id="pay-address" type="text" class="form-control" name="address" placeholder="Mailing address">
-                            <div id="pay-csz-row">
-                                <input id="pay-city" type="text" class="form-control" name="city" placeholder="City">
-                                <select id="pay-state" class="form-control" name="state">
-                                    <option>AK</option>
-                                    <option>AL</option>
-                                    <option>AR</option>
-                                    <option>AZ</option>
-                                    <option>CA</option>
-                                    <option>CO</option>
-                                    <option>CT</option>
-                                    <option>DC</option>
-                                    <option>DE</option>
-                                    <option>FL</option>
-                                    <option>GA</option>
-                                    <option>HI</option>
-                                    <option>IA</option>
-                                    <option>ID</option>
-                                    <option>IL</option>
-                                    <option>IN</option>
-                                    <option>KS</option>
-                                    <option>KY</option>
-                                    <option>LA</option>
-                                    <option>MA</option>
-                                    <option>MD</option>
-                                    <option>ME</option>
-                                    <option>MI</option>
-                                    <option>MN</option>
-                                    <option>MO</option>
-                                    <option>MS</option>
-                                    <option>MT</option>
-                                    <option>NC</option>
-                                    <option>ND</option>
-                                    <option>NE</option>
-                                    <option>NH</option>
-                                    <option>NJ</option>
-                                    <option>NM</option>
-                                    <option>NV</option>
-                                    <option>NY</option>
-                                    <option>OH</option>
-                                    <option>OK</option>
-                                    <option>OR</option>
-                                    <option>PA</option>
-                                    <option>PR</option>
-                                    <option>RI</option>
-                                    <option>SC</option>
-                                    <option>SD</option>
-                                    <option>TN</option>
-                                    <option>TX</option>
-                                    <option>UT</option>
-                                    <option>VA</option>
-                                    <option>VT</option>
-                                    <option>WA</option>
-                                    <option>WI</option>
-                                    <option>WV</option>
-                                    <option>WY</option>
-                                </select>
-                                <input id="pay-zip" type="text" class="form-control" name="zip" placeholder="Zip" maxlength="10">
+                    <div id="pay-details">
+                        <div id="pay-item"></div>
+                        {{ if or (eq $payForm "ticket") (eq $payForm "subscription") }}
+                            <div id="pay-qty-row">
+                                <input id="pay-qty" type="number" class="form-control" name="qty" placeholder="Qty" min="1">
+                                <div id="pay-qty-text"></div>
+                                <div id="pay-qty-amount"></div>
                             </div>
                         {{ end }}
-                        <div id="pay-card" class="form-control"></div>
+                        {{ if eq $payForm "ticket" }}
+                            <div id="pay-coupon-row">
+                                <label id="pay-coupon-label" for="pay-coupon">Do you have a coupon&nbsp;code?</label>
+                                <input id="pay-coupon" type="text" class="form-control" name="coupon" placeholder="Coupon Code">
+                            </div>
+                            <div id="pay-discount-row" style="display:none">
+                                <div id="pay-discount-label">Coupon code SCHOLA1819</div>
+                                <div id="pay-discount">−12</div>
+                            </div>
+                        {{ end }}
+                        {{ if ne $payForm "donation" }}
+                            <div id="pay-donate-row">
+                                <label id="pay-donate-label" for="pay-donate">Add a donation to&nbsp;your&nbsp;order?</label>
+                                <input id="pay-donate" type="number" class="form-control" name="donate" placeholder="0" min="0">
+                            </div>
+                            <div id="pay-total-row">
+                                <div id="pay-total">$123</div>
+                            </div>
+                            <div id="pay-divider"></div>
+                        {{ end }}
+                        <div id="pay-cardpmt">
+                            <input id="pay-name" type="text" class="form-control" name="name" placeholder="Your name">
+                            <input id="pay-email" type="email" class="form-control" name="email" placeholder="Email address">
+                            {{ if or (eq $payForm "subscription") (eq $payForm "donation") }}
+                                <input id="pay-address" type="text" class="form-control" name="address" placeholder="Mailing address">
+                                <div id="pay-csz-row">
+                                    <input id="pay-city" type="text" class="form-control" name="city" placeholder="City">
+                                    <select id="pay-state" class="form-control" name="state">
+                                        <option>AK</option>
+                                        <option>AL</option>
+                                        <option>AR</option>
+                                        <option>AZ</option>
+                                        <option>CA</option>
+                                        <option>CO</option>
+                                        <option>CT</option>
+                                        <option>DC</option>
+                                        <option>DE</option>
+                                        <option>FL</option>
+                                        <option>GA</option>
+                                        <option>HI</option>
+                                        <option>IA</option>
+                                        <option>ID</option>
+                                        <option>IL</option>
+                                        <option>IN</option>
+                                        <option>KS</option>
+                                        <option>KY</option>
+                                        <option>LA</option>
+                                        <option>MA</option>
+                                        <option>MD</option>
+                                        <option>ME</option>
+                                        <option>MI</option>
+                                        <option>MN</option>
+                                        <option>MO</option>
+                                        <option>MS</option>
+                                        <option>MT</option>
+                                        <option>NC</option>
+                                        <option>ND</option>
+                                        <option>NE</option>
+                                        <option>NH</option>
+                                        <option>NJ</option>
+                                        <option>NM</option>
+                                        <option>NV</option>
+                                        <option>NY</option>
+                                        <option>OH</option>
+                                        <option>OK</option>
+                                        <option>OR</option>
+                                        <option>PA</option>
+                                        <option>PR</option>
+                                        <option>RI</option>
+                                        <option>SC</option>
+                                        <option>SD</option>
+                                        <option>TN</option>
+                                        <option>TX</option>
+                                        <option>UT</option>
+                                        <option>VA</option>
+                                        <option>VT</option>
+                                        <option>WA</option>
+                                        <option>WI</option>
+                                        <option>WV</option>
+                                        <option>WY</option>
+                                    </select>
+                                    <input id="pay-zip" type="text" class="form-control" name="zip" placeholder="Zip" maxlength="10">
+                                </div>
+                            {{ end }}
+                            <div id="pay-card" class="form-control"></div>
+                        </div>
+                    </div>
+                    <div id="pay-confirm" style="display:none">
+                        <div id="pay-confirm-msg">Thank you.  We have received your payment and emailed you a confirmation.</div>
+                        <div id="pay-inform-head">Stay informed of Schola news!</div>
+                        <div id="pay-inform-email-div">
+                            <div id="pay-inform-email-done" class="pay-inform-done" style="display:none">✓</div>
+                            <div id="pay-inform-email" class="pay-inform-link">Subscribe to our email list</div>
+                        </div>
+                        <div id="pay-inform-pmail-div">
+                            <div id="pay-inform-pmail-done" class="pay-inform-done" style="display:none">✓</div>
+                            <div id="pay-inform-pmail" class="pay-inform-link">Subscribe to our postal mail list</div>
+                        </div>
+                        <div id="pay-inform-facebook-div">
+                            <div id="pay-inform-facebook-done" class="pay-inform-done" style="display:none">✓</div>
+                            <div id="pay-inform-facebook" class="pay-inform-link">Follow us on Facebook</div>
+                        </div>
+                        <div id="pay-inform-twitter-div">
+                            <div id="pay-inform-twitter-done" class="pay-inform-done" style="display:none">✓</div>
+                            <div id="pay-inform-twitter" class="pay-inform-link">Follow us on Twitter</div>
+                        </div>
                     </div>
                 </div>
                 <div id="pay-footer" class="modal-footer">
