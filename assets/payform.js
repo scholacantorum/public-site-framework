@@ -390,16 +390,20 @@ window.addEventListener('load', function () {
                 result.text().then(function (t) {
                     orderDetails.id = t.trim();
                     success();
+                    dataLayer.push({ event: 'orderSucceeded' });
                 });
                 if (scholaPaymentAcceptedHook) scholaPaymentAcceptedHook();
             } else if (result.status === 400) {
                 result.text().then(function (err) {
+                    dataLayer.push({ event: 'orderFailed' });
                     failure(err);
                 })
             } else {
+                dataLayer.push({ event: 'orderFailed' });
                 failure();
             }
         }).catch(function (err) {
+            dataLayer.push({ event: 'orderFailed' });
             failure();
         })
     }
@@ -660,6 +664,7 @@ window.addEventListener('load', function () {
     //     - product = product code to use when that coupon code is applied
     scholaGetPayment = function (args) {
         orderDetails = args;
+        dataLayer.push({ event: 'orderStarted ' });
 
         // Special case for donation with payment request, because we don't
         // raise any modal dialog.
