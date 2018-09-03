@@ -3,6 +3,12 @@ ignoreFiles:
     - README.md
     - asset-archive/.*
 languageCode: en-us
+menu:
+    dropdown:
+    -   name: Members Web Site
+        title: Members Web Site
+        url: https://scholacantorummembers.org/
+        weight: 80
 params:
     env: sandbox
     stripeMode: test
