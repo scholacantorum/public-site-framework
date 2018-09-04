@@ -330,15 +330,16 @@ offline sales.
 
 A few caveats:
 
-* Keep the sheet sorted by order number.  The automation relies on that.
+* Don't change the column layout.  Adding new columns to the right is fine.
+  Resizing and hiding columns is fine.  But don't remove any of the existing
+  columns and don't add any new ones in between the existing columns.
 * Don't make any changes to data entered by the automation.  They may get
   overwritten the next time the automation runs.  (You can freely change the
   "Office Notes" column or the columns to the right of that; they won't get
   overwritten.)
-* Don't add new rows with order numbers that look like online order numbers.  If
-  an actual online order came through with the same number, your data could be
-  overwritten.  Best bet is to use order "numbers" that start with a letter, so
-  there's no possibility of collision.
+* Don't add new rows with anything that looks like a Stripe order ID (e.g.
+  `or_DWiZzcQvBFsqPp`) in the "ProcessorOrderNumber" column.  It might get
+  overwritten.
 
 ### Processing Refunds
 
@@ -400,11 +401,12 @@ of the Donate page.)
 
 Elsewhere in the concert page template, the files for each of the seatings get
 injected, and that's when Hugo comes across the `ticketform` shortcode in
-`seating1.md`.  The template for this shortcode is in `public-site-framework/layouts/shortcodes/ticketform.html`.
-It takes the product ID given in the shortcode (`ticket-2019-03-16`) and looks
-it up in the `products.json` file to find the product name, price, and coupon
-details.  It then generates a "Buy Tickets" button with those details attached
-as `data-*` attributes.
+`seating1.md`.  The template for this shortcode is in
+`public-site-framework/layouts/shortcodes/ticketform.html`.  It takes the
+product ID given in the shortcode (`ticket-2019-03-16`) and looks it up in the
+`products.json` file to find the product name, price, and coupon details.  It
+then generates a "Buy Tickets" button with those details attached as `data-*`
+attributes.
 
 The concert page template puts everything inside a definition of a "main" block.
 This tells Hugo to insert the concert page details into the body of the basic
@@ -538,7 +540,10 @@ order details in a POST call to
 `https://new.scholacantorum.org/backend/order-updated`.  This is yet another
 CGI program written in Go.  It takes the order data and updates the Google
 spreadsheet with it.  This happens when a new order is paid; it also happens
-later if a refund is issued.
+later if a refund is issued.  The program finds all lines in the spreadsheet
+that have the same Stripe order ID.  It adjusts the quantities and totals of
+those lines as needed, adds new lines as needed, and removes lines as needed.
+New lines are always added at the bottom of the sheet.
 
 4\. The page that confirms we received the order and payment.
 
