@@ -610,8 +610,9 @@ window.addEventListener('load', function () {
 
     // Set event handlers on the confirmation links.
     payinformemail.addEventListener('click', function () {
-        window.open('/backend/email-signup?order=' + orderDetails.id, '_blank');
-        payinformemaildone.style.display = 'block';
+        fetch('/backend/email-signup?order=' + orderDetails.id, { method: 'POST' }).then(function (r) {
+            if (r.status < 400) payinformemaildone.style.display = 'block';
+        });
     });
     payinformpmail.addEventListener('click', function () {
         fetch('/backend/mail-signup?order=' + orderDetails.id, { method: 'POST' }).then(function (r) {
