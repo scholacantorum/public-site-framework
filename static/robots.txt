@@ -1,2 +1,9 @@
 User-agent: *
-Disallow:
+Disallow: /LICENSE
+Disallow: /Neil/
+Disallow: /backend/
+Disallow: /categories/
+Disallow: /cgi-lib.pl
+Disallow: /confirms/
+Disallow: /formsav.cgi
+Disallow: /tags/
