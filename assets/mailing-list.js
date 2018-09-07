@@ -1,4 +1,4 @@
-document.addEventListener('load', function () {
+window.addEventListener('load', function () {
     var emaillistform = document.getElementById('emaillistform');
     if (emaillistform) {
         emaillistform.addEventListener('submit', function (evt) {
