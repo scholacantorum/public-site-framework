@@ -6,7 +6,7 @@
         {{ range .Resources.ByType "page" }}
             <div class="about-body">
                 {{ with $.Resources.GetMatch (print (index (last 2 (split .Dir "/")) 0) "/image.*") }}
-                    <img src="{{ ((.Resize "150x") | resources.Fingerprint).Permalink }}" class="floatleft2">
+                    <img src="{{ ((.Resize "150x") | resources.Fingerprint).Permalink }}" class="floatleft2" alt="{{ .Title }}">
                 {{ end }}
                 {{ .Content }}
             </div>

@@ -1,1 +1,3 @@
-<img src="{{ ((.Page.Resources.GetMatch (.Get 0)) | resources.Fingerprint).RelPermalink }}"{{ with .Get 1 }} alt="{{.}}"{{ end }} class="floatleft{{ if eq (.Get 2) 150 }}2{{ end }}">
+{{ $i := .Page.Resources.GetMatch (.Get 0) }}{{ if $i -}}
+<img src="{{ ($i | resources.Fingerprint).RelPermalink }}" alt="{{ with .Get 1 }}{{.}}{{ else }}{{ $i.Title }}{{ end }}" class="floatleft{{ if eq (.Get 2) 150 }}2{{ end }}">
+{{- end }}

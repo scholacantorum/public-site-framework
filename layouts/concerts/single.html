@@ -2,7 +2,7 @@
     {{ .Scratch.Set "payForm" "ticket" -}}
     <div class="concert">
         {{ with $.Page.Resources.GetMatch "image.*" }}
-            <img class="concertimg1" src="{{ ((.Fit "296x296") | resources.Fingerprint).RelPermalink }}">
+            <img class="concertimg1" src="{{ ((.Fit "296x296") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
         {{ end }}
         <div class="concertdata">
             <h1 id="concerttitle">{{ $.Page.Params.title }}</h1>
@@ -21,7 +21,7 @@
             </div>
         </div>
         {{ with $.Page.Resources.GetMatch "image.*" }}
-            <img class="concertimg2" src="{{ ((.Fit "296x296") | resources.Fingerprint).RelPermalink }}">
+            <img class="concertimg2" src="{{ ((.Fit "296x296") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
         {{ end }}
         <div class="concertbody">
             {{ .Content }}

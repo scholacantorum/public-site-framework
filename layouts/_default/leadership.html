@@ -7,7 +7,7 @@
             <div class="leaders-body">
                 <h2>{{ .Title }}</h2>
                 {{ with $.Resources.GetMatch (print (index (last 2 (split .Dir "/")) 0) "/image.*") }}
-                    <img src="{{ ((.Resize "150x") | resources.Fingerprint).Permalink }}" class="floatleft">
+                    <img src="{{ ((.Resize "150x") | resources.Fingerprint).Permalink }}" class="floatleft" alt="{{ .Title }}">
                 {{ end }}
                 {{ .Content }}
             </div>
