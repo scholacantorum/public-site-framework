@@ -1,4 +1,4 @@
-window.addEventListener('load', function () {
+document.addEventListener('load', function () {
     var publishform = document.getElementById('publishform');
     if (publishform) {
         publishform.addEventListener('submit', function (evt) {
