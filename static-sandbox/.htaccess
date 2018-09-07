@@ -19,3 +19,8 @@ RewriteOptions Inherit
 RewriteCond "%{REQUEST_URI}" "!^/stats"
 RewriteCond "%{HTTPS}" "!=on"
 RewriteRule "^/?(.*)" "https://new.scholacantorum.org/$1" [L,R=301]
+
+<FilesMatch "\.[0-9a-f]{64}\.[^.]+$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
+</FilesMatch>

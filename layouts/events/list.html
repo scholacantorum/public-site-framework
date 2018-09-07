@@ -9,7 +9,7 @@
                 {{ $image := .Resources.GetMatch "image.*" }}
                 {{ if $image }}
                     <a href="{{ .Permalink }}">
-                        <img src="{{ ($image.Fit "296x296").RelPermalink }}">
+                        <img src="{{ (($image.Fit "296x296") | resources.Fingerprint).RelPermalink }}">
                     </a>
                 {{ end }}
                 <div class="eventlistitemtitle">

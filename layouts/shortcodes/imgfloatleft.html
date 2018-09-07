@@ -1,0 +1,1 @@
+<img src="{{ ((.Page.Resources.GetMatch (.Get 0)) | resources.Fingerprint).RelPermalink }}"{{ with .Get 1 }} alt="{{.}}"{{ end }} class="floatleft{{ if eq (.Get 2) 150 }}2{{ end }}">
