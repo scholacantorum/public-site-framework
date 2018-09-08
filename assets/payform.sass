@@ -1,5 +1,61 @@
 @import "_globals.sass"
 
+// These are the styles for the modal payment dialog.  Its structure is:
+//     div#pay-dialog.modal
+//         div.modal-dialog
+//             form#pay-form.modal-content
+//                 div.modal-header
+//                     h5#pay-title.modal-title (the panel title)
+//                     button.close (the "X" close button)
+//                 div.modal-body
+//                     div#pay-details (shown when collecting order details)
+//                         div#pay-item (the item description)
+//                         div#pay-qty-row
+//                             input#pay-qty.form-control
+//                             div#pay-qty-text
+//                             div#pay-qty-amount
+//                         div#pay-coupon-row (shown while entering a coupon code)
+//                             label#pay-coupon-label
+//                             input#pay-coupon.form-control
+//                         div#pay-discount-row (shown after entering valid coupon code)
+//                             div#pay-discount-label
+//                             div#pay-discount
+//                         div#pay-donate-row
+//                             label#pay-donate-label
+//                             input#pay-donate.form-control
+//                         div#pay-total-row
+//                             div#pay-total
+//                         div#pay-divider
+//                         div#pay-cardpmt
+//                             input#pay-name.form-control
+//                             input#pay-email.form-control
+//                             input#pay-address.form-control
+//                             div#pay-csz-row
+//                                 input#pay-city.form-control
+//                                 select#pay-state.form-control
+//                                 input#pay-zip.form-control
+//                             div#pay-card (Stripe card number control injected here)
+//                     div#pay-confirm (shown after order is processed)
+//                         div#pay-confirm-msg (message confirming that order was processed)
+//                         div#pay-inform-head (heading for information links)
+//                         div#pay-inform-email-div
+//                             div#pay-inform-email-done.pay-inform-done (done checkmark)
+//                             div#pay-inform-email.pay-inform-link
+//                         div#pay-inform-pmail-div
+//                             div#pay-inform-pmail-done.pay-inform-done
+//                             div#pay-inform-pmail.pay-inform-link
+//                         div#pay-inform-facebook-div
+//                             div#pay-inform-facebook-done.pay-inform-done
+//                             div#pay-inform-facebook.pay-inform-link
+//                         div#pay-inform-twitter-div
+//                             div#pay-inform-twitter-done.pay-inform-done
+//                             div#pay-inform-twitter.pay-inform-link
+//                 div#pay-footer.model-footer
+//                     div#pay-message (errors and "Processing")
+//                     div#pay-buttons
+//                         div#pay-apple (Apple Pay button injected here)
+//                             button#pay-button
+//                         button#pay-cancel
 #pay-dialog .modal-dialog
     margin: 10px
     @media (min-width: 420px)
@@ -12,14 +68,14 @@
     display: flex
     align-items: baseline
 #pay-qty
-    width: 70px
+    width: 70px // minimum to fit the placeholder text
     margin-right: 8px
     font-size: 20px
     line-height: 1
     flex: none
 #pay-qty-text
     flex: auto
-    &.pay-qty-plural
+    &.pay-qty-plural // qty is > 1, so text may wrap to two lines
         line-height: 1
         align-self: center
 #pay-qty-amount
@@ -61,7 +117,7 @@
     text-align: right
     font-size: 20px
     line-height: 1
-    padding-right: 0
+    padding-right: 0 // so that numbers line up
 #pay-total-row
     display: flex
     justify-content: flex-end
@@ -85,7 +141,7 @@
     width: 50%
     flex: auto
 #pay-state
-    width: 60px
+    width: 60px // fits widest state abbreviation
     margin: 0 8px
     padding: 6px
     flex: none
@@ -111,7 +167,7 @@
         margin-left: 8px
 #pay-apple
     text-align: right
-    min-width: 110px
+    min-width: 110px // needs an explicit width
 
 #pay-confirm-msg
     color: $scholaBlue

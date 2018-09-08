@@ -25,8 +25,8 @@
                                 <input id="pay-coupon" type="text" class="form-control" name="coupon" placeholder="Coupon Code">
                             </div>
                             <div id="pay-discount-row" style="display:none">
-                                <div id="pay-discount-label">Coupon code SCHOLA1819</div>
-                                <div id="pay-discount">−12</div>
+                                <div id="pay-discount-label"></div>
+                                <div id="pay-discount"></div>
                             </div>
                         {{ end }}
                         {{ if ne $payForm "donation" }}
@@ -35,7 +35,7 @@
                                 <input id="pay-donate" type="number" class="form-control" name="donate" placeholder="0" min="0">
                             </div>
                             <div id="pay-total-row">
-                                <div id="pay-total">$123</div>
+                                <div id="pay-total"></div>
                             </div>
                             <div id="pay-divider"></div>
                         {{ end }}

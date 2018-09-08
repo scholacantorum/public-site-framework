@@ -1,8 +1,38 @@
 @import "_globals.sass"
 
+// This file contains the styles for the basic layout of every page.  It follows
+// this structure:
+//     form#publishform (styles in sandbox.sass)
+//     div#layout-heading
+//         a#layout-logo
+//         div#layout-heading-slug (the "Celebrating the Joy" slogan)
+//         nave#layout-navbar
+//             div#layout-navbar2 (the visible, L-to-R menu)
+//                 span#layout-menu.drowdown
+//                     a.nav-link.dropdown-toggle (the dropdown icon)
+//                     div.dropdown-menu.dropdown-menu-right (the dropdown menu)
+//     {{ page contents }}
+//     div#layout-affil (affiliate links)
+//         div#affil-links (the two buttons)
+//         div#affil-intro (the text describing them)
+//     div#layout-footer
+//         {{ phone number }}
+//         span#footer-spacer1 (sometimes horizontal, sometimes newline)
+//         {{ email address }}
+//         span#footer-spacer1 (sometimes horizontal, sometimes newline)
+//         a#footer-facebook
+//         a#footer-twitter
+//         span#footer-spacer2 (sometimes horizontal, sometimes newline)
+//         {{ address line 1 }}
+//         span#footer-spacer3 (sometimes horizontal, sometimes newline)
+//         {{ address line 2 }}
+//     {{ maybe payment form }}
+//
+// This file has lots of magic numbers, determined empirically.  They'll
+// probably need to be adjusted if we change the header images or menu contents.
 #layout-heading
     background-color: $scholaBlue
-    height: calc(18.48vw + 51px)
+    height: calc(18.48vw + 51px) // empirical, based on desired min and max size
     position: relative
     margin-bottom: 12px
 #layout-logo
@@ -31,7 +61,7 @@
     .nav-link
         display: inline
         padding: 0
-        vertical-align: -2px
+        vertical-align: -2px // the dropdown icon has unwanted space at the bottom
     .dropdown-toggle::after
         display: none
     .dropdown-menu
@@ -39,20 +69,24 @@
         border-top-left-radius: 0
         border-top-right-radius: 0
         border-top: none
-        margin: -10px 0 0
+        margin: -10px 0 0 // vertically adjacent to the bottom of the header
     .dropdown-item:focus, .dropdown-item:hover
         background-color: $scholaBlue
         color: #fff
     #layout-navbar2 > a, #layout-navbar2 span
-        margin-left: 1rem
+        margin-left: 16px
         &:first-child
             margin-left: 0
 @media (min-width: 504px)
+    // Don't let the header images grow anymore.
     #layout-heading
         height: 144px
     #layout-heading-slug
         width: 240px
 @media (min-width: 578px)
+    // Switch from two-line, narrow to one-line, wide "Celebrating" image.
+    // Also switch from navbar under both header images to navbar under
+    // "Celebrating" image only.
     #layout-heading
         height: 116px
     #layout-heading-slug
@@ -82,6 +116,7 @@
     a:first-child
         margin-right: 1rem
 @media (min-width: 430px)
+    // Put text to the right of buttons instead of below them.
     #layout-affil
         display: flex
         align-items: center
@@ -89,6 +124,7 @@
         margin-left: 1rem
         margin-bottom: 0
 @media (min-width: 530px)
+    // Arrange buttons horizontally instead of vertically.
     #layout-affil
         justify-content: center
     #affil-links
@@ -116,19 +152,23 @@
 #footer-spacer3
     display: block
 @media (min-width: 350px)
+    // Raise font size.
     #layout-footer
         font-size: 14px
 @media (min-width: 380px)
+    // Put phone, email, facebook, twitter on same line
     #layout-footer
         padding: 6px 12px
         font-size: 14px
     #footer-spacer1
         width: 1em
 @media (min-width: 420px)
+    // Put address, city, state, zip on same line
     #footer-spacer3
         display: inline-block
         width: 0.5rem
 @media (min-width: 770px)
+    // Put everything on one line
     #footer-spacer2
         display: inline-block
         width: 2rem
