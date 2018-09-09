@@ -1,6 +1,11 @@
+backend
 content
 data
-mail-signup/mail-signup
 public
 resources/_gen
-to-stripe/to-stripe
+static-sandbox/backend/publish-site
+static/backend/email-signup
+static/backend/mail-signup
+static/backend/order-updated
+static/backend/sku-updated
+static/backend/to-stripe
