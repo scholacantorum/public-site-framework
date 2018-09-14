@@ -74,9 +74,12 @@ window.addEventListener('load', function () {
     // null if the card number is valid.
     // cardFocused is a boolean indicating that the card entry field currently
     // has focus.
+    // cardDisabled is a boolean indicating that we have disabled the card
+    // entry field.
     var cardComplete = false;
     var cardError = null;
     var cardFocused = false;
+    var cardDisabled = false;
 
     // orderDetails tracks the details of the order in progress.  It is an
     // object with all of the keys passed to scholaGetPayment (which see), plus:
@@ -299,9 +302,15 @@ window.addEventListener('load', function () {
                     errors.push(cardError || 'Please provide your payment card information.');
             }
             if (payFormState === 'processing') {
-                card.update({ disabled: true });
+                if (!cardDisabled) {
+                    card.update({ disabled: true });
+                    cardDisabled = true;
+                }
             } else {
-                card.update({ disabled: false });
+                if (cardDisabled) {
+                    card.update({ disabled: false });
+                    cardDisabled = false;
+                }
             }
         }
 

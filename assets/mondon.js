@@ -30,9 +30,12 @@ window.addEventListener('load', function () {
     // null if the card number is valid.
     // cardFocused is a boolean indicating that the card entry field currently
     // has focus.
+    // cardDisabled is a boolean indicating whether we have disabled the card
+    // entry field.
     var cardComplete = false;
     var cardError = null;
     var cardFocused = false;
+    var cardDisabled = false;
 
     // Set the message and the state and labels of the buttons appropriately for
     // the state of the form.
@@ -171,9 +174,15 @@ window.addEventListener('load', function () {
                 errors.push(cardError || 'Please provide your payment card information.');
         }
         if (mondonFormState === 'processing' || mondonFormState === 'accepted') {
-            card.update({ disabled: true });
+            if (!cardDisabled) {
+                card.update({ disabled: true });
+                cardDisabled = true
+            }
         } else {
-            card.update({ disabled: false });
+            if (cardDisabled) {
+                card.update({ disabled: false });
+                cardDisabled = false
+            }
         }
 
         // Set the button visibility.
