@@ -244,7 +244,7 @@ window.addEventListener('load', function () {
             } else if (result.status === 400) {
                 result.text().then(function (err) {
                     ga('send', 'event', 'order', 'backend-reject');
-                    setFormState('rejected');
+                    setFormState('rejected', err);
                 })
             } else {
                 ga('send', 'event', 'order', 'backend-failure');
