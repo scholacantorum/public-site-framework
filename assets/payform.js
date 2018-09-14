@@ -432,8 +432,7 @@ window.addEventListener('load', function () {
             params.zip = payzip.value;
         }
         sendToServer(params, function () {
-            if (!scholaPaymentAcceptedHook)
-                showPaymentConfirm();
+            showPaymentConfirm();
         }, function (err) {
             setFormState('rejected', err);
         });
