@@ -1,0 +1,74 @@
+@import "_globals.sass"
+
+// These are the styles for the monthly donation form.  Its structure is:
+//     form#mondon-form
+//         div#mondon-amount-row
+//             label#mondon-amount-label
+//             input#mondon-amount.form-control
+//         div#mondon-count-row
+//             label#mondon-count-label
+//             input#mondon-count.form-control
+//         input#mondon-name.form-control
+//         input#mondon-email.form-control
+//         input#mondon-address.form-control
+//         div#mondon-csz-row
+//             input#mondon-city.form-control
+//             select#mondon-state.form-control
+//             input#mondon-zip.form-control
+//         div#mondon-card (Stripe card number control injected here)
+//         div#mondon-footer
+//             div#mondon-buttons
+//                 button#mondon-button
+//                 button#mondon-cancel
+//             div#mondon-message (errors and "Processing")
+#mondon-amount-row, #mondon-count-row
+    display: flex
+    align-items: center
+    justify-content: space-between
+#mondon-amount-label, #mondon-count-label
+    margin: 6px 12px 0 0
+    line-height: 1
+#mondon-amount-cell
+    display: flex
+    align-items: baseline
+    font-size: 20px
+    line-height: 1
+#mondon-amount, #mondon-count
+    width: 90px
+    flex: none
+    text-align: right
+    font-size: 20px
+    line-height: 1
+    margin-top: 6px
+#mondon-name, #mondon-email, #mondon-address
+    margin-top: 6px
+#mondon-csz-row
+    display: flex
+    justify-content: stretch
+    margin-top: 6px
+#mondon-city
+    width: 50%
+    flex: auto
+#mondon-state
+    width: 60px // fits widest state abbreviation
+    margin: 0 8px
+    padding: 6px
+    flex: none
+#mondon-zip
+    width: 34%
+    flex: auto
+#mondon-card
+    margin-top: 6px
+    padding: 8px 12px
+#mondon-footer
+    display: flex
+    flex-direction: column
+    margin-top: 12px
+#mondon-message
+    font-weight: bold
+    margin: 12px 0
+    white-space: pre-wrap
+.mondon-message-bad
+    color: $errorColor
+.mondon-message-goo
+    color: $scholaBlue
