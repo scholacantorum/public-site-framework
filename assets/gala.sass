@@ -1,0 +1,152 @@
+.gala
+    @media (min-width: 912px)
+        display: flex
+        justify-content: center
+.galaImages
+    display: flex
+    justify-content: center
+    @media (min-width: 912px)
+        flex-direction: column
+.galaLogo, .galaImage
+    width: 50vw
+    height: 50vw
+    max-width: 300px
+    max-height: 300px
+.galaLead
+    text-align: center
+    margin: 6px
+.galaBody
+    margin: 6px 12px
+    font-size: 14px
+    @media (min-width: 624px)
+        margin: 6px auto
+        max-width: 600px
+#galaForm
+    margin: 6px 12px
+    display: flex
+    flex-direction: column
+    @media (min-width: 624px)
+        margin: 6px auto
+        max-width: 600px
+.galaRegister
+    font-weight: bold
+    font-size: 18px
+    text-align: center
+    margin-bottom: 12px
+.galaQtyRow
+    display: flex
+    align-items: baseline
+#galaQty
+    width: 70px // minimum to fit the placeholder text
+    margin-right: 8px
+    font-size: 20px
+    line-height: 1
+    flex: none
+#galaQtyText
+    flex: auto
+    &.galaQtyPlural // qty is > 1, so text may wrap to two lines
+        line-height: 1
+        align-self: center
+#galaQtyAmount
+    font-size: 20px
+    flex: none
+.galaTableNote
+    font-size: 14px
+    margin-bottom: 12px
+.galaGuestList
+    display: flex
+    flex-wrap: wrap
+    margin: 0 auto 12px
+    max-width: 600px
+.galaGuestHead
+    width: calc(100vw - 24px)
+    @media (min-width: 540px)
+        width: 80px
+        margin: 0 12px 6px 0
+        align-self: center
+.galaGuestName
+    width: calc(100vw - 24px)
+    @media (min-width: 440px)
+        width: calc(50vw - 18px)
+        margin: 0 12px 6px 0
+    @media (min-width: 540px)
+        width: calc(50vw - 64px)
+    @media (min-width: 624px)
+        width: 248px
+.galaGuestEmail
+    width: calc(100vw - 24px)
+    margin-bottom: 6px
+    @media (min-width: 440px)
+        width: calc(50vw - 18px)
+    @media (min-width: 540px)
+        width: calc(50vw - 64px)
+    @media (min-width: 624px)
+        width: 248px
+.galaPayment
+    display: flex
+    flex-wrap: wrap
+    margin: 0 auto 18px
+    max-width: 600px
+.galaPaymentLabel
+    width: calc(100vw - 24px)
+    @media (min-width: 540px)
+        width: 100px
+        margin: 0 12px 0 0
+        align-self: center
+#galaPaymentCard
+    width: calc(100vw - 24px)
+    padding: 8px 12px
+    @media (min-width: 540px)
+        width: calc(100vw - 136px)
+    @media (min-width: 624px)
+        width: 488px
+.galaSave
+    display: flex
+    flex-wrap: wrap
+    margin: 0 auto 18px
+    max-width: 600px
+.galaSaveLabel
+    width: calc(100vw - 136px)
+    font-size: 14px
+    align-self: center
+    margin-right: 12px
+    line-height: 1
+    @media (min-width: 350px)
+        font-size: 16px
+    @media (min-width: 624px)
+        width: 488px
+#galaSaveLabelGuests
+    text-decoration: underline
+    font-style: italic
+.galaSaveYes
+    width:  50px
+    height: 50px
+    border: 1px solid #ccc
+    display: flex
+    justify-content: center
+    align-items: center
+.galaSaveNo
+    width: 50px
+    height: 50px
+    display: flex
+    justify-content: center
+    align-items: center
+    border: 1px solid #ccc
+    border-left: none
+#galaSaveYes2
+    border-top: none
+#galaSaveNo2
+    border-top: none
+.galaSaveSafety
+    font-size: 14px
+.galaSaveSafetyDetails
+    font-size: 14px
+    margin-left: 1em
+    line-height: 1
+.galaRequests
+    margin-bottom: 18px
+.galaButtons
+    margin-bottom: 18px
+    text-align: right
+#galaSubmit
+    margin-right: 12px

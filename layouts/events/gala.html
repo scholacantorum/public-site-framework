@@ -1,0 +1,81 @@
+{{ define "main" }}
+    <div class="gala">
+        <div class="galaImages">
+            {{ with $.Page.Resources.GetMatch "logo.*" }}
+                <img class="galaLogo" src="{{ ((.Fit "296x296") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
+            {{ end }}
+            {{ with $.Page.Resources.GetMatch "image.*" }}
+                <img class="galaImage" src="{{ ((.Fit "296x296") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
+            {{ end }}
+        </div>
+        <div class="galaText">
+            <div class="galaLead">
+                {{ with $.Page.Resources.GetMatch "lead.md" }}{{ .Content }}{{ end }}
+                <hr>
+            </div>
+            <div class="galaBody">
+                {{ .Content }}
+            </div>
+            <hr>
+            <form id="galaForm">
+                <a name="register" class="galaRegister">Fiesta Registration</a>
+                <div class="galaQtyRow">
+                    <input id="galaQty" class="form-control" type="number" min="1" placeholder="Qty" name="qty">
+                    <div id="galaQtyText"></div>
+                    <div id="galaQtyAmount"></div>
+                </div>
+                <div class="galaTableNote">Register 8 to 10 seats to fill a table.</div>
+                <div class="galaGuestList">
+                    <div class="galaGuestHead">Guest #1</div>
+                    <input id="guest1Name" class="galaGuestName form-control" placeholder="Your name">
+                    <input id="guest1Email" class="galaGuestEmail form-control" placeholder="Your email">
+                    <div class="galaGuestHead">Guest #2</div>
+                    <input id="guest2Name" class="galaGuestName form-control" placeholder="Name (if known)">
+                    <input id="guest2Email" class="galaGuestEmail form-control" placeholder="Email (if known)">
+                    <div class="galaGuestHead">Guest #3</div>
+                    <input id="guest3Name" class="galaGuestName form-control" placeholder="Name (if known)">
+                    <input id="guest3Email" class="galaGuestEmail form-control" placeholder="Email (if known)">
+                </div>
+                <div class="galaPayment">
+                    <div class="galaPaymentLabel">Payment card</div>
+                    <div id="galaPaymentCard" class="form-control"></div>
+                </div>
+                <div class="galaSave">
+                    <div class="galaSaveLabel">
+                        Should we use this card for your charges at the event?
+                    </div>
+                    <div id="galaSaveYes1" class="galaSaveYes">Yes</div>
+                    <div id="galaSaveNo1" class="galaSaveNo">No</div>
+                    <div class="galaSaveLabel">
+                        Should we use this card for your <span id="galaSaveLabelGuests">guest’s</span> charges?
+                    </div>
+                    <div id="galaSaveYes2" class="galaSaveYes">Yes</div>
+                    <div id="galaSaveNo2" class="galaSaveNo">No</div>
+                    <div class="galaSaveSafety">
+                        Your card is handled
+                        securely. <a id="galaSaveViewDetails" href="#">View
+                        details.</a>
+                    </div>
+                    <div class="galaSaveSafetyDetails" style="display:none">
+                        Schola Cantorum never sees your credit card number.
+                        This form sends it directly to
+                        <a href="https://stripe.com" target="_blank">Stripe</a>,
+                        the premier online credit card processor, which also
+                        handles payments for Amazon, Google, and many more.
+                        They know how to keep your card safe.
+                    </div>
+                </div>
+                <div class="galaRequests">
+                    <div class="galaRequestsHeading">
+                        Any special requests?
+                    </div>
+                    <textarea id="galaRequests" class="form-control" placeholder="Seating preferences, diet restrictions, etc."></textarea>
+                </div>
+                <div class="galaButtons">
+                    <button type="submit" id="galaSubmit" class="btn btn-primary">Register</button>
+                    <button type="button" id="galaCancel" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{{end}}
