@@ -20,6 +20,8 @@ window.addEventListener('load', function () {
     var galaqtytext = document.getElementById('galaQtyText');
     var galaqtyamount = document.getElementById('galaQtyAmount');
     var galacard = document.getElementById('galaPaymentCard');
+    var galasaveview = document.getElementById('galaSaveViewDetails');
+    var galasavedetails = document.getElementById('galaSaveSafetyDetails');
     // var paydivider = document.getElementById('pay-divider');
     // var paycardpmt = document.getElementById('pay-cardpmt');
     // var payname = document.getElementById('pay-name');
@@ -583,6 +585,11 @@ window.addEventListener('load', function () {
     // });
     // paymentRequest.on('source', sendPRToServer);
     // paymentRequest.on('cancel', function () { $('#pay-dialog').modal('hide'); })
+
+    galasaveview.addEventListener('click', function(evt) {
+        evt.preventDefault();
+        galasavedetails.style.display = 'block';
+    });
 
     // scholaGetPayment is the global function called to launch the payment
     // process.  It takes an object with the following keys:
