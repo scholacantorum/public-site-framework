@@ -2,10 +2,10 @@
     <div class="gala">
         <div class="galaImages">
             {{ with $.Page.Resources.GetMatch "logo.*" }}
-                <img class="galaLogo" src="{{ ((.Fit "296x296") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
+                <img class="galaLogo" src="{{ ((.Fit "300x300") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
             {{ end }}
             {{ with $.Page.Resources.GetMatch "image.*" }}
-                <img class="galaImage" src="{{ ((.Fit "296x296") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
+                <img class="galaImage" src="{{ ((.Fit "300x300") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
             {{ end }}
         </div>
         <div class="galaText">
