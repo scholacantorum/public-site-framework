@@ -43,21 +43,27 @@
     font-size: 20px
     line-height: 1
     flex: none
+.galaErrorBorder
+    border-color: red !important
 #galaQtyText
     flex: auto
-    &.galaQtyPlural // qty is > 1, so text may wrap to two lines
-        line-height: 1
-        align-self: center
 #galaQtyAmount
     font-size: 20px
     flex: none
-.galaTableNote
+.galaQtyNote
     font-size: 14px
     margin-bottom: 12px
-.galaGuestList
+.keep-together
+    display: inline-block
+#galaQtyError
+    color: red
+    font-size: 16px
+    font-weight: bold
+    display: inline-block
+.galaGuest
     display: flex
     flex-wrap: wrap
-    margin: 0 auto 12px
+    margin: 0 auto
     max-width: 600px
 .galaGuestHead
     width: calc(100vw - 24px)
@@ -83,10 +89,14 @@
         width: calc(50vw - 64px)
     @media (min-width: 624px)
         width: 248px
+#galaGuestError
+    width: calc(100vw - 24px)
+    color: red
+    font-weight: bold
 .galaPayment
     display: flex
     flex-wrap: wrap
-    margin: 0 auto 18px
+    margin: 12px auto 18px
     max-width: 600px
 .galaPaymentLabel
     width: calc(100vw - 24px)
@@ -101,10 +111,14 @@
         width: calc(100vw - 136px)
     @media (min-width: 624px)
         width: 488px
+#galaPaymentError
+    width: calc(100vw - 24px)
+    color: red
+    font-weight: bold
 .galaSave
     display: flex
     flex-wrap: wrap
-    margin: 0 auto 18px
+    margin: 0 auto
     max-width: 600px
 .galaSaveLabel
     width: calc(100vw - 136px)
@@ -119,25 +133,21 @@
 #galaSaveLabelGuests
     text-decoration: underline
     font-style: italic
-.galaSaveYes
+.galaSaveBtn
     width:  50px
     height: 50px
     border: 1px solid #ccc
+    border-radius: 4px
     display: flex
     justify-content: center
     align-items: center
-.galaSaveNo
-    width: 50px
-    height: 50px
-    display: flex
-    justify-content: center
-    align-items: center
-    border: 1px solid #ccc
-    border-left: none
-#galaSaveYes2
-    border-top: none
-#galaSaveNo2
-    border-top: none
+    background-color: white
+.galaSaveSelected
+    border: 3px solid #0071f0
+#galaSaveError1, #galaSaveError2
+    color: red
+    font-weight: bold
+    display: inline-block
 .galaSaveSafety
     font-size: 14px
 #galaSaveSafetyDetails
@@ -145,9 +155,20 @@
     margin-left: 1em
     line-height: 1
 .galaRequests
+    margin: 18px 0
+#galaButtons
     margin-bottom: 18px
-.galaButtons
-    margin-bottom: 18px
-    text-align: right
+    display: flex
+    justify-content: space-between
+    align-items: center
+#galaProcessing
+    font-weight: bold
 #galaSubmit
-    margin-right: 12px
+    flex: none
+#galaConfirm
+    font-weight: bold
+#paymentError
+    color: red
+    font-weight: bold
+    margin-bottom: 18px
+
