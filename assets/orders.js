@@ -2,40 +2,42 @@ window.addEventListener('load', function () {
 
     var subs = document.getElementsByClassName('buy-subscriptions');
     for (var i = 0; i < subs.length; i++) {
-        var s = subs[i];
-        s.addEventListener('click', function () {
-            scholaGetPayment({
-                price: parseInt(s.getAttribute('data-price')),
-                title: 'Subscription Order',
-                description: s.getAttribute('data-desc'),
-                noun: ['Subscription', 'Subscriptions'],
-                coupons: {},
-                product: s.getAttribute('data-product'),
+        (function(s) {
+            s.addEventListener('click', function () {
+                scholaGetPayment({
+                    price: parseInt(s.getAttribute('data-price')),
+                    title: 'Subscription Order',
+                    description: s.getAttribute('data-desc'),
+                    noun: ['Subscription', 'Subscriptions'],
+                    coupons: {},
+                    product: s.getAttribute('data-product'),
+                });
             });
-        });
+        })(subs[i]);
     }
 
     var tix = document.getElementsByClassName('buy-tickets');
     for (var i = 0; i < tix.length; i++) {
-        var t = tix[i];
-        t.addEventListener('click', function () {
-            var coupons = {};
-            for (var j = 1; ; j++) {
-                var code = t.getAttribute('data-coupon' + j);
-                if (!code) break;
-                var price = t.getAttribute('data-cprice' + j);
-                var product = t.getAttribute('data-cproduct' + j);
-                coupons[code] = { price: parseInt(price), product: product };
-            }
-            scholaGetPayment({
-                price: parseInt(t.getAttribute('data-price')),
-                title: 'Ticket Order',
-                description: t.getAttribute('data-desc'),
-                noun: ['Ticket', 'Tickets'],
-                coupons: coupons,
-                product: t.getAttribute('data-product'),
+        (function(t) {
+            t.addEventListener('click', function () {
+                var coupons = {};
+                for (var j = 1; ; j++) {
+                    var code = t.getAttribute('data-coupon' + j);
+                    if (!code) break;
+                    var price = t.getAttribute('data-cprice' + j);
+                    var product = t.getAttribute('data-cproduct' + j);
+                    coupons[code] = { price: parseInt(price), product: product };
+                }
+                scholaGetPayment({
+                    price: parseInt(t.getAttribute('data-price')),
+                    title: 'Ticket Order',
+                    description: t.getAttribute('data-desc'),
+                    noun: ['Ticket', 'Tickets'],
+                    coupons: coupons,
+                    product: t.getAttribute('data-product'),
+                });
             });
-        });
+        })(tix[i]);
     }
 
     var donationform = document.getElementById('donationform');
