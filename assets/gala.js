@@ -261,7 +261,7 @@ window.addEventListener('load', function () {
             } else {
                 galaCardSource.value = result.source.id;
                 var data = new FormData(galaForm);
-                fetch('https://gala.scholacantorum.org/backend/register', {
+                fetch('https://gala.scholacantorummembers.org/backend/register', {
                     method: 'POST',
                     body: data
                 }).then(function(result) {
