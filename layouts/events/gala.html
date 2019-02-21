@@ -26,53 +26,27 @@
                 </div>
                 <div class="galaQtyNote">
                     <span id="galaQtyError" style="display:none">Please specify the number of seats. </span>
-                    <span class="keep-together">Register 8 to 10 seats to fill a table.</span>
+                    <span class="keep-together">Register 10 seats to fill a table.</span>
+                </div>
+                <div class="galaHost">
+                    <div class="galaHostHead">Host</div>
+                    <input id="hostName" name="name1" class="galaHostName form-control" placeholder="Your name">
+                    <input id="hostEmail" name="email1" class="galaHostEmail form-control" placeholder="Your email">
+                    <input id="hostAddress" name="address" class="galaHostAddress form-control" placeholder="Your mailing address">
+                    <div class="galaHostCSZ">
+                        <input id="hostCity" name="city" class="galaHostCity form-control" placeholder="City">
+                        <input id="hostState" name="state" class="galaHostState form-control" placeholder="St">
+                        <input id="hostZip" name="zip" class="galaHostZip form-control" placeholder="Zip">
+                    </div>
+                    <div id="galaHostError" style="display:none">Please provide your name and addresses.</div>
                 </div>
                 <div id="galaGuestList">
-                    <div class="galaGuest">
-                        <div class="galaGuestHead">Guest #1</div>
-                        <input id="guestName1" name="name1" class="galaGuestName form-control" placeholder="Your name">
-                        <input id="guestEmail1" name="email1" class="galaGuestEmail form-control" placeholder="Your email">
-                        <div id="galaGuestError" style="display:none">Please provide your name and email address.</div>
-                    </div>
                 </div>
                 <div class="galaPayment">
                     <div class="galaPaymentLabel">Payment card</div>
                     <div id="galaPaymentCard" class="form-control"></div>
                     <div id="galaPaymentCardError" style="display:none">Random error message</div>
                     <input id="galaCardSource" type="hidden" name="cardSource">
-                </div>
-                <div class="galaSave">
-                    <div class="galaSaveLabel">
-                        <span class="keep-together">Should we use this card for your charges at the event?</span>
-                        <span id="galaSaveError1" style="display:none"> Please select "Yes" or "No".</span>
-                    </div>
-                    <button id="galaSaveYes1" class="galaSaveBtn">Yes</button>
-                    <button id="galaSaveNo1" class="galaSaveBtn">No</button>
-                    <input id="galaSave1" type="hidden" name="saveSelf" value="">
-                </div>
-                <div id="galaSaveGuests" class="galaSave" style="display:none">
-                    <div class="galaSaveLabel">
-                        <span class="keep-together">Should we use this card for
-                            your <span id="galaSaveLabelGuests">guest’s</span> charges?</span>
-                        <span id="galaSaveError2" style="display:none"> Please select "Yes" or "No".</span>
-                    </div>
-                    <button id="galaSaveYes2" class="galaSaveBtn">Yes</button>
-                    <button id="galaSaveNo2" class="galaSaveBtn">No</button>
-                    <input id="galaSave2" type="hidden" name="saveGuests" value="">
-                </div>
-                <div class="galaSaveSafety">
-                    Your card is handled
-                    securely. <a id="galaSaveViewDetails" href="#">View
-                    details.</a>
-                </div>
-                <div id="galaSaveSafetyDetails" style="display:none">
-                    Schola Cantorum never sees your credit card number.
-                    This form sends it directly to
-                    <a href="https://stripe.com" target="_blank">Stripe</a>,
-                    the premier online credit card processor, which also
-                    handles payments for Amazon, Google, and many more.
-                    They know how to keep your card safe.
                 </div>
                 <div class="galaRequests">
                     <div class="galaRequestsHeading">
@@ -86,8 +60,7 @@
                     <button type="submit" id="galaSubmit" class="btn btn-primary">Register</button>
                 </div>
                 <div id="galaConfirm" style="display:none">
-                    Thank you.  You are registered, and a receipt has been sent
-                    to your email address.
+                    Thank you.  You are registered, and a receipt has been emailed to you.
                 </div>
                 <div id="galaPaymentError" style="display:none"></div>
             </form>

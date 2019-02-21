@@ -8,22 +8,15 @@ window.addEventListener('load', function () {
     var galaQtyAmount = document.getElementById('galaQtyAmount');
     var galaQtyError = document.getElementById('galaQtyError');
     var galaGuestList = document.getElementById('galaGuestList');
-    var guestName1 = document.getElementById('guestName1');
-    var guestEmail1 = document.getElementById('guestEmail1');
-    var galaGuestError = document.getElementById('galaGuestError');
+    var hostName = document.getElementById('hostName');
+    var hostEmail = document.getElementById('hostEmail');
+    var hostAddress = document.getElementById('hostAddress');
+    var hostCity = document.getElementById('hostCity');
+    var hostState = document.getElementById('hostState');
+    var hostZip = document.getElementById('hostZip');
+    var galaHostError = document.getElementById('galaHostError');
     var galaPaymentCardError = document.getElementById('galaPaymentCardError');
     var galaCardSource = document.getElementById('galaCardSource');
-    var galaSaveYes1 = document.getElementById('galaSaveYes1');
-    var galaSaveNo1 = document.getElementById('galaSaveNo1');
-    var galaSaveError1 = document.getElementById('galaSaveError1');
-    var galaSave1 = document.getElementById('galaSave1');
-    var galaSaveGuests = document.getElementById('galaSaveGuests');
-    var galaSaveYes2 = document.getElementById('galaSaveYes2');
-    var galaSaveNo2 = document.getElementById('galaSaveNo2');
-    var galaSaveError2 = document.getElementById('galaSaveError2');
-    var galaSave2 = document.getElementById('galaSave2');
-    var galaSaveViewDetails = document.getElementById('galaSaveViewDetails');
-    var galaSaveSafetyDetails = document.getElementById('galaSaveSafetyDetails');
     var galaButtons = document.getElementById('galaButtons');
     var galaSubmit = document.getElementById('galaSubmit');
     var galaConfirm = document.getElementById('galaConfirm');
@@ -35,10 +28,14 @@ window.addEventListener('load', function () {
     var namePresent = false;
     var emailPresent = false;
     var emailValid = false;
+    var addressPresent = false;
+    var cityPresent = false;
+    var statePresent = false
+    var stateValid = false;
+    var zipPresent = false;
+    var zipValid = false;
     var cardError = null;
     var cardComplete = false;
-    var saveSelf = null;
-    var saveGuests = null;
     var submitted = false;
     var paymentError = null;
 
@@ -76,7 +73,7 @@ window.addEventListener('load', function () {
                     div.className = 'galaGuest';
                     var head = document.createElement('div');
                     head.className = 'galaGuestHead';
-                    head.textContent = 'Guest #' + i;
+                    head.textContent = 'Guest #' + (i-1);
                     div.appendChild(head);
                     var input = document.createElement('input');
                     input.id = 'guestName' + i;
@@ -101,32 +98,51 @@ window.addEventListener('load', function () {
         }
 
         // Ensure the presence of the name and email and validity of the email.
-        if (submitted && (!namePresent || !emailPresent || !emailValid)) {
-            galaGuestError.style.display = 'block';
+        if (submitted && (!namePresent || !emailPresent || !emailValid || !addressPresent || !cityPresent || !statePresent
+            || !stateValid || !zipPresent || !zipValid)) {
+            galaHostError.style.display = 'block';
             valid = false;
         } else {
-            galaGuestError.style.display = 'none';
+            galaHostError.style.display = 'none';
         }
-        if (!namePresent && !emailPresent) {
-            galaGuestError.textContent = 'Please provide your name and email address.';
-        } else if (!namePresent && !emailValid) {
-            galaGuestError.textContext = 'Please provide your name and a valid email address.';
-        } else if (!namePresent) {
-            galaGuestError.textContent = 'Please provide your name.';
-        } else if (!emailPresent) {
-            galaGuestError.textContent = 'Please provide your email address.';
+        if (emailPresent && !emailValid) {
+            galaHostError.textContent = 'Please provide a valid email address.'
+        } else if (statePresent && !stateValid) {
+            galaHostError.textContext = 'Please provide a valid two-letter state code.'
+        } else if (zipPresent && !zipValid) {
+            galaHostError.textContent = 'Please provide a valid nine-digit zip code.'
         } else {
-            galaGuestError.textContent = 'Please provide a valid email address.';
+            galaHostError.textContent = 'Please provide your name and addresses.'
         }
         if (submitted && !namePresent) {
-            guestName1.classList.add('galaErrorBorder');
+            hostName.classList.add('galaErrorBorder');
         } else {
-            guestName1.classList.remove('galaErrorBorder');
+            hostName.classList.remove('galaErrorBorder');
         }
         if (submitted && (!emailPresent || !emailValid)) {
-            guestEmail1.classList.add('galaErrorBorder');
+            hostEmail.classList.add('galaErrorBorder');
         } else {
-            guestEmail1.classList.remove('galaErrorBorder');
+            hostEmail.classList.remove('galaErrorBorder');
+        }
+        if (submitted && !addressPresent) {
+            hostAddress.classList.add('galaErrorBorder');
+        } else {
+            hostAddress.classList.remove('galaErrorBorder');
+        }
+        if (submitted && !cityPresent) {
+            hostCity.classList.add('galaErrorBorder');
+        } else {
+            hostCity.classList.remove('galaErrorBorder');
+        }
+        if (submitted && (!statePresent || !stateValid)) {
+            hostState.classList.add('galaErrorBorder');
+        } else {
+            hostState.classList.remove('galaErrorBorder');
+        }
+        if (submitted && (!zipPresent || !zipValid)) {
+            hostZip.classList.add('galaErrorBorder');
+        } else {
+            hostZip.classList.remove('galaErrorBorder');
         }
 
         // Ensure the completeness and validity of the payment card.
@@ -140,50 +156,6 @@ window.addEventListener('load', function () {
             valid = false;
         } else {
             galaPaymentCardError.style.display = 'none';
-        }
-
-        // Show or hide the saveGuests line based on quantity.  Mark the
-        // selected options.
-        if (qtyValid) {
-            galaSaveGuests.style.display = (qty > 1) ? 'flex' : 'none';
-        }
-        if (saveSelf === true) {
-            galaSaveYes1.classList.add('galaSaveSelected');
-            galaSaveNo1.classList.remove('galaSaveSelected');
-            galaSave1.value = 'true';
-        } else if (saveSelf === false) {
-            galaSaveYes1.classList.remove('galaSaveSelected');
-            galaSaveNo1.classList.add('galaSaveSelected');
-            galaSave1.value = 'false';
-        }
-        if (saveGuests === true) {
-            galaSaveYes2.classList.add('galaSaveSelected');
-            galaSaveNo2.classList.remove('galaSaveSelected');
-            galaSave2.value = 'true';
-        } else if (saveGuests === false) {
-            galaSaveYes2.classList.remove('galaSaveSelected');
-            galaSaveNo2.classList.add('galaSaveSelected');
-            galaSave2.value = 'false';
-        }
-        if (submitted && saveSelf === null) {
-            galaSaveError1.style.display = 'block';
-            galaSaveYes1.classList.add('galaErrorBorder');
-            galaSaveNo1.classList.add('galaErrorBorder');
-            valid = false;
-        } else {
-            galaSaveError1.style.display = 'none';
-            galaSaveYes1.classList.remove('galaErrorBorder');
-            galaSaveNo1.classList.remove('galaErrorBorder');
-        }
-        if (submitted && qtyValid && qty > 1 && saveGuests === null) {
-            galaSaveError2.style.display = 'block';
-            galaSaveYes2.classList.add('galaErrorBorder');
-            galaSaveNo2.classList.add('galaErrorBorder');
-            valid = false;
-        } else {
-            galaSaveError2.style.display = 'none';
-            galaSaveYes2.classList.remove('galaErrorBorder');
-            galaSaveNo2.classList.remove('galaErrorBorder');
         }
 
         if (paymentError) {
@@ -216,49 +188,54 @@ window.addEventListener('load', function () {
         updateForm();
     })
 
-    guestName1.addEventListener('input', function() {
-        namePresent = guestName1.value.trim() !== '';
+    hostName.addEventListener('input', function() {
+        namePresent = hostName.value.trim() !== '';
         updateForm();
     });
-    guestEmail1.addEventListener('input', function() {
-        emailPresent = guestEmail1.value.trim() !== '';
+    hostEmail.addEventListener('input', function() {
+        emailPresent = hostEmail.value.trim() !== '';
         updateForm();
     });
-    guestEmail1.addEventListener('change', function() {
-        emailValid = guestEmail1.value.trim().match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/);
+    hostEmail.addEventListener('change', function() {
+        emailValid = hostEmail.value.trim().match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/);
         // That's the same regexp used by input type="email".
+        updateForm();
+    });
+    hostAddress.addEventListener('input', function() {
+        addressPresent = hostAddress.value.trim() !== '';
+        updateForm();
+    });
+    hostCity.addEventListener('input', function() {
+        cityPresent = hostCity.value.trim() !== '';
+        updateForm();
+    });
+    hostState.addEventListener('input', function() {
+        statePresent = hostState.value.trim() !== '';
+        updateForm();
+    });
+    hostState.addEventListener('change', function() {
+        hostState.value = hostState.value.toUpperCase()
+        stateValid = hostState.value.trim().match(/^[A-Z][A-Z]$/);
+        updateForm();
+    });
+    hostZip.addEventListener('input', function() {
+        zipPresent = hostZip.value.trim() !== '';
+        updateForm();
+    });
+    hostZip.addEventListener('change', function() {
+        zipValid = hostZip.value.trim().match(/^[0-9]{5}$/);
         updateForm();
     });
 
     var stripe = Stripe('{{ .Site.Params.stripeKey }}');
     var elements = stripe.elements();
-    var card = { style: { base: { fontSize: '16px' } } };
+    var card = { style: { base: { fontSize: '16px' } }, hidePostalCode: true };
     card = elements.create('card', card);
     card.mount('#galaPaymentCard');
     card.on('change', function(evt) {
         cardError = evt.error ? evt.error.message : null;
         cardComplete = evt.complete;
         updateForm();
-    });
-
-    function galaSaveFocusHandler(evt) {
-        galaSaveYes1.style.zIndex = 0;
-        galaSaveNo1.style.zIndex = 0;
-        galaSaveYes2.style.zIndex = 0;
-        galaSaveNo2.style.zIndex = 0;
-        evt.target.style.zIndex = 1;
-    }
-    galaSaveYes1.addEventListener('click', function(evt) { evt.preventDefault(); saveSelf = true; updateForm(); });
-    galaSaveNo1.addEventListener('click', function(evt) { evt.preventDefault(); saveSelf = false; updateForm(); });
-    galaSaveYes2.addEventListener('click', function(evt) { evt.preventDefault(); saveGuests = true; updateForm(); });
-    galaSaveNo2.addEventListener('click', function(evt) { evt.preventDefault(); saveGuests = false; updateForm(); });
-    galaSaveYes1.addEventListener('focus', galaSaveFocusHandler);
-    galaSaveNo1.addEventListener('focus', galaSaveFocusHandler);
-    galaSaveYes2.addEventListener('focus', galaSaveFocusHandler);
-    galaSaveNo2.addEventListener('focus', galaSaveFocusHandler);
-    galaSaveViewDetails.addEventListener('click', function(evt) {
-        evt.preventDefault();
-        galaSaveSafetyDetails.style.display = 'block';
     });
 
     galaForm.addEventListener('submit', function(evt) {
@@ -268,8 +245,14 @@ window.addEventListener('load', function () {
         if (!updateForm(true)) return;
         stripe.createSource(card, {
             owner: {
-                name: guestName1.value.trim(),
-                email: guestEmail1.value.trim(),
+                name: hostName.value.trim(),
+                email: hostEmail.value.trim(),
+                address: {
+                    line1: hostAddress.value.trim(),
+                    city: hostCity.value.trim(),
+                    state: hostState.value.trim(),
+                    postal_code: hostZip.value.trim()
+                }
             }
         }).then(function (result) {
             if (result.error) {
@@ -278,12 +261,12 @@ window.addEventListener('load', function () {
             } else {
                 galaCardSource.value = result.source.id;
                 var data = new FormData(galaForm);
-                fetch('https://gala.scholacantorum.org/backend/ticket', {
+                fetch('http://localhost:9000/register', {
                     method: 'POST',
                     body: data
                 }).then(function(result) {
                     switch (result.status) {
-                    case 200:
+                    case 204:
                         galaButtons.style.display = 'none';
                         galaConfirm.style.display = 'block';
                         break;
