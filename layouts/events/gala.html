@@ -17,6 +17,28 @@
                 {{ .Content }}
             </div>
             <hr>
+            <div class="galaSponsorArea">
+                We gratefully acknowledge our sponsors:
+                <div class="galaSponsors">
+                    <div class="galaSponsor">
+                        <a href="https://deleonrealty.com" target="_blank">
+                            {{ with $.Page.Resources.GetMatch "deleon.*" }}
+                                <img src="{{ ((.Resize "112x") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
+                            {{ end }}
+                            DeLeon Realty
+                        </a>
+                    </div>
+                    <div class="galaSponsor">
+                        <a href="https://www.procopio.com" target="_blank">
+                            {{ with $.Page.Resources.GetMatch "procopio.*" }}
+                                <img src="{{ ((.Resize "112x") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
+                            {{ end }}
+                            Procopio, Cory, Hargreaves & Savitch LLP
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr>
             <form id="galaForm">
                 <a name="register" class="galaRegister">Fiesta Registration</a>
                 <div class="galaQtyRow">
