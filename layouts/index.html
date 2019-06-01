@@ -2,9 +2,9 @@
     {{ .Scratch.Set "payForm" "subscription" }}
     {{ with .Site.GetPage "/home" }}
         <div class="homepage">
-            <div><h1>{{ .Title }}</h1>{{ .Content }}</div>
+            <div>{{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}{{ .Content }}</div>
             {{ range .Resources.ByType "page" }}{{ if ne .Name "index.md" }}
-                <div><h2>{{ .Title }}</h2>{{ .Content }}</div>
+                <div><h2>{{ .Title }}</h2>{{ if .Params.subtitle }}<h3>{{ .Params.subtitle }}</h3>{{ end }}</h3>{{ .Content }}</div>
             {{ end }}{{ end }}
         </div>
     {{ end }}

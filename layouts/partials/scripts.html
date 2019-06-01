@@ -7,7 +7,8 @@
 {{ end -}}
 {{ $bundle := ($list.Get "scripts") | resources.Concat "schola6p.js" | resources.Minify | resources.Fingerprint -}}
 <script src="{{ $bundle.Permalink }}"></script>
-{{ if $.Page.HasShortcode "buy-tickets" }}
+<!-- {{ $.Page.Params }} -->
+{{ if or ($.Page.HasShortcode "buy-tickets") ($.Page.Params.buyTickets) }}
     {{ range (index (index (index (index .Site.Data .Site.Params.env ) "resources") "buy-tickets") "js") }}
         <script src="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}"></script>
     {{ end }}

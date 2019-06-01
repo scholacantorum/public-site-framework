@@ -54,6 +54,10 @@
         & > div:nth-child(2), & > div:nth-child(3)
             float: none
             margin-left: 2*$blockWidth + 2*$bigGap
+    h3
+        // Subtitles appear immediately below article titles, with no gap.
+        font-size: inherit
+        margin-top: -0.5rem
 
 // Concert table for main article on home page.  Has subscription order form
 // underneath table on narrow devices and to the right of the table on wide
@@ -88,6 +92,11 @@ img.floatleft2
     @media (min-width: $blockWidth/2 + 150px)
         float: left
         margin: 0 $gap $gap 0
+// Image taking the full width of whatever column it's in.
+img.fullwidth
+    display: block
+    width: 100%
+    margin: 0 0 $gap 0
 
 // Bootstrap's default link color doesn't pass accessibility audits.  Need to
 // make it a slightly darker blue.

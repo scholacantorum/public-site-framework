@@ -1,0 +1,3 @@
+{{ $i := .Page.Resources.GetMatch (.Get 0) }}{{ if $i -}}
+<img src="{{ $i.RelPermalink }}" alt="{{ with .Get 1 }}{{.}}{{ else }}{{ $i.Title }}{{ end }}" class="fullwidth">
+{{- end }}
