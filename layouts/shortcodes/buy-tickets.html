@@ -1,0 +1,6 @@
+<div style="display:none" class="buy-tickets"
+ data-title="{{ .Get 0 }}"
+ data-products="{{ range $i, $pid := .Params }}{{ if ne $i 0 }}{{ if ne $i 1 }} {{ end }}{{ $pid }}{{ end }}{{ end }}"
+ data-orders-url="{{ .Site.Params.ordersURL }}"
+ data-stripe-key="{{ .Site.Params.stripeKey }}"
+></div>

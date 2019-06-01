@@ -12,3 +12,8 @@
 {{ end -}}
 {{ $bundle := ($list.Get "styles") | resources.Concat "schola6p.css" | resources.Minify | resources.Fingerprint -}}
 <link rel="stylesheet" href="{{ $bundle.Permalink }}">
+{{ if $.Page.HasShortcode "buy-tickets" }}
+    {{ range (index (index (index (index .Site.Data .Site.Params.env ) "resources") "buy-tickets") "css") }}
+        <link rel="stylesheet" href="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}">
+    {{ end }}
+{{ end }}
