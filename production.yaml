@@ -12,7 +12,6 @@ menu:
         weight: 80
 params:
     env: production
-    stripeMode: live
     stripeKey: pk_live_UlmbLJo2rx9WQyhVibmTWpxa
     ordersURL: https://orders.scholacantorum.org
 publishDir: /home/scholacantorum/scholacantorum.org/public

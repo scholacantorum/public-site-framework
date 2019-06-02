@@ -11,7 +11,6 @@ menu:
         weight: 80
 params:
     env: development
-    stripeMode: test
     stripeKey: pk_test_QPwvhWbGaakWn7DGcco8J5Nd
     ordersURL: https://orders-test.scholacantorum.org
 staticDir:

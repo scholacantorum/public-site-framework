@@ -1,3 +1,6 @@
+{{ if or ($.Page.HasShortcode "buy-tickets") ($.Page.Params.buyTickets) ($.Page.HasShortcode "donationform") }}
+    <script src="https://js.stripe.com/v3/" defer></script>
+{{ end }}
 {{ $list := newScratch -}}
 {{ $list.Add "styles" slice -}}
 {{ range readDir "assets" -}}
