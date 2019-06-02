@@ -1,7 +1,4 @@
-<form id="donationform">
-    <input type="number" id="donationamount" name="amount" placeholder="$ Amount" min="1" required>
-    <div id="applepaydiv">
-        <button type="submit" class="btn btn-primary">Donate</button>
-    </div>
-</form>
-{{ .Page.Scratch.Set "needPayForm" true }}
+<div id="donate" style="display:none"
+ data-orders-url="{{ .Site.Params.ordersURL }}"
+ data-stripe-key="{{ .Site.Params.stripeKey }}"
+></div>

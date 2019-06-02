@@ -13,7 +13,12 @@
 {{ $bundle := ($list.Get "styles") | resources.Concat "schola6p.css" | resources.Minify | resources.Fingerprint -}}
 <link rel="stylesheet" href="{{ $bundle.Permalink }}">
 {{ if or ($.Page.HasShortcode "buy-tickets") ($.Page.Params.buyTickets) }}
-    {{ range (index (index (index (index .Site.Data .Site.Params.env ) "resources") "buy-tickets") "css") }}
+    {{ range index .Site.Data .Site.Params.env "resources" "buy-tickets" "css" }}
+        <link rel="stylesheet" href="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}">
+    {{ end }}
+{{ end }}
+{{ if $.Page.HasShortcode "donationform" }}
+    {{ range index .Site.Data .Site.Params.env "resources" "donate" "css" }}
         <link rel="stylesheet" href="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}">
     {{ end }}
 {{ end }}
