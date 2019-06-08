@@ -13,7 +13,7 @@
                     </a>
                 {{ end }}
                 <div class="concertlistitemtitle">
-                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    <a href="{{ .Permalink }}">{{ safeHTML .Title }}</a>
                 </div>
                 <div class="concertlistitemdates">
                     {{ range .Resources.Match "seating*" }}
