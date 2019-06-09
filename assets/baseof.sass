@@ -5,7 +5,7 @@
 //     form#publishform (styles in sandbox.sass)
 //     div#layout-heading
 //         a#layout-logo
-//         div#layout-heading-slug (the "Celebrating the Joy" slogan)
+//         div#layout-heading-slug (the "New Perspectives" slogan)
 //         nave#layout-navbar
 //             div#layout-navbar2 (the visible, L-to-R menu)
 //                 span#layout-menu.drowdown
@@ -30,26 +30,36 @@
 //
 // This file has lots of magic numbers, determined empirically.  They'll
 // probably need to be adjusted if we change the header images or menu contents.
+$logoAspect: 300 / 128
+$navbarHeight: 27px // including desired top margin
+$navbarMinWidth: 320px // depends on contents
+$logoMaxWidth: 240px
+$headerPadding: 6px
 #layout-heading
     background-color: $scholaBlue
-    height: calc(18.48vw + 51px) // empirical, based on desired min and max size
+    height: calc((50vw - 12px) / #{$logoAspect} + #{$navbarHeight + 2*$headerPadding})
     position: relative
     margin-bottom: 12px
 #layout-logo
     position: absolute
-    top: 6px
-    left: 6px
-    width: calc(49% - 6px)
-    img
-        max-width: 240px
+    top: $headerPadding
+    left: $headerPadding
+    width: calc(50% - #{2*$headerPadding})
 #layout-heading-slug
     position: absolute
-    top: 6px
-    right: 6px
-    width: calc(49% - 6px)
+    top: $headerPadding
+    right: $headerPadding
+    height: calc(100% - #{$navbarHeight + 2*$headerPadding})
+    width: calc(50% - #{2*$headerPadding})
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    img
+        width: 100%
+        max-height: 100%
 #layout-navbar
     position: absolute
-    bottom: 6px
+    bottom: $headerPadding
     width: 100%
     text-align: center
     line-height: 1
@@ -61,7 +71,7 @@
     .nav-link
         display: inline
         padding: 0
-        vertical-align: -2px // the dropdown icon has unwanted space at the bottom
+        vertical-align: 1px // the dropdown icon has unwanted space at the top
     .dropdown-toggle::after
         display: none
     .dropdown-menu
@@ -69,7 +79,7 @@
         border-top-left-radius: 0
         border-top-right-radius: 0
         border-top: none
-        margin: -10px 0 0 // vertically adjacent to the bottom of the header
+        margin: 0 // vertically adjacent to the bottom of the header
     .dropdown-item:focus, .dropdown-item:hover
         background-color: $scholaBlue
         color: #fff
@@ -77,29 +87,27 @@
         margin-left: 16px
         &:first-child
             margin-left: 0
-@media (min-width: 504px)
+@media (min-width: #{($logoMaxWidth + 12px) * 2})
     // Don't let the header images grow anymore.
     #layout-heading
-        height: 144px
+        height: #{$logoMaxWidth/$logoAspect + $navbarHeight + 2*$headerPadding}
+    #layout-logo
+        width: $logoMaxWidth
     #layout-heading-slug
-        width: 240px
-@media (min-width: 578px)
-    // Switch from two-line, narrow to one-line, wide "Celebrating" image.
-    // Also switch from navbar under both header images to navbar under
-    // "Celebrating" image only.
+        width: calc(100vw - #{$logoMaxWidth + 4*$headerPadding})
+@media (min-width: #{$logoMaxWidth + $navbarMinWidth + 3*$headerPadding})
+    // Switch from navbar under both header images to navbar under slug only.
     #layout-heading
-        height: 116px
+        height: #{$logoMaxWidth/$logoAspect + 2*$headerPadding - 2px}
+        // the 2px is a fudge factor to make the baselines of the logo and the
+        // navbar line up
     #layout-heading-slug
-        display: flex
-        align-items: center
-        justify-content: flex-end
-        bottom: 28px
-        width: calc(100% - 264px)
-        picture
-            width: 100%
-            max-width: 674px
+        height: #{$logoMaxWidth/$logoAspect - $navbarHeight - 2px}
+        img
+            width: auto
+            height: 100%
     #layout-navbar
-        width: calc(100% - 258px)
+        width: $navbarMinWidth
         right: 6px
 
 #layout-affil
