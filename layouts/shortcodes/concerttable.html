@@ -4,7 +4,7 @@
             {{ range (.Site.GetPage "/concerts").Pages }}
                 <tr>
                     <th>{{ (time (.Resources.GetMatch "seating*").Params.datetime).Format "January" }}</th>
-                    <td><a href="{{ .Permalink }}">{{ .Title }}</a></td>
+                    <td><a href="{{ .Permalink }}">{{ safeHTML .Title }}</a></td>
                 </tr>
             {{ end }}
         </table>
