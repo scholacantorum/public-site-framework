@@ -12,9 +12,6 @@
 //                     a.nav-link.dropdown-toggle (the dropdown icon)
 //                     div.dropdown-menu.dropdown-menu-right (the dropdown menu)
 //     {{ page contents }}
-//     div#layout-affil (affiliate links)
-//         div#affil-links (the two buttons)
-//         div#affil-intro (the text describing them)
 //     div#layout-footer
 //         {{ phone number }}
 //         span#footer-spacer1 (sometimes horizontal, sometimes newline)
@@ -109,34 +106,6 @@ $headerPadding: 6px
     #layout-navbar
         width: $navbarMinWidth
         right: 6px
-
-#layout-affil
-    margin-top: 12px
-    padding: 6px 12px
-    width: 100%
-    background-color: #ddd
-#affil-intro
-    font-size: 14px
-    line-height: 1
-    margin-bottom: 6px
-#affil-links
-    text-align: center
-    a:first-child
-        margin-right: 1rem
-@media (min-width: 430px)
-    // Put text to the right of buttons instead of below them.
-    #layout-affil
-        display: flex
-        align-items: center
-    #affil-intro
-        margin-left: 1rem
-        margin-bottom: 0
-@media (min-width: 530px)
-    // Arrange buttons horizontally instead of vertically.
-    #layout-affil
-        justify-content: center
-    #affil-links
-        white-space: nowrap
 
 #layout-footer
     padding: 6px 6px

@@ -67,21 +67,6 @@ ga('send', 'pageview');
         </nav>
     </div>
     {{ block "main" . }} {{ end }}
-    <div id="layout-affil">
-        <div id="affil-links">
-            <a href="http://www.amazon.com/gp/redirect.html?ie=UTF8&amp;location=http%3A%2F%2Fwww.amazon.com%2F&amp;tag=scholcanto-20&amp;linkCode=ur2&amp;camp=1789&amp;creative=390957" target="_blank" rel="noopener">
-                <img src="{{ ((resources.Get "amazon-logo.png") | resources.Fingerprint).RelPermalink }}" alt="amazon.com">
-            </a>
-            <a href="https://www.sheetmusicplus.com/a/featured.html?aff_id=457839" target="_blank" rel="noopener">
-                <img src="{{ ((resources.Get "sheetmusicplus-logo.png") | resources.Fingerprint).RelPermalink }}"
-                    alt="sheetmusicplus.com">
-            </a>
-        </div>
-        <div id="affil-intro">
-            If you shop at these online stores, please enter them using these
-            buttons, and they will share the proceeds with Schola Cantorum.
-        </div>
-    </div>
     <div id="layout-footer">
         (650) 254‑1700
         <span id="footer-spacer1"></span>
