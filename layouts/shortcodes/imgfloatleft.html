@@ -1,3 +1,5 @@
-{{ $i := .Page.Resources.GetMatch (.Get 0) }}{{ if $i -}}
-<img src="{{ ($i | resources.Fingerprint).RelPermalink }}" alt="{{ with .Get 1 }}{{.}}{{ else }}{{ $i.Title }}{{ end }}" class="floatleft{{ if eq (.Get 2) 150 }}2{{ end }}">
+{{ $i := .Page.Resources.GetMatch (.Get 0) -}}
+{{ if and (not $i) (.Page.Parent) }}{{ $i = .Page.Parent.Resources.GetMatch (.Get 0) }}{{ end -}}
+{{ if $i -}}
+<img src="{{ ($i | resources.Fingerprint).RelPermalink }}" alt="{{ with .Get 1 }}{{.}}{{ else }}{{ $i.Title }}{{ end }}" class="floatleft{{ if eq (.Get 2) "150" }}2{{ end }}">
 {{- end }}
