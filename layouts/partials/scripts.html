@@ -17,3 +17,8 @@
         <script src="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}"></script>
     {{ end }}
 {{ end }}
+{{ if $.Page.Params.galaForm }}
+    {{ range index .Site.Data .Site.Params.env "resources" "gala" "js" }}
+        <script src="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}"></script>
+    {{ end }}
+{{ end }}

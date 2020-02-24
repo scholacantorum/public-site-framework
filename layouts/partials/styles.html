@@ -1,4 +1,4 @@
-{{ if or ($.Page.HasShortcode "buy-tickets") ($.Page.Params.buyTickets) ($.Page.HasShortcode "donationform") }}
+{{ if or ($.Page.HasShortcode "buy-tickets") ($.Page.Params.buyTickets) ($.Page.HasShortcode "donationform") ($.Page.Params.galaForm) }}
     <script src="https://js.stripe.com/v3/" defer></script>
 {{ end }}
 {{ $list := newScratch -}}

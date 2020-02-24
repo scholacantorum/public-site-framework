@@ -1,93 +1,31 @@
 {{ define "main" }}
     <div class="gala">
-        <div class="galaImages">
-            {{ with $.Page.Resources.GetMatch "logo.*" }}
-                <img class="galaLogo" src="{{ ((.Fit "300x300") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
-            {{ end }}
-            {{ with $.Page.Resources.GetMatch "image.*" }}
-                <img class="galaImage" src="{{ ((.Fit "300x300") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
-            {{ end }}
-        </div>
-        <div class="galaText">
-            <div class="galaLead">
-                {{ with $.Page.Resources.GetMatch "lead.md" }}{{ .Content }}{{ end }}
-                <hr>
+        <div class="galadata">
+            <h1 id="galatitle">{{ safeHTML $.Page.Params.title }}</h1>
+            <div id="galaseatings">
+                {{ range $.Page.Resources.Match "seating*" }}
+                    <div class="galaseating">
+                        <div class="galalogistics">
+                            <div class="galadatetime">{{ (time .Params.datetime).Format "Monday, January 2 at 3:04pm" }}</div>
+                            {{ partial (print "venue/" .Params.venue) . }}
+                        </div>
+                    </div>
+                {{ end }}
             </div>
-            <div class="galaBody">
+        </div>
+        {{ with $.Page.Resources.GetMatch "image.*" }}
+            <img class="galaimg" src="{{ ((.Fit "300x300") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
+        {{ end }}
+        <div class="galabody">
+            {{ .Content }}
+        </div>
+        {{ with $.Page.Resources.GetMatch "part2.md" }}
+            <div class="galabody2">
+                <hr>
                 {{ .Content }}
             </div>
-            <hr>
-            <div class="galaSponsorArea">
-                We gratefully acknowledge our sponsors:
-                <div class="galaSponsors">
-                    <div class="galaSponsor">
-                        <a href="https://deleonrealty.com" target="_blank">
-                            {{ with $.Page.Resources.GetMatch "deleon.*" }}
-                                <img src="{{ ((.Resize "112x") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
-                            {{ end }}
-                            DeLeon Realty
-                        </a>
-                    </div>
-                    <div class="galaSponsor">
-                        <a href="https://www.procopio.com" target="_blank">
-                            {{ with $.Page.Resources.GetMatch "procopio.*" }}
-                                <img src="{{ ((.Resize "112x") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
-                            {{ end }}
-                            Procopio, Cory, Hargreaves & Savitch LLP
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--
-            <hr>
-            <form id="galaForm">
-                <a name="register" class="galaRegister">Fiesta Registration</a>
-                <div class="galaQtyRow">
-                    <input id="galaQty" class="form-control" type="number" min="1" placeholder="Qty" name="qty" value="1">
-                    <div id="galaQtyText">seat</div>
-                    <div id="galaQtyAmount">$165</div>
-                </div>
-                <div class="galaQtyNote">
-                    <span id="galaQtyError" style="display:none">Please specify the number of seats. </span>
-                    <span class="keep-together">Register 10 seats to fill a table.</span>
-                </div>
-                <div class="galaHost">
-                    <div class="galaHostHead">Host</div>
-                    <input id="hostName" name="name1" class="galaHostName form-control" placeholder="Your name">
-                    <input id="hostEmail" name="email1" class="galaHostEmail form-control" placeholder="Your email">
-                    <input id="hostAddress" name="address" class="galaHostAddress form-control" placeholder="Your mailing address">
-                    <div class="galaHostCSZ">
-                        <input id="hostCity" name="city" class="galaHostCity form-control" placeholder="City">
-                        <input id="hostState" name="state" class="galaHostState form-control" placeholder="St">
-                        <input id="hostZip" name="zip" class="galaHostZip form-control" placeholder="Zip">
-                    </div>
-                    <div id="galaHostError" style="display:none">Please provide your name and addresses.</div>
-                </div>
-                <div id="galaGuestList">
-                </div>
-                <div class="galaPayment">
-                    <div class="galaPaymentLabel">Payment card</div>
-                    <div id="galaPaymentCard" class="form-control"></div>
-                    <div id="galaPaymentCardError" style="display:none">Random error message</div>
-                    <input id="galaCardSource" type="hidden" name="cardSource">
-                </div>
-                <div class="galaRequests">
-                    <div class="galaRequestsHeading">
-                        Any special requests?
-                    </div>
-                    <textarea id="galaRequests" name="requests" class="form-control"
-                        placeholder="Seating preferences, dietary restrictions, etc."></textarea>
-                </div>
-                <div id="galaButtons">
-                    <div id="galaProcessing"></div>
-                    <button type="submit" id="galaSubmit" class="btn btn-primary">Register</button>
-                </div>
-                <div id="galaConfirm" style="display:none">
-                    Thank you.  You are registered, and a receipt has been emailed to you.
-                </div>
-                <div id="galaPaymentError" style="display:none"></div>
-            </form>
-            -->
+        {{ end }}
+        {{ with $.Page.Resources.GetMatch "register.md" }}{{ .Content }}{{ end }}
         </div>
     </div>
 {{end}}

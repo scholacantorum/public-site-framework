@@ -1,201 +1,45 @@
-.gala
-    @media (min-width: 912px)
-        display: flex
-        justify-content: center
-.galaImages
-    display: flex
-    justify-content: center
-    @media (min-width: 912px)
-        flex-direction: column
-        align-self: flex-start
-.galaLogo, .galaImage
-    width: 50vw
-    height: 50vw
-    max-width: 300px
-    max-height: 300px
-.galaLead
-    text-align: center
-    margin: 6px
-.galaBody, .galaSponsorArea
-    margin: 6px 12px
-    font-size: 14px
-    @media (min-width: 624px)
-        margin: 6px auto
-        max-width: 600px
-.galaSponsorArea
-    text-align: center
-.galaSponsors
-    display: flex
-    justify-content: center
-    align-items: center
-.galaSponsor
-    width: 112px
-    margin-left: 24px
-.galaSponsor:first-child
-    margin-left: 0
-#galaForm
-    margin: 6px 12px
-    display: flex
-    flex-direction: column
-    @media (min-width: 624px)
-        margin: 6px auto
-        max-width: 600px
-.galaRegister
-    font-weight: bold
-    font-size: 18px
-    text-align: center
-    margin-bottom: 12px
-.galaQtyRow
-    display: flex
-    align-items: baseline
-#galaQty
-    width: 70px // minimum to fit the placeholder text
-    margin-right: 8px
-    font-size: 20px
-    line-height: 1
-    flex: none
-.galaErrorBorder
-    border-color: red !important
-#galaQtyText
-    flex: auto
-#galaQtyAmount
-    font-size: 20px
-    flex: none
-.galaQtyNote
-    font-size: 14px
-    margin-bottom: 12px
-.keep-together
-    display: inline-block
-#galaQtyError
-    color: red
-    font-size: 16px
-    font-weight: bold
-    display: inline-block
-.galaHost
-    display: flex
-    flex-wrap: wrap
-    margin: 0 auto 6px
-    max-width: 600px
-.galaHostHead
-    width: calc(100vw - 24px)
-    @media (min-width: 540px)
-        width: 80px
-        margin: 0 12px 6px 0
-        align-self: center
-.galaHostName
-    width: calc(100vw - 24px)
-    @media (min-width: 440px)
-        width: calc(50vw - 18px)
-        margin: 0 12px 0 0
-    @media (min-width: 540px)
-        width: calc(50vw - 64px)
-    @media (min-width: 624px)
-        width: 248px
-.galaHostEmail
-    width: calc(100vw - 24px)
-    @media (min-width: 440px)
-        width: calc(50vw - 18px)
-    @media (min-width: 540px)
-        width: calc(50vw - 64px)
-    @media (min-width: 624px)
-        width: 248px
-.galaHostAddress
-    width: calc(100vw - 24px)
-    @media (min-width: 540px)
-        width: calc(100vw - 116px)
-        margin-left: 92px
-    @media (min-width: 624px)
-        width: 508px
-.galaHostCSZ
-    display: flex
-    width: calc(100vw - 24px)
-    @media (min-width: 540px)
-        width: calc(100vw - 116px)
-        margin-left: 92px
-    @media (min-width: 624px)
-        width: 508px
-.galaHostCity
-    flex: auto
-.galaHostState
-    max-width: 60px
-    flex: none
-.galaHostZip
-    max-width: 100px
-    flex-none
-#galaHostError
-    width: calc(100vw - 24px)
-    color: red
-    font-weight: bold
-    @media (min-width: 624px)
-        width: 600px
-.galaGuest
-    display: flex
-    flex-wrap: wrap
-    margin: 0 auto
-    max-width: 600px
-.galaGuestHead
-    width: calc(100vw - 24px)
-    @media (min-width: 540px)
-        width: 80px
-        margin: 0 12px 6px 0
-        align-self: center
-.galaGuestName
-    width: calc(100vw - 24px)
-    @media (min-width: 440px)
-        width: calc(50vw - 18px)
-        margin: 0 12px 6px 0
-    @media (min-width: 540px)
-        width: calc(50vw - 64px)
-    @media (min-width: 624px)
-        width: 248px
-.galaGuestEmail
-    width: calc(100vw - 24px)
-    margin-bottom: 6px
-    @media (min-width: 440px)
-        width: calc(50vw - 18px)
-    @media (min-width: 540px)
-        width: calc(50vw - 64px)
-    @media (min-width: 624px)
-        width: 248px
-.galaPayment
-    display: flex
-    flex-wrap: wrap
-    margin: 12px auto 18px
-    max-width: 600px
-.galaPaymentLabel
-    width: calc(100vw - 24px)
-    @media (min-width: 540px)
-        width: 100px
-        margin: 0 12px 0 0
-        align-self: center
-#galaPaymentCard
-    width: calc(100vw - 24px)
-    padding: 8px 12px
-    @media (min-width: 540px)
-        width: calc(100vw - 136px)
-    @media (min-width: 624px)
-        width: 488px
-#galaPaymentCardError
-    width: calc(100vw - 24px)
-    color: red
-    font-weight: bold
-    @media (min-width: 624px)
-        width: 600px
-.galaRequests
-    margin: 18px 0
-#galaButtons
-    margin-bottom: 18px
-    display: flex
-    justify-content: space-between
-    align-items: center
-#galaProcessing
-    font-weight: bold
-#galaSubmit
-    flex: none
-#galaConfirm
-    font-weight: bold
-#galaPaymentError
-    color: red
-    font-weight: bold
-    margin-bottom: 18px
+@import _globals.sass
 
+// These styles are used for the gala event page.  There are three layouts:
+//     +---+    +-------+    +---+-------+
+//     | D |    | I | B |    | I |   B   |    D = Data (title, date, time, place)
+//     +---+    +---+---+    |   +-------+    I = Image
+//     | I |    |   R   |    |   |   R   |    B = Body text
+//     +---+    +---+---+    +---+-------+    R = Registration form
+//     | B |
+//     +---+
+//     | R |
+//     +---+
+.gala
+    margin: 0 $gap 2*$gap
+.galadata
+    margin-bottom: 2*$gap
+.galadatetime
+    font-size: large
+    font-weight: bold
+    line-height: 1
+.galaimg
+    width: $blockWidth
+    margin-bottom: 3*$gap/2
+@media (min-width: 2*$blockWidth + 3*$gap)
+    .galadata
+        display: none
+    .galaimg
+        float: left
+    .galabody
+        margin-left: $blockWidth + $gap
+    .galabody2
+        max-width: 600px
+        margin: 0 auto
+@media (min-width: 3*$blockWidth + 4*$gap)
+    .gala
+        margin: 0 auto 2*$gap
+        width: 3*$blockWidth + 2*$gap
+    .galaimg
+        display: block
+        float: left
+        margin-top: 8px // align image with top of text
+        margin-bottom: 3*$gap/2
+    .galabody
+        width: 2*$blockWidth + $gap
+        margin-left: $blockWidth + $gap
