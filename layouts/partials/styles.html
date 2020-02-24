@@ -25,3 +25,8 @@
         <link rel="stylesheet" href="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}">
     {{ end }}
 {{ end }}
+{{ if $.Page.Params.galaForm }}
+    {{ range index .Site.Data .Site.Params.env "resources" "gala" "css" }}
+        <link rel="stylesheet" href="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}">
+    {{ end }}
+{{ end }}
