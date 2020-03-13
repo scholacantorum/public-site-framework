@@ -1,8 +1,11 @@
 {{ define "main" }}
     {{ with .Site.GetPage "/home" }}
+        {{ with .Resources.GetMatch "banner.md" }}
+            <div class="homepage-banner">{{ .Content }}</div>
+        {{ end }}
         <div class="homepage">
             <div>{{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}{{ .Content }}</div>
-            {{ range .Resources.ByType "page" }}{{ if ne .Name "index.md" }}
+            {{ range .Resources.ByType "page" }}{{ if and (ne .Name "index.md") (ne .Name "banner.md") }}
                 <div><h2>{{ .Title }}</h2>{{ if .Params.subtitle }}<h3>{{ .Params.subtitle }}</h3>{{ end }}</h3>{{ .Content }}</div>
             {{ end }}{{ end }}
         </div>
