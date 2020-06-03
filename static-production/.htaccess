@@ -10,6 +10,7 @@ RewriteRule . - [L]
 
 Redirect permanent /amazon http://smile.amazon.com/
 Redirect permanent /smplus http://www.sheetmusicplus.com/a/featured.html?aff_id=457839
+Redirect permanent /gilded-land https://youtu.be/_GF74E1m7Yw
 
 # Support .cgi files, for Neil's stuff.
 AddHandler cgi-script .cgi
