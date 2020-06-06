@@ -7,7 +7,7 @@ menu:
     dropdown:
     -   name: Members Web Site
         title: Members Web Site
-        url: https://scholacantorummembers.org/
+        url: https://members.scholacantorum.org/
         weight: 80
 params:
     env: development
