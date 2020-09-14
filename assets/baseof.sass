@@ -5,7 +5,7 @@
 //     form#publishform (styles in sandbox.sass)
 //     div#layout-heading
 //         a#layout-logo
-//         div#layout-heading-slug (the "New Perspectives" slogan)
+//         div#layout-heading-slug (the "A World of Voices" oval)
 //         nave#layout-navbar
 //             div#layout-navbar2 (the visible, L-to-R menu)
 //                 span#layout-menu.drowdown
@@ -29,7 +29,7 @@
 // probably need to be adjusted if we change the header images or menu contents.
 $logoAspect: 300 / 128
 $navbarHeight: 27px // including desired top margin
-$navbarMinWidth: 320px // depends on contents
+$navbarMinWidth: 220px // depends on contents
 $logoMaxWidth: 240px
 $headerPadding: 6px
 #layout-heading
@@ -37,6 +37,7 @@ $headerPadding: 6px
     height: calc((50vw - 12px) / #{$logoAspect} + #{$navbarHeight + 2*$headerPadding})
     position: relative
     margin-bottom: 12px
+    overflow: hidden
 #layout-logo
     position: absolute
     top: $headerPadding
@@ -106,6 +107,16 @@ $headerPadding: 6px
     #layout-navbar
         width: $navbarMinWidth
         right: 6px
+@media (min-width: 1000px)
+    // Switch to put slug in the middle.
+    #layout-heading-slug
+        height: #{$logoMaxWidth/$logoAspect + 2*$headerPadding + 40px}
+        top: -20px
+        left: 0
+        right: 0
+        text-align: center
+        width: auto
+        justify-content: center
 
 #layout-footer
     padding: 6px 6px
