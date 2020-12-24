@@ -1,21 +1,25 @@
 baseURL: https://scholacantorum.org/
 googleAnalytics: UA-118640369-2
 ignoreFiles:
-    - README.md
-    - asset-archive/.*
+  - README.md
+  - asset-archive/.*
 languageCode: en-us
 menu:
-    dropdown:
-    -   name: Members Web Site
-        title: Members Web Site
-        url: https://members.scholacantorum.org/
-        weight: 80
+  dropdown:
+    - name: Members Web Site
+      title: Members Web Site
+      url: https://members.scholacantorum.org/
+      weight: 80
 params:
-    env: production
-    stripeKey: pk_live_UlmbLJo2rx9WQyhVibmTWpxa
-    ordersURL: https://orders.scholacantorum.org
+  env: production
+  stripeKey: pk_live_UlmbLJo2rx9WQyhVibmTWpxa
+  ordersURL: https://orders.scholacantorum.org
 publishDir: /home/scholacantorum/scholacantorum.org/public
 staticDir:
-    - static
-    - static-production
+  - static
+  - static-production
 title: Schola Cantorum
+markup:
+  goldmark:
+    renderer:
+      unsafe: true

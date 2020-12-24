@@ -17,3 +17,7 @@ staticDir:
     - static
     - static-sandbox
 title: Schola Cantorum
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
