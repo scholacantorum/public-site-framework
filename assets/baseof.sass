@@ -37,13 +37,6 @@ $headerPadding: 6px
     height: calc((50vw - 12px) / #{$logoAspect} + #{$navbarHeight + 2*$headerPadding})
     position: relative
     margin-bottom: 12px
-#layout-heading-slug-clip
-    position: absolute
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-    overflow: hidden
 #layout-logo
     position: absolute
     top: $headerPadding
@@ -56,11 +49,15 @@ $headerPadding: 6px
     height: calc(100% - #{$navbarHeight + 2*$headerPadding})
     width: calc(50% - #{2*$headerPadding})
     display: flex
+    flex-direction: column
     align-items: center
-    justify-content: flex-end
-    img
-        width: 100%
-        max-height: 100%
+    justify-content: center
+    font-size: 14px
+    font-weight: bold
+    color: white
+#layout-heading-season
+    font-size: 12px
+    font-weight: normal
 #layout-navbar
     position: absolute
     bottom: $headerPadding
@@ -91,6 +88,16 @@ $headerPadding: 6px
         margin-left: 16px
         &:first-child
             margin-left: 0
+@media (min-width: 360px)
+    #layout-heading-slug
+        font-size: 16px
+    #layout-heading-season
+        font-size: 13px
+@media (min-width: 440px)
+    #layout-heading-slug
+        font-size: 20px
+    #layout-heading-season
+        font-size: 14px
 @media (min-width: #{($logoMaxWidth + 12px) * 2})
     // Don't let the header images grow anymore.
     #layout-heading
@@ -107,13 +114,10 @@ $headerPadding: 6px
         // navbar line up
     #layout-heading-slug
         height: #{$logoMaxWidth/$logoAspect - $navbarHeight - 2px}
-        img
-            width: auto
-            height: 100%
     #layout-navbar
         width: $navbarMinWidth
         right: 6px
-@media (min-width: 1000px)
+@media (min-width: 760px)
     // Switch to put slug in the middle.
     #layout-heading-slug
         height: #{$logoMaxWidth/$logoAspect + 2*$headerPadding + 40px}
