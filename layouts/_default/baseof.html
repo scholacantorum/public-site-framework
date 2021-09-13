@@ -38,32 +38,44 @@ ga('send', 'pageview');
         </form>
     {{ end }}
     <div id="layout-heading">
-        <div id="layout-heading-slug">
-            There Will Be Songs!
-            <div id="layout-heading-season">Season 58, 2021–2022</div>
-        </div>
-        <a id="layout-logo" href="/">
+        <a id="layout-logo-b" href="/">
             <img src="{{ ((resources.Get "schola-logo-bj-below.svg") | resources.Fingerprint).RelPermalink }}"
                 alt="Schola Cantorum Silicon Valley; Buddy James, Artistic Director">
         </a>
-        <nav id="layout-navbar">
-            <div id="layout-navbar2">
-                {{ range .Site.Menus.main }}
-                    <a href="{{ .URL }}">{{ .Title }}</a>
-                {{ end }}
-                <span id="layout-menu" class="dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" aria-label="Open Menu" data-offset="16, 6">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width:.875em">
-                            <path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>
-                        </svg>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        {{ range .Site.Menus.dropdown }}
-                            <a class="dropdown-item" href="{{ .URL }}">{{ .Title }}</a>
-                        {{ end }}
-                    </div>
-                </span>
+        <a id="layout-logo-r" href="/">
+            <img src="{{ ((resources.Get "schola-logo-bj-right.svg") | resources.Fingerprint).RelPermalink }}"
+                alt="Schola Cantorum Silicon Valley; Buddy James, Artistic Director">
+        </a>
+        <div id="layout-heading-group">
+            <div id="layout-heading-slug">
+                <img src="{{ ((resources.Get "there-will-be-songs.png") | resources.Fingerprint).RelPermalink }}"
+                    alt="There Will Be Songs!">
             </div>
+            <div id="layout-heading-singers">
+                <img src="{{ ((resources.Get "schola-members.png") | resources.Fingerprint).RelPermalink }}"
+                    alt="Stylized Picture of Schola Members">
+            </div>
+            <div id="layout-heading-season">
+                <img src="{{ ((resources.Get "season-58.png") | resources.Fingerprint).RelPermalink }}"
+                    alt="Season 58, 2021–2022">
+            </div>
+        </div>
+        <nav id="layout-navbar">
+            {{ range .Site.Menus.main }}
+                <a href="{{ .URL }}">{{ .Title }}</a>
+            {{ end }}
+            <span id="layout-menu" class="dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" aria-label="Open Menu" data-offset="16, 6">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width:.875em">
+                        <path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>
+                    </svg>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    {{ range .Site.Menus.dropdown }}
+                        <a class="dropdown-item" href="{{ .URL }}">{{ .Title }}</a>
+                    {{ end }}
+                </div>
+            </span>
         </nav>
     </div>
     {{ block "main" . }} {{ end }}

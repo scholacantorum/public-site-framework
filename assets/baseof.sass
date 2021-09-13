@@ -34,45 +34,45 @@ $logoMaxWidth: 240px
 $headerPadding: 6px
 #layout-heading
     background-color: $scholaBlue
-    height: calc((50vw - 12px) / #{$logoAspect} + #{$navbarHeight + 2*$headerPadding})
     position: relative
-    margin-bottom: 12px
-#layout-logo
-    position: absolute
-    top: $headerPadding
-    left: $headerPadding
-    width: calc(50% - #{2*$headerPadding})
-#layout-heading-slug
-    position: absolute
-    top: $headerPadding
-    right: $headerPadding
-    height: calc(100% - #{$navbarHeight + 2*$headerPadding})
-    width: calc(50% - #{2*$headerPadding})
     display: flex
-    flex-direction: column
+    flex-wrap: wrap
     align-items: center
-    justify-content: center
-    font-size: 14px
-    font-weight: bold
-    color: white
+    margin-bottom: 6px
+    & img
+        width: 100%
+#layout-logo-b
+    display: none
+#layout-logo-r
+    padding: 6px 6px 0
+    width: 100vw
+    max-width: 400px
+#layout-heading-group
+    display: contents
+#layout-heading-slug
+    padding: 6px 6px 0
+    width: 80vw
 #layout-heading-season
-    font-size: 12px
-    font-weight: normal
+    width: 20vw
+    padding: 6px 6px 6px 0
+#layout-heading-singers
+    display: none
 #layout-navbar
-    position: absolute
-    bottom: $headerPadding
+    display: flex
+    justify-content: center
+    align-self: flex-end
     width: 100%
-    text-align: center
     line-height: 1
+    padding: 6px 16px 6px
+    column-gap: 16px
     a:link, a:visited
-        color: #ddd
+        color: #ccc
     a:hover, a:active
         color: #fff
         text-decoration: none
     .nav-link
         display: inline
         padding: 0
-        vertical-align: 1px // the dropdown icon has unwanted space at the top
     .dropdown-toggle::after
         display: none
     .dropdown-menu
@@ -84,49 +84,56 @@ $headerPadding: 6px
     .dropdown-item:focus, .dropdown-item:hover
         background-color: $scholaBlue
         color: #fff
-    #layout-navbar2 > a, #layout-navbar2 span
-        margin-left: 16px
-        &:first-child
-            margin-left: 0
-@media (min-width: 360px)
-    #layout-heading-slug
-        font-size: 16px
-    #layout-heading-season
-        font-size: 13px
-@media (min-width: 440px)
-    #layout-heading-slug
-        font-size: 20px
-    #layout-heading-season
-        font-size: 14px
-@media (min-width: #{($logoMaxWidth + 12px) * 2})
-    // Don't let the header images grow anymore.
-    #layout-heading
-        height: #{$logoMaxWidth/$logoAspect + $navbarHeight + 2*$headerPadding}
-    #layout-logo
-        width: $logoMaxWidth
-    #layout-heading-slug
-        width: calc(100vw - #{$logoMaxWidth + 4*$headerPadding})
-@media (min-width: #{$logoMaxWidth + $navbarMinWidth + 3*$headerPadding})
-    // Switch from navbar under both header images to navbar under slug only.
-    #layout-heading
-        height: #{$logoMaxWidth/$logoAspect + 2*$headerPadding - 2px}
-        // the 2px is a fudge factor to make the baselines of the logo and the
-        // navbar line up
-    #layout-heading-slug
-        height: #{$logoMaxWidth/$logoAspect - $navbarHeight - 2px}
+#layout-menu
+    transform: translateY(-2px) // alignment of dropdown icon
+
+@media (min-width: 500px)
     #layout-navbar
-        width: $navbarMinWidth
-        right: 6px
-@media (min-width: 760px)
-    // Switch to put slug in the middle.
+        justify-content: flex-end
+    #layout-logo-r
+        display: none
+    #layout-logo-b
+        display: block
+        width: 25vw
+        padding: 6px
     #layout-heading-slug
-        height: #{$logoMaxWidth/$logoAspect + 2*$headerPadding + 40px}
-        top: -20px
-        left: 0
-        right: 0
-        text-align: center
+        width: 55vw
+
+@media (min-width: 900px)
+    #layout-logo-b
+        display: block
         width: auto
-        justify-content: center
+        height: 100px
+    #layout-heading-slug
+        height: 100px
+        width: auto
+    #layout-heading-season
+        height: 70px
+        width: auto
+    #layout-heading img
+        height: 100%
+        width: auto
+    #layout-heading-group
+        display: flex
+        align-items: center
+    #layout-heading
+        justify-content: space-between
+
+@media (min-width: 1100px)
+    #layout-heading-singers
+        height: 100px
+        display: block
+        margin-right: 12px
+
+@media (min-width: 1500px)
+    #layout-heading-group
+        position: absolute
+        top: 0
+        left: 50vw
+        transform: translateX(-50%)
+    #layout-navbar
+        width: auto
+
 
 #layout-footer
     padding: 6px 6px
