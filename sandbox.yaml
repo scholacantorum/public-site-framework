@@ -13,6 +13,7 @@ params:
   env: sandbox
   stripeKey: pk_test_QPwvhWbGaakWn7DGcco8J5Nd
   ordersURL: https://orders-test.scholacantorum.org
+  galaRegURL: http://gala.scsv.work/register
 publishDir: /home/scholacantorum/new.scholacantorum.org
 staticDir:
   - static

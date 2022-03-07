@@ -12,7 +12,8 @@ menu:
 params:
   env: development
   stripeKey: pk_test_QPwvhWbGaakWn7DGcco8J5Nd
-  ordersURL: https://orders-test.scholacantorum.org
+  ordersURL: http://localhost:8200
+  galaRegURL: http://localhost:9000/register
 staticDir:
   - static
   - static-sandbox
