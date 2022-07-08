@@ -41,25 +41,25 @@ $headerPadding: 6px
     margin-bottom: 6px
     & img
         width: 100%
-#layout-logo-b
-    display: none
-#layout-logo-r
-    padding: 6px 6px 0
-    width: 100vw
-    max-width: 400px
 #layout-heading-group
-    display: contents
+    width: 35vw
+    display: flex
+    flex-direction: column
+#layout-logo-b
+    padding: 6px 0 4px 0
+    width: 35vw
+#layout-heading-season
+    width: 32vw
+    padding: 6px 0 6px
+    border-top: 1px solid white
+    line-height: 0
+    margin-left: 3vw
 #layout-heading-slug
     padding: 6px 6px 0
-    width: 80%
-#layout-heading-season
-    width: 20%
-    padding: 6px 6px 6px 0
-#layout-heading-singers
-    display: none
+    width: 65vw
 #layout-navbar
     display: flex
-    justify-content: center
+    justify-content: flex-end
     align-self: flex-end
     width: 100%
     line-height: 1
@@ -87,53 +87,31 @@ $headerPadding: 6px
 #layout-menu
     transform: translateY(-2px) // alignment of dropdown icon
 
-@media (min-width: 500px)
-    #layout-navbar
-        justify-content: flex-end
-    #layout-logo-r
-        display: none
-    #layout-logo-b
-        display: block
-        width: 25%
-        padding: 6px
-    #layout-heading-slug
-        width: 55%
-
-@media (min-width: 900px)
-    #layout-logo-b
-        display: block
-        width: auto
-        height: 100px
-    #layout-heading-slug
-        height: 100px
-        width: auto
-    #layout-heading-season
-        height: 70px
-        width: auto
-    #layout-heading img
-        height: 100%
-        width: auto
-    #layout-heading-group
-        display: flex
-        align-items: center
+@media (min-width: 450px)
     #layout-heading
         justify-content: space-between
-
-@media (min-width: 1100px)
-    #layout-heading-singers
-        height: 100px
-        display: block
-        margin-right: 12px
-
-@media (min-width: 1500px)
     #layout-heading-group
-        position: absolute
-        top: 0
-        left: 50vw
-        transform: translateX(-50%)
-    #layout-navbar
-        width: auto
+        width: calc(450px * 0.35)
+    #layout-logo-b
+        padding: 6px 0 4px 0
+        width: calc(450px * 0.35)
+    #layout-heading-season
+        width: calc(450px * 0.32)
+        margin-left: calc(450px * 0.03)
+    #layout-heading-slug
+        padding: 6px 6px 0
+        width: calc(450px * 0.65)
 
+@media (min-width: 530px)
+    #layout-heading
+        justify-content: flex-start
+    #layout-heading-group
+        margin-right: 80px
+    #layout-heading-season
+
+@media (min-width: 880px)
+    #layout-navbar
+        width: calc(100vw - 450px - 80px)
 
 #layout-footer
     padding: 6px 6px
