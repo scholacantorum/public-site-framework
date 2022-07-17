@@ -1,0 +1,33 @@
+@import _globals.sass
+
+// The Summer Sings page has introductory text, followed by a table listing the
+// sings, which is a <div id="summer-sing-table">.
+#summer-sing-table
+    display: flex
+    flex-wrap: wrap
+    margin: 18px 0 0 -12px
+    line-height: 1.2
+
+// Each sing is a <div class="summer-sing">.
+.summer-sing
+    width: $blockWidth
+    margin: 0 0 12px 12px
+    // Within them, there is generally a date:
+    & .date
+        text-decoration: underline
+    // Then the names of the pieces:
+    & .piece
+        font-weight: bold
+    // Then a half-line vertical space:
+    & .spacer
+        height: 6px
+    // Then the conductor:
+    & .conductor
+        font-style: italic
+    // Then the conductor's biographical notes:
+    & .conductor-credits
+        font-size: 0.875rem
+
+// Some of them will be grayed out because they are in the past.
+.past-event
+    color: #888
