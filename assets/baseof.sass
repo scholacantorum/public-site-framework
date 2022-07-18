@@ -24,44 +24,38 @@
 //         span#footer-spacer3 (sometimes horizontal, sometimes newline)
 //         {{ address line 2 }}
 //     {{ maybe payment form }}
+
+// The layout-header portion of this file has lots of magic numbers.  The header
+// gets changed for every season and we re-tune its layout every time.  (They
+// also need to be re-tuned if the menu changes.)
 //
-// This file has lots of magic numbers, determined empirically.  They'll
-// probably need to be adjusted if we change the header images or menu contents.
-$logoAspect: 300 / 128
-$navbarHeight: 27px // including desired top margin
-$navbarMinWidth: 220px // depends on contents
-$logoMaxWidth: 240px
-$headerPadding: 6px
+// Reminder: use of "vw" units is problematic, because the window width may be
+// less than 100vw if a scroll bar is shown.  Some people have scroll bars
+// turned on all the time, and when they do, they subtract from window width.
 #layout-heading
-    background-color: $scholaBlue
-    position: relative
-    display: flex
-    flex-wrap: wrap
-    align-items: center
     margin-bottom: 6px
+    display: grid
+    grid: "logo slug" auto "season slug" auto "navbar navbar" auto / 35% 65%
+    background-color: $scholaBlue
     & img
         width: 100%
-#layout-heading-group
-    width: 35%
-    display: flex
-    flex-direction: column
-#layout-logo-b
-    padding: 6px 0 4px 0
-    width: 100%
-#layout-heading-season
-    width: 90%
-    padding: 6px 0 6px
-    border-top: 1px solid white
+#layout-heading-logo
+    grid-area: logo
+    padding-top: 6px
     line-height: 0
-    margin-left: 3vw
-#layout-heading-slug
+#layout-heading-season
+    grid-area: season
+    line-height: 0
+#layout-heading-slug-1-line
+    display: none
+#layout-heading-slug-2-line
+    grid-area: slug
     padding: 6px 6px 0
-    width: 65%
+    line-height: 0
 #layout-navbar
+    grid-area: navbar
     display: flex
     justify-content: flex-end
-    align-self: flex-end
-    width: 100%
     line-height: 1
     padding: 6px 16px 6px
     column-gap: 16px
@@ -87,31 +81,34 @@ $headerPadding: 6px
 #layout-menu
     transform: translateY(-2px) // alignment of dropdown icon
 
-@media (min-width: 465px)
+@media (min-width: 480px)
     #layout-heading
-        justify-content: space-between
-    #layout-heading-group
-        width: calc(450px * 0.35)
-    #layout-logo-b
-        padding: 6px 0 4px 0
-        width: calc(450px * 0.35)
-    #layout-heading-season
-        width: calc(450px * 0.32)
-        margin-left: calc(450px * 0.03)
-    #layout-heading-slug
-        padding: 6px 6px 0
-        width: calc(450px * 0.65)
+        grid: "logo slug" auto "season slug" auto "season navbar" auto / 162.4px
+    #layout-heading-slug-2-line
+        max-width: 301.6px
+        justify-self: center
 
-@media (min-width: 545px)
+@media (min-width: 720px)
     #layout-heading
-        justify-content: flex-start
-    #layout-heading-group
-        margin-right: 80px
+        grid: "logo slug" 81px "season slug" 28px / 176px 1fr
     #layout-heading-season
-
-@media (min-width: 880px)
+        padding-bottom: 6px
+    #layout-heading-slug-1-line
+        display: block
+        grid-area: slug
+        max-height: 109px
+        padding: 6px 6px 6px 24px
+        line-height: 0
+        & img
+            width: auto
+            max-width: 100%
+            max-height: 100%
+            object-fit: contain
+    #layout-heading-slug-2-line
+        display: none
     #layout-navbar
-        width: calc(100% - 450px - 80px)
+        grid-area: slug
+        align-self: end
 
 #layout-footer
     padding: 6px 6px

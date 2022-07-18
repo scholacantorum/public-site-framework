@@ -38,18 +38,20 @@ ga('send', 'pageview');
         </form>
     {{ end }}
     <div id="layout-heading">
-        <div id="layout-heading-group">
-            <a id="layout-logo-b" href="/">
-                <img src="{{ ((resources.Get "schola-logo-bj-below.svg") | resources.Fingerprint).RelPermalink }}"
-                    alt="Schola Cantorum Silicon Valley; Buddy James, Artistic Director">
-            </a>
-            <div id="layout-heading-season">
-                <img src="{{ ((resources.Get "2022-season.png") | resources.Fingerprint).RelPermalink }}"
-                    alt="Season 59, 2022–2023">
-            </div>
+        <a id="layout-heading-logo" href="/">
+            <img src="{{ ((resources.Get "schola-logo-bj-below.svg") | resources.Fingerprint).RelPermalink }}"
+                alt="Schola Cantorum Silicon Valley; Buddy James, Artistic Director">
+        </a>
+        <div id="layout-heading-season">
+            <img src="{{ ((resources.Get "2022-season-overline.png") | resources.Fingerprint).RelPermalink }}"
+                alt="Season 59, 2022–2023">
         </div>
-        <div id="layout-heading-slug">
-            <img src="{{ ((resources.Get "2022-slug.png") | resources.Fingerprint).RelPermalink }}"
+        <div id="layout-heading-slug-1-line">
+            <img src="{{ ((resources.Get "2022-slug-1-line.png") | resources.Fingerprint).RelPermalink }}"
+                alt="Light, Love, the Moon and the Stars">
+        </div>
+        <div id="layout-heading-slug-2-line">
+            <img src="{{ ((resources.Get "2022-slug-2-line.png") | resources.Fingerprint).RelPermalink }}"
                 alt="Light, Love, the Moon and the Stars">
         </div>
         <nav id="layout-navbar">
