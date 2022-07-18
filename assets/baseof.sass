@@ -42,21 +42,21 @@ $headerPadding: 6px
     & img
         width: 100%
 #layout-heading-group
-    width: 35vw
+    width: 35%
     display: flex
     flex-direction: column
 #layout-logo-b
     padding: 6px 0 4px 0
-    width: 35vw
+    width: 100%
 #layout-heading-season
-    width: 32vw
+    width: 90%
     padding: 6px 0 6px
     border-top: 1px solid white
     line-height: 0
     margin-left: 3vw
 #layout-heading-slug
     padding: 6px 6px 0
-    width: 65vw
+    width: 65%
 #layout-navbar
     display: flex
     justify-content: flex-end
@@ -87,7 +87,7 @@ $headerPadding: 6px
 #layout-menu
     transform: translateY(-2px) // alignment of dropdown icon
 
-@media (min-width: 450px)
+@media (min-width: 465px)
     #layout-heading
         justify-content: space-between
     #layout-heading-group
@@ -102,7 +102,7 @@ $headerPadding: 6px
         padding: 6px 6px 0
         width: calc(450px * 0.65)
 
-@media (min-width: 530px)
+@media (min-width: 545px)
     #layout-heading
         justify-content: flex-start
     #layout-heading-group
@@ -111,7 +111,7 @@ $headerPadding: 6px
 
 @media (min-width: 880px)
     #layout-navbar
-        width: calc(100vw - 450px - 80px)
+        width: calc(100% - 450px - 80px)
 
 #layout-footer
     padding: 6px 6px
