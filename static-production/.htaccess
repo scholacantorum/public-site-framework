@@ -8,10 +8,8 @@ RewriteCond %{REQUEST_URI} ^/(stats|failed_auth\.html).*$ [NC]
 RewriteRule . - [L]
 </IfModule>
 
-Redirect permanent /amazon http://smile.amazon.com/
-Redirect permanent /smplus http://www.sheetmusicplus.com/a/featured.html?aff_id=457839
 Redirect permanent /gilded-land https://youtu.be/_GF74E1m7Yw
-Redirect permanent /messiah-sing-registration https://www.eventbrite.com/e/schola-cantorums-54th-annual-messiah-sing-tickets-131733790313
+Redirect permanent /ScholaGala2024 https://scholacantorum.org/events/gala
 
 # Support .cgi files, for Neil's stuff.
 AddHandler cgi-script .cgi
