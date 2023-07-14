@@ -43,12 +43,11 @@
     grid-area: logo
     padding-top: 6px
     line-height: 0
+    align-self: center
 #layout-heading-season
     grid-area: season
     line-height: 0
-#layout-heading-slug-1-line
-    display: none
-#layout-heading-slug-2-line
+#layout-heading-slug
     grid-area: slug
     padding: 6px 6px 0
     line-height: 0
@@ -84,28 +83,25 @@
 @media (min-width: 480px)
     #layout-heading
         grid: "logo slug" auto "season slug" auto "season navbar" auto / 162.4px
-    #layout-heading-slug-2-line
+    #layout-heading-slug
         max-width: 301.6px
-        justify-self: center
+        justify-self: start
 
-@media (min-width: 720px)
+@media (min-width: 980px)
     #layout-heading
         grid: "logo slug" 81px "season slug" 28px / 176px 1fr
     #layout-heading-season
         padding-bottom: 6px
-    #layout-heading-slug-1-line
-        display: block
-        grid-area: slug
+    #layout-heading-slug
         max-height: 109px
-        padding: 6px 6px 6px 24px
-        line-height: 0
+        max-width: none
+        justify-self: start
+        padding: 0 0 0 24px
         & img
             width: auto
             max-width: 100%
             max-height: 100%
             object-fit: contain
-    #layout-heading-slug-2-line
-        display: none
     #layout-navbar
         grid-area: slug
         align-self: end
