@@ -9,3 +9,4 @@ static/backend/mail-signup
 static/backend/order-updated
 static/backend/sku-updated
 static/backend/to-stripe
+.hugo_build.lock
