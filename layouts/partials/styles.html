@@ -7,11 +7,6 @@
     {{ if strings.HasSuffix .Name ".css" -}}
         {{ $list.Add "styles" (resources.Get .Name) -}}
     {{ end -}}
-    {{ if strings.HasSuffix .Name ".sass" -}}
-        {{ if not (strings.HasPrefix .Name "_") -}}
-            {{ $list.Add "styles" (resources.Get .Name | resources.ToCSS) -}}
-        {{ end -}}
-    {{ end -}}
 {{ end -}}
 {{ $bundle := ($list.Get "styles") | resources.Concat "schola6p.css" | resources.Minify | resources.Fingerprint -}}
 <link rel="stylesheet" href="{{ $bundle.Permalink }}">
