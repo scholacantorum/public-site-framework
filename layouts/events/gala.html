@@ -1,5 +1,5 @@
 {{ define "main" }}
-    <div class="gala">
+    <div class="gala" data-stripe-key="{{ .Site.Params.stripeKey }}">
         {{ with $.Page.Resources.GetMatch "image.*" }}
             <img class="galaimg" src="{{ ((.Fit "300x300") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
         {{ end }}
