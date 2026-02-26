@@ -1,31 +1,11 @@
 {{ define "main" }}
     <div class="gala">
-        <div class="galadata">
-            <h1 id="galatitle">{{ safeHTML $.Page.Params.title }}</h1>
-            <div id="galaseatings">
-                {{ range $.Page.Resources.Match "seating*" }}
-                    <div class="galaseating">
-                        <div class="galalogistics">
-                            <div class="galadatetime">{{ (time .Params.datetime).Format "Monday, January 2 at 3:04pm" }}</div>
-                            {{ partial (print "venue/" .Params.venue) . }}
-                        </div>
-                    </div>
-                {{ end }}
-            </div>
-        </div>
         {{ with $.Page.Resources.GetMatch "image.*" }}
             <img class="galaimg" src="{{ ((.Fit "300x300") | resources.Fingerprint).RelPermalink }}" alt="{{ .Title }}">
         {{ end }}
         <div class="galabody">
             {{ .Content }}
         </div>
-        {{ with $.Page.Resources.GetMatch "part2.md" }}
-            <div class="galabody2">
-                <hr>
-                {{ .Content }}
-            </div>
-        {{ end }}
         {{ with $.Page.Resources.GetMatch "register.md" }}{{ .Content }}{{ end }}
-        </div>
     </div>
 {{end}}

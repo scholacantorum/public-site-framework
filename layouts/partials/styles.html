@@ -1,5 +1,8 @@
-{{ if or ($.Page.HasShortcode "buy-tickets") ($.Page.Params.buyTickets) ($.Page.HasShortcode "donationform") ($.Page.Params.galaForm) }}
+{{ if or ($.Page.HasShortcode "buy-tickets") ($.Page.Params.buyTickets) ($.Page.HasShortcode "donationform") }}
     <script src="https://js.stripe.com/v3/" defer></script>
+{{ end }}
+{{ if $.Page.Params.galaForm }}
+    <script src="https://js.stripe.com/basil/stripe.js"></script>
 {{ end }}
 {{ $list := newScratch -}}
 {{ $list.Add "styles" slice -}}
@@ -17,11 +20,6 @@
 {{ end }}
 {{ if $.Page.HasShortcode "donationform" }}
     {{ range index .Site.Data .Site.Params.env "resources" "donate" "css" }}
-        <link rel="stylesheet" href="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}">
-    {{ end }}
-{{ end }}
-{{ if $.Page.Params.galaForm }}
-    {{ range index .Site.Data .Site.Params.env "resources" "gala" "css" }}
         <link rel="stylesheet" href="{{ safeURL $.Site.Params.ordersURL }}/{{ . }}">
     {{ end }}
 {{ end }}
