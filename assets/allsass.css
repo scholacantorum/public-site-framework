@@ -516,6 +516,8 @@ a {
     margin-top: 6px; }
   .summer-sing .conductor {
     font-style: italic; }
+  .summer-sing .conductor-role {
+    font-style: normal; }
   .summer-sing .conductor-credits {
     font-size: 0.875rem; }
   .summer-sing .accompanist {
