@@ -510,6 +510,9 @@ a {
   margin: 0 0 12px 12px; }
   .summer-sing .date {
     text-decoration: underline; }
+  .summer-sing .details {
+    margin-left: 2rem;
+    font-style: italic; }
   .summer-sing .piece {
     font-weight: bold; }
   .summer-sing .piece + .conductor {
